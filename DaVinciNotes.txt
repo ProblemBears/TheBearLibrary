@@ -32,11 +32,29 @@ CUT PAGE:
 								**Then we can preview this new "cut area" buy doing Playback>Play Around To>"In to Out"
 								   or (Alt + /)
 
-								*Toggle between previewer	*** Q
+								**Toggle between previewer	*** Q
 								 source/timeline:
 
-								*Add to timeline:		***Drag the previewer clip to the timeline and it will
+								**Add to timeline:		***Drag the previewer clip to the timeline and it will
 												   	1) Come as we "cut" it
 													2) Create a new timeline media in the Media Pool
 													   master
-								*Append to timeline:		*** Button (TL of timeline) or SHIFT + F12 
+								**Append to timeline:		*** Button (TL of timeline) or SHIFT + F12 
+
+-Refining Cuts in the Timeline:			*HOW:		**Hover and Hold LMB on the edge of a source or click in between two sources
+						*HOWS:		**Play Around Selection:	/
+
+-Smart Insert (Inserting onto cuts)		*HOWS:		**Drag from previewer to the cut
+								**Bring the playhead around the cut and click the Smart Insert button (TL)
+
+-Ripple Delete:					*HOW:		**Select a clip and press DELETE
+								**To Ripple Overwrite drag a clip to a clip on the timeline and it will REPLACE it
+
+						*WHAT:		**Deletes but doesn't leave a gap (hence ripple)
+
+-Swapping & Rearranging Clips:			*HOW:		**Lift and insert tracks in the timeline (in cuts)
+									***To override we drop a lifted track on another track
+
+-Previewing Transition:				*HOW		**(Transitions)(TL):		*** While your playhead is on a TimeLine track
+												    near a cut. We can hover over the transition effects
+												    to preview how the transition would look
