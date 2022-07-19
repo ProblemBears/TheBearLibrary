@@ -1,0 +1,42 @@
+INTRO:
+-Create a new project and then...
+-The Bar at the bottom specifies different windows for the different parts of our workflow.
+	* Media - For importing lots of files
+	* Cut - For simple editing (our entire video)
+	* Edit - For all kinds of editing (speed, trim, greenscreen)
+	* Fusion - VFX and Motion Graphics
+	* Color - Color correction/grading
+	* Fairlight - Lots of audio mixing
+	* Deliver - The final export
+
+CUT PAGE:
+-Import Media within the			*WHERE: 	**(Top-Left) Media Pool:	***Drag Media Files or press the Media Button
+ Cut Page:											   You can load folders(bins) to be more organized
+
+						*HOWS:		** Delete:			***Select->DELETE
+								** Create Bin:			***RMB(Media Pool)-> New Bin
+
+						*NOTES:		** Media Pool is logical (has nothing to do with disk locations)
+
+-Preview Media in the Cut			*WHERE:		**(Top-Right) 			***THREE IMPORTANT WIDGETS(TL): Clip, Tape, Timeline
+ Page:
+						*HOWS:		**(Source Clip)			*** Hover over a Media Pool clip (and wave)
+												*** Select the clip and use a dragger on the previewer
+
+								**(Source Tape)			*** All the videos in the current bin are in the
+												    previewer seperated by white line (1 after another)
+
+-Create First Rought Cut			-WHAT:		**In the previewer we can define an In/Out point by dragging the gray notches
+									*** Alternitavely:	I - In point to playhead
+												O - Out point to playhead
+								**Then we can preview this new "cut area" buy doing Playback>Play Around To>"In to Out"
+								   or (Alt + /)
+
+								*Toggle between previewer	*** Q
+								 source/timeline:
+
+								*Add to timeline:		***Drag the previewer clip to the timeline and it will
+												   	1) Come as we "cut" it
+													2) Create a new timeline media in the Media Pool
+													   master
+								*Append to timeline:		*** Button (TL of timeline) or SHIFT + F12 
