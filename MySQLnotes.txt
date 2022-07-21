@@ -101,7 +101,7 @@ INSERTING DATA (and others):
 	-To View all of our		-Syntax:		$ SELECT * FROM <table-name>;
 	 data in a given table:		
 	
-	-MySQL Warnings:			-Syntax:		$ SHOW WARNINGS;
+	-MySQL Warnings:		-Syntax:		$ SHOW WARNINGS;
 					-We saw errors where long strings were cut off. And a string value fed to an INT was replaced by a default 0.
 
 	-NULL and NOT_NULL:		-NULL is a default header for a column when you CREATE a table
@@ -114,7 +114,7 @@ INSERTING DATA (and others):
 						 )
 						*IF you try to insert a NULL into a cell that can't be NULL, it uses its default value.
 
-	-Setting Default Values:		-A default value is a fallback if we get warnings.
+	-Setting Default Values:	-A default value is a fallback if we get warnings.
 					-To set default values during creation we do:
 						$CREATE TABLE <table-name>(
 							colName valType DEFAULT 'someValidType',
@@ -148,28 +148,28 @@ CRUD commands (CreateReadUpdateDelete):
 	-UPDATE(alter existing data):	-Syntax:		$UPDATE cats SET breed='Shorthair'
 								 WHERE breed='Tabby';		//IT'S A GOOD IDEA TO TEST A WHERE BEFORE YOU ACTUALLY UPDATE!NO UNDOS!!!!!
 
-	-DELETE:				-Syntax:		$DELETE FROM cats WHERE name='Egg' //Very similar to select
-							$DELETE FROM <table-name>	//Deletes everything from the table not the table itself
+	-DELETE:			-Syntax:		$DELETE FROM cats WHERE name='Egg' //Very similar to select
+								$DELETE FROM <table-name>	//Deletes everything from the table not the table itself
 
 The World of String Functions:
-	-CONCAT() (Combine Data		-Situation:	You separate a full name into first & last names, but then you want to CONCAT it to a full name.
+	-CONCAT() (Combine Data		-Situation:		You separate a full name into first & last names, but then you want to CONCAT it to a full name.
 	 For Cleaner Output) :		-Syntax:		$CONCAT( col, anotherCol, etcCol...)
-					-IMPORTANT	* Has to be called within a SELECT	(Ex: SELECT CONCAT('Hello', ' ', 'World') )
-							* Use FROM to reference tables		(EX: SELECT CONCAT(col1, col2) FROM someTable;
-							* $CONCAT_WS (separator, col1, col2, ...)	adds a separator between each concatanation.
+					-IMPORTANT		* Has to be called within a SELECT	(Ex: SELECT CONCAT('Hello', ' ', 'World') )
+								* Use FROM to reference tables		(EX: SELECT CONCAT(col1, col2) FROM someTable;
+								* $CONCAT_WS (separator, col1, col2, ...)	adds a separator between each concatanation.
 
 	-SUBSTRING() (Work w/		-Syntax:		$SELECT SUBSTRING(someString, 1, 4);	//MYSQL INDICES START AT ONE!!!!!!!!!!!!!
 	 parts of strings) :					*If you only specify one index then it goes from that index to the end of the string.
 								*Negative numbers are possible. They start from the end of the string.
-					-IMPORTANT:	* Used with tables maybe like so:
+					-IMPORTANT:		* Used with tables maybe like so:
 								$SELECT SUBSTRING(colName, 1, 10) AS 'short title' FROM tableName;
-							* You can mix SUBSTRING w/ CONCAT
+								* You can mix SUBSTRING w/ CONCAT
 
-	-REPLACE() (replace		-Syntax:		SELECT REPLACE('Hello World', 'Hell', '****')
+	-REPLACE() (replace		-Syntax:		$SELECT REPLACE('Hello World', 'Hell', '****')
 	 parts of a string):					*arg)1: string in question	 arg2): what we ant to replace arg3): the thing we'll use to replace
-					-IMPORTANT:	* It's case sensitive (ex: o doesn't replace O)
-							* Again, for tables you can do FROM
-							* Also mixable w/ other string functions
+					-IMPORTANT:		* It's case sensitive (ex: o doesn't replace O)
+								* Again, for tables you can do FROM
+								* Also mixable w/ other string functions
 
 	-REVERSE()			-Syntax:		$SELECT REVERSE('HELLO WORLD')	// FROM to reference table
 	 (reverses a string):
@@ -181,7 +181,11 @@ The World of String Functions:
 	(change a strings case)
 
 
-
+Refining Our Selections:
+	-Using DISTINCT:		-Syntax:		$SELECT DISTINCT some_col_name FROM some_table;
+					-IMPORTANT:		* We use DISTINCT in conjunction with SELECT
+								* It gets non-dupicate entries
+								* When you specify more than one column. It runs distinct on those columns as a row (every entry must be distinct to another)
 
 
 
