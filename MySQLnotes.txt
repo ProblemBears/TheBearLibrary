@@ -187,6 +187,17 @@ Refining Our Selections:
 								* It gets non-dupicate entries
 								* When you specify more than one column. It runs distinct on those columns as a row (every entry must be distinct to another)
 
+	-Sorting Data w/		-Syntax:		$SELECT some_col_name FROM some_table ORDER BY some_col_name;
+	 ORDER BY:						$SELECT some_col_name_1, some_col_name_2, some_col_name_3 FROM some_table ORDER BY 2; 
+									//Where 2 refers to some_col_name_2 the order of what we selected
+
+					-IMPORTANT:		*For alphabetical (ascending) - just specify the some-col-name
+								*For alphabetical (descending) - add DESC to ascending
+								*Also works for Numbers
+								*You can ORDER BY more than 1 column. Ex: ORDER BY lname, fname; This means after we do our initial sorting
+								 We can sort by fname if there are any conflicts such as people having the same last name so we have to sort
+								 their first names
+
 
 
 
