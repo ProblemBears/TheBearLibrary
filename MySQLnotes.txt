@@ -197,12 +197,19 @@ Refining Our Selections:
 								 We can sort by fname if there are any conflicts such as people having the same last name so we have to sort
 								 their first names
 
-	-Using LIMIT			-Situation:		* Specify a number of entries you want to limit a query to. Usually used with ORDER BY to do a query such as "5 most
+	-Using LIMIT:			-Situation:		* Specify a number of entries you want to limit a query to. Usually used with ORDER BY to do a query such as "5 most
 								  recently released books"
 					-Syntax:		$SELECT some_col_name FROM some_table LIMIT 10;
 								$SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 5 //The situation described above
 					-IMPORTANT:		* You can have the notation LIMIT 5, 10 where the first number (5) means we start at the 5th row and the second number
 								  (10) is the actual limit after the 5th row. THIS MAY BE GOOD FOR PAGINATION
+
+	-Better Searches		-Situation:		* "There's this book I'm looking for. But I can't rememeber the title! I think the author's name is Dave or Dan or David..."
+	 with LIKE:						  (This is similar to WHERE except WHERE wants exact matches)
+					-Syntax:		$WHERE author_fname LIKE '%da%'		// here the % are wildcards. Anything comes before and after
+								$WHERE stock_quantity LIKE '____'	//4 UNDERSCORES. So a stock_quantity where there are FOUR CHARACTERS (any four)
+													//So it may be a digit 1000 and this query would get it, but nothing that has more or less digits
+					-IMPORTANT:		* To actually use % or _ we can use the escape character \ before them
 
 
 
