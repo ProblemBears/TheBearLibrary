@@ -183,8 +183,7 @@ The World of String Functions:
 
 Refining Our Selections:
 	-Using DISTINCT:		-Syntax:		$SELECT DISTINCT some_col_name FROM some_table;
-					-IMPORTANT:		* We use DISTINCT in conjunction with SELECT
-								* It gets non-dupicate entries
+					-IMPORTANT:		* It gets non-dupicate entries
 								* When you specify more than one column. It runs distinct on those columns as a row (every entry must be distinct to another)
 
 	-Sorting Data w/		-Syntax:		$SELECT some_col_name FROM some_table ORDER BY some_col_name;
@@ -197,6 +196,13 @@ Refining Our Selections:
 								*You can ORDER BY more than 1 column. Ex: ORDER BY lname, fname; This means after we do our initial sorting
 								 We can sort by fname if there are any conflicts such as people having the same last name so we have to sort
 								 their first names
+
+	-Using LIMIT			-Situation:		* Specify a number of entries you want to limit a query to. Usually used with ORDER BY to do a query such as "5 most
+								  recently released books"
+					-Syntax:		$SELECT some_col_name FROM some_table LIMIT 10;
+								$SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 5 //The situation described above
+					-IMPORTANT:		* You can have the notation LIMIT 5, 10 where the first number (5) means we start at the 5th row and the second number
+								  (10) is the actual limit after the 5th row. THIS MAY BE GOOD FOR PAGINATION
 
 
 
