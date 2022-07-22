@@ -58,3 +58,24 @@ CUT PAGE:
 -Previewing Transition:				*HOW		**(Transitions)(TL):		*** While your playhead is on a TimeLine track
 												    near a cut. We can hover over the transition effects
 												    to preview how the transition would look
+
+CLIP TOOLS IN CUT PAGE:
+-Transform					*HOW: Rotate, Scale, Translate for Picture in Picture.
+
+-Dynamic Zoom					*For Dynamic Zooming, Panning, Angles
+
+-Composite					*For layering Tracks via different transparency options
+
+-Clip Speed					* >1 = Faster		Between 0 & 1 = Slower		Negative = Reverse the clip
+
+-Stabilizing Clips				* A one button stabilize with 3 algorithms to choose from. Also a Lock Camera option which simulates a tripod
+
+-Audio						* Only adjusts the volume
+
+-Auto Color Correct				* A one button Color Correct (mainly just used to temporarily get rid of annoying colors)
+
+						-MOST OF THESE TOOLS HAVE MORE OPTIONS IN THE INSPECTOR
+
+
+
+
