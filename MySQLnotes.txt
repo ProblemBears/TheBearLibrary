@@ -218,6 +218,15 @@ The Magic of Aggregate Functions:
 								$ SELECT COUNT(DISTINCT author_fname, author_lname) FROM books;	//To only count unique values
 								$ SELECT COUNT(*) FROM books WHERE title LIKE '%the%';
 
+	-The Joys of Group By:		-Explanation:		* Harder to use because you have to use it with other functions.
+								* It's how we can do things like finding the min, max, average, etc.
+								* "GROUP BY summarizes or aggregates identical data into single rows"
+
+					-Situation:		* "Group movies by genre and tell me how many movies each genre has"
+
+					-Syntax:		$ SELECT author_lname, COUNT(*) FROM books GROUP BY author_lname;  //Yields a table with COUNTS for each GROUP
+								$ SELECT CONCAT('In ', released_year, COUNT(*), ' book(s) released' FROM books GROUP BY released_year; //"How many books released each year?"
+
 
 
 
