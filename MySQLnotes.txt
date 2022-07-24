@@ -212,8 +212,11 @@ Refining Our Selections:
 					-IMPORTANT:		* To actually use % or _ we can use the escape character \ before them
 
 
-
-
+The Magic of Aggregate Functions:
+	-The Count Function:		-Situation		* "How many books are in the database?
+					-Syntax:		$ SELECT COUNT(*) FROM someTable;
+								$ SELECT COUNT(DISTINCT author_fname, author_lname) FROM books;	//To only count unique values
+								$ SELECT COUNT(*) FROM books WHERE title LIKE '%the%';
 
 
 
