@@ -228,5 +228,10 @@ The Magic of Aggregate Functions:
 								$ SELECT CONCAT('In ', released_year, COUNT(*), ' book(s) released' FROM books GROUP BY released_year; //"How many books released each year?"
 
 
+	-Min and Max Basics:		-Situation:		* Identify Min/Max value in a table (can be used on its own OR combined with GROUP BY)
+					-Syntax:		* WITHOUT GROUP BY
+									$ SELECT MIN(released_year) FROM books;			//Replace MIN w/ MAX to do the same thing
+
+					-WARNING!!!!!:		* You can't do "SELECT MIN(released_year), title FROM books" and expect title to be the title that corresponds to the minimum value
 
 
