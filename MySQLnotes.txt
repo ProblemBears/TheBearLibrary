@@ -228,5 +228,45 @@ The Magic of Aggregate Functions:
 								$ SELECT CONCAT('In ', released_year, COUNT(*), ' book(s) released' FROM books GROUP BY released_year; //"How many books released each year?"
 
 
+	-Min and Max Basics:		-Situation:		* Identify Min/Max value in a table (can be used on its own OR combined with GROUP BY)
+					-Syntax:		* WITHOUT GROUP BY
+									$ SELECT MIN(released_year) FROM books;			//Replace MIN w/ MAX to do the same thing
 
+					-WARNING!!!!!:		* You can't do "SELECT MIN(released_year), title FROM books" and expect title to be the title that corresponds to the minimum value
+								* The solution is.... SUBQUERIES....
+
+	-SUBQUERIES - A			-Situation:		* ABOVE 
+	 problem with Min and		-SYNTAX:		$ SELECT * FROM books
+	 Max:							  WHERE pages = (SELECT Min(pages) FROM books);
+					-Explanation:		* Where the SUBQUERY is the SQL statement in parenthesis
+					-OR Syntax:		$ SELECT * FROM books
+								  ORDER BY pages ASC LIMIT 1;		// or DESC
+
+	-Using Min and Max w/		-Scenario:		* "Find the year each author published their first book"
+	 Group By:			-Syntax:		$ SELECT author_fname,
+									 author_lname,
+									 Min(released_year)
+								  FROM	 books
+								  GROUP BY author_lname,
+									   author_fname;
+
+										OR
+								$ SELECT
+  									CONCAT(author_fname, ' ', author_lname) AS author,
+  									MAX(pages) AS 'longest book'
+								  FROM books
+								  GROUP BY author_lname,
+         								   author_fname;
+
+	-The Sum Function:		-Scenario:		* "Sum all pages in the entire database"
+								* "Sum all pages each author has written"
+					-Syntax:		$ SELECT Sum(pages) FROM books;
+								$ SELECT author_fname, author_lname, Sum(pages)
+								  FROM books
+								  GROUP BY author_lname, author_fname;
+
+	-The Avg Function:		-Scenario:		* "Calculate the average released_year across all books
+								* "Calculate the average stock quantity for books released in the same year"
+					-Syntax:		$ SELECT AVG(released_year) FROM books;
+								$ SELECT AVG(stock) FROM books GROUP BY released_year;
 
