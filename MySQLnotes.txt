@@ -233,5 +233,13 @@ The Magic of Aggregate Functions:
 									$ SELECT MIN(released_year) FROM books;			//Replace MIN w/ MAX to do the same thing
 
 					-WARNING!!!!!:		* You can't do "SELECT MIN(released_year), title FROM books" and expect title to be the title that corresponds to the minimum value
+								* The solution is.... SUBQUERIES....
+
+	-SUBQUERIES - A			-Situation:		* ABOVE
+	 problem with Min and		-SYNTAX:		$ SELECT * FROM books
+	 Max:							  WHERE pages = (SELECT Min(pages) FROM books);
+					-Explanation:		* Where the SUBQUERY is the SQL statement in parenthesis
+					-OR Syntax:		$ SELECT * FROM books
+								  ORDER BY pages ASC LIMIT 1;		// or DESC
 
 
