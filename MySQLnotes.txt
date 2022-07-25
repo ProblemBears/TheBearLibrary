@@ -272,4 +272,7 @@ The Magic of Aggregate Functions:
 
 The Power of Logical Operators:
 	-Not Equal:			-Scenario:		* "Select all books NOT published in 2017"
-								$ SELECT title FROM books WHERE year != 2017;
+					-Syntax:		$ SELECT title FROM books WHERE year != 2017;
+
+	-Not Like:			-Scenario:		* "Select all books that do not start with a W"
+					-Syntax:		$ SELECT title FROM books WHERE title NOT LIKE 'W%';
