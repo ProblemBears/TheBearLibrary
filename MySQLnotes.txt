@@ -270,3 +270,6 @@ The Magic of Aggregate Functions:
 					-Syntax:		$ SELECT AVG(released_year) FROM books;
 								$ SELECT AVG(stock) FROM books GROUP BY released_year;
 
+The Power of Logical Operators:
+	-Not Equal:			-Scenario:		* "Select all books NOT published in 2017"
+								$ SELECT title FROM books WHERE year != 2017;
