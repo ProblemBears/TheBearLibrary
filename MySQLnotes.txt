@@ -282,4 +282,4 @@ The Power of Logical Operators:
 					-Notes:			* There is >= "Greater than or Equal to"
 								* "SELECT 99 > 1" yields 1 for TRUE (0 would be false)
 
-	
+	-Less Than:			-Scenario: 		* Works the same as Greater Than but with Less than <
