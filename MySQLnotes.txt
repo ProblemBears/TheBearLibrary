@@ -235,7 +235,7 @@ The Magic of Aggregate Functions:
 					-WARNING!!!!!:		* You can't do "SELECT MIN(released_year), title FROM books" and expect title to be the title that corresponds to the minimum value
 								* The solution is.... SUBQUERIES....
 
-	-SUBQUERIES - A			-Situation:		* ABOVE
+	-SUBQUERIES - A			-Situation:		* ABOVE 
 	 problem with Min and		-SYNTAX:		$ SELECT * FROM books
 	 Max:							  WHERE pages = (SELECT Min(pages) FROM books);
 					-Explanation:		* Where the SUBQUERY is the SQL statement in parenthesis
@@ -257,5 +257,12 @@ The Magic of Aggregate Functions:
 								  FROM books
 								  GROUP BY author_lname,
          								   author_fname;
+
+	-The Sum Function:		-Scenario:		* No GROUP BY: "Sum all pages in the entire database"
+								* Yes GROUP BY:"Sum all pages each author has written"
+					-Syntax:		$ SELECT Sum(pages) FROM books;
+								$ SELECT author_fname, author_lname, Sum(pages)
+								  FROM books
+								  GROUP BY author_lname, author_fname;
 
 
