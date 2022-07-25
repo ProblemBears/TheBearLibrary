@@ -258,11 +258,15 @@ The Magic of Aggregate Functions:
 								  GROUP BY author_lname,
          								   author_fname;
 
-	-The Sum Function:		-Scenario:		* No GROUP BY: "Sum all pages in the entire database"
-								* Yes GROUP BY:"Sum all pages each author has written"
+	-The Sum Function:		-Scenario:		* "Sum all pages in the entire database"
+								* "Sum all pages each author has written"
 					-Syntax:		$ SELECT Sum(pages) FROM books;
 								$ SELECT author_fname, author_lname, Sum(pages)
 								  FROM books
 								  GROUP BY author_lname, author_fname;
 
+	-The Avg Function:		-Scenario:		* "Calculate the average released_year across all books
+								* "Calculate the average stock quantity for books released in the same year"
+					-Syntax:		$ SELECT AVG(released_year) FROM books;
+								$ SELECT AVG(stock) FROM books GROUP BY released_year;
 
