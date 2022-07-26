@@ -375,3 +375,16 @@ One To Many:
 								);
 
 					-Notes:			* When we define a FOREIGN KEY, if we try to INSERT something that isn't a proper REFERENCE then MySQL gives an error
+
+	-Cross Join			-Scenario:		* "Find all orders placed by Boy George"
+								  We can do this in three ways:
+									1) Look up Boy George's ID with one query, and then Look up all entries that match that id in orders with another query.
+									2) Do (1) in query using subqueries
+									* Though none of these are ideal because we can't really join the headers of one table with another. This is where JOINs come in.
+									3) JOINS (a basic type of join is called a "Cross Join". It's rarely used because it yields duplicated data amongst two tables.)
+
+					-Syntax:		$ SELECT * FROM orders WHERE customer_id = 
+									(SELECT id FROM customers WHERE last_name="George")		//This is a subquery
+
+								* Cross Join (rarely used):
+									$ SELECT * FROM customers, orders;
