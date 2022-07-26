@@ -376,7 +376,7 @@ One To Many:
 
 					-Notes:			* When we define a FOREIGN KEY, if we try to INSERT something that isn't a proper REFERENCE then MySQL gives an error
 
-	-Cross Join			-Scenario:		* "Find all orders placed by Boy George"
+	-Cross Join:			-Scenario:		* "Find all orders placed by Boy George"
 								  We can do this in three ways:
 									1) Look up Boy George's ID with one query, and then Look up all entries that match that id in orders with another query.
 									2) Do (1) in query using subqueries
@@ -388,3 +388,24 @@ One To Many:
 
 								* Cross Join (rarely used):
 									$ SELECT * FROM customers, orders;
+
+	-Inner Join:			-Scenario:		* In order to widdle down the useless Cross Join which yields multiples we have to filter using WHERE
+								* There are two ways to the same thing: IMPLICIT and EXPLICIT
+
+					-Syntax:		* IMPLICIT INNER JOIN:	
+									$ SELECT * FROM customers, orders
+								  	WHERE customers.id = orders.customer_id;
+
+								* EXPLICIT INNER JOIN (used by most devs):
+									$SELECT * FROM customers
+									 JOIN orders
+										ON customers.id = orders.customer_id;
+
+					-Problems:		* In order to safeguard from similarly named columns in two tables, we can use the dot (.) syntax prepended by each
+								  table's name
+
+					-Visualization:		* Think of Venn Diagrams:
+									** A Cross Join yeilds multiples because it's two circle overlapping
+									** An Inner Join just gets the inner circle where they overlap
+								
+					-Notes:			* Order of how you comma seperate the tables matters in the sense of how your data is presented to you
