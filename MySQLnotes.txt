@@ -346,3 +346,7 @@ The Power of Logical Operators:
 					-IMPORTANT:		* Above: We use "AS GENRE" because otherwise the HEADER would be the entire CASE to END, therefore it's neater to name it something like GENRE
 								* Open and close CASES with CASE/END pairs
 					-Notes:			* Can be more succient with <= and realizing the order of execution.
+
+One To Many:
+	-Real World Data		-Notes:			* So far we've been working with one table (simple data)
+	 is Messy:						* Real world data is Messy and Interrelated
