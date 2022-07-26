@@ -289,3 +289,6 @@ The Power of Logical Operators:
 												TURNS INTO
 								  SELECT * FROM books WHERE author_lname="Eggers" AND released_year > 2010;
 					-Notes:			* You can do more than 1 AND.
+								* You can use AND or &&
+
+	-Logical OR (||)		-Scenario:		* Similar to AND
