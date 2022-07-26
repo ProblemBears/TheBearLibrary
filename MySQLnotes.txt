@@ -367,3 +367,11 @@ One To Many:
 										 any order that links to the customer
 					-IMPORTANT:		* The id used aside from PRIMARY KEYs, are the references to other tables within a given table
 								  which are called FOREIGN KEYs
+
+	-Working with			-Syntax:		$ CREATE TABLE orders(
+	 Foreign Keys:							// Column specifications here
+									customer_id INT,										//Naming convention for Foreign Key name for this table:	The name of the Table and the name of the Primary Keys column
+									FOREIGN KEY(customer_id) REFERENCES nameOfSomeOtherTable(nameOfSomeOtherTablesPrimaryKey)
+								);
+
+					-Notes:			* When we define a FOREIGN KEY, if we try to INSERT something that isn't a proper REFERENCE then MySQL gives an error
