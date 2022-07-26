@@ -350,3 +350,9 @@ The Power of Logical Operators:
 One To Many:
 	-Real World Data		-Notes:			* So far we've been working with one table (simple data)
 	 is Messy:						* Real world data is Messy and Interrelated
+
+	-Types of Data			-Relationships:		1) One to One Relationship - (Not common) - A Users detail belongs to one User, and a User only uses those details
+	 Relationships:						2) One to Many Relationship (Most Common) - Books can have many Reviews, but a Review Belongs to One book
+								3) Many to Many Relationship - "Books can have many authors, and those authors can have many books"
+
+	-
