@@ -309,4 +309,21 @@ The Power of Logical Operators:
 					-Notes:			* Use CAST() when trying to use BETWEEN with DATE values.
 								  convert them to DATETIME
 									** Ex:	SELECT CAST('2017-05-02' AS DATETIME);
+		
+	-IN and NOT IN:			-Scenario:		* "Select all books written by Carver or Lahiri or Smith"
+								  We may do many OR queries but IN provides a sleeker query
+
+					-Syntax:		$ SELECT title, author_lname FROM books
+								  WHERE author_lname IN ('Carver'. 'Lahiri', 'Smith');
+
+								$ SELECT title, author_lname FROM books
+								  WHERE released_year >= 2000 AND
+								  author_lname NOT IN ('Carver'. 'Lahiri', 'Smith');
+
+					-Notes:			* NOT IN does the opposite of IN
+								* Use Modulus to check for even-ness:
+									$ SELECT title, released_year FROM books
+									  WHERE released_year >= 2000 AND
+									  released_year % 2 != 0;
+								
 
