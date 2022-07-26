@@ -291,4 +291,22 @@ The Power of Logical Operators:
 					-Notes:			* You can do more than 1 AND.
 								* You can use AND or &&
 
-	-Logical OR (||)		-Scenario:		* Similar to AND
+	-Logical OR (||):		-Scenario:		* Similar to AND
+
+	-Between:			-Scenario:		* Select thing based off of an upper and lower range
+								* "Select all books published BETWEEN 2004 and 2015"
+					-Using What		* We can do ^ with the logical AND as follows
+					 We Know			$ SELECT title, released_year FROM
+									  books WHERE released_year >= 2004 &&
+									  released_year <= 2015;
+
+					-Using Between		$ SELECT title, released_year FROM book
+					 Syntax:		  WHERE released_year BETWEEN 2004 AND 2015;
+
+					-Using Not		* Simply replace the above BETWEEN with
+					 Between:		  NOT BETWEEN to get things that aren't in that range
+
+					-Notes:			* Use CAST() when trying to use BETWEEN with DATE values.
+								  convert them to DATETIME
+									** Ex:	SELECT CAST('2017-05-02' AS DATETIME);
+
