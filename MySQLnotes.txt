@@ -355,4 +355,15 @@ One To Many:
 	 Relationships:						2) One to Many Relationship (Most Common) - Books can have many Reviews, but a Review Belongs to One book
 								3) Many to Many Relationship - "Books can have many authors, and those authors can have many books"
 
-	-
+	-One to Many			-Scenario:		* Customers and Orders: One customer can have multiple orders
+	 The Basics:							** We may want to store a customer's first & last name, email, purchase date, order price.
+								* We could store this info with:
+									1) One Table:
+										-but it has the drawback of repeatedly storing orders with the same customer
+										 so we do...
+									2) One Table to Many Tables:
+										-so orders would have an id (seperate from their primary key) that links them to ONE customer
+										-For One Table if a customer hadn't placed an order. We would have had to store NULLs, but this way we simply don't store
+										 any order that links to the customer
+					-IMPORTANT:		* The id used aside from PRIMARY KEYs, are the references to other tables within a given table
+								  which are called FOREIGN KEYs
