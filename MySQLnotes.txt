@@ -444,3 +444,31 @@ Many To Many:
 								  relationship
 					-Scenario:		* "Series can have many Reviewers. Reviewers can have many Series reviewd. We make a NEW TABLE called REVIEWS that has ID pointers to  the Reviewers Table and
 								  Series Table"
+
+	-Creating Our Tables:		-Syntax:		*Creating the Reviewers Table:
+									CREATE TABLE reviewers (
+        									id INT AUTO_INCREMENT PRIMARY KEY,
+        									first_name VARCHAR(100),
+        									last_name VARCHAR(100)
+    									);
+
+								*Creating the Series Table:
+    									CREATE TABLE series(
+       										id INT AUTO_INCREMENT PRIMARY KEY,
+        									title VARCHAR(100),
+        									released_year YEAR(4),
+        									genre VARCHAR(100)
+    									);
+
+								*Creating the Reviews Table:
+    									CREATE TABLE reviews (
+        									id INT AUTO_INCREMENT PRIMARY KEY,
+        									rating DECIMAL(2,1),
+        									series_id INT,
+        									reviewer_id INT,
+        									FOREIGN KEY(series_id) REFERENCES series(id),
+        									FOREIGN KEY(reviewer_id) REFERENCES reviewers(id)
+    									);
+								*Then we can do Insertions
+
+	-Challenges:			-Problems:		1) Inner Join
