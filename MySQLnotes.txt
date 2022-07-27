@@ -421,13 +421,13 @@ One To Many:
 								 LEFT JOIN orders
 									ON customers.id = orders.customer_id;
 
-					-Notes:			* So it includes everything from table A along with corresponding things for table B, but for anything else in B it comes in as NULL by default
+					-Notes:			* So it includes everything from table A along with corresponding things for table B, but for anything else in B it comes in as NULL by default 
 								  which can be modified by using:
 									$SELECT first_name, last_name, IFNULL(SUM(amount), 0) FROM customers LEFT JOIN orders //etc...
 
 	-Right Join:			-Scenario:		* "Right side of Venn Diagram"
 
-					-Syntax:		$SELECT * FROM customers
+					-Syntax:		$SELECT * FROM customers 
 								 RIGHT JOIN orders
 									ON customers.id = orders.customer_id;
 					-IMPORTANT:		*Works the same as left join. THE IMPORTANT THING HERE IS WE NOTE THINGS WHEN WE ATTEMPT TO BREAK OUR DATA.
@@ -438,3 +438,9 @@ One To Many:
 	 when tied down							$ FOREIGN KEY(customer_id) REFERENCES customers(id) ON DELETE CASCADE;
 	 by a FOREIGN KEY:						"When a customer is deleted that has a corresponding order, delete the order as well"
 								* NOW REGULAR DELETE SHOULD WORK
+
+Many To Many:
+	-Many to Many Basics:		-IMPORTANT:		* In order to make a Many to Many Relationship, WE HAVE TO MAKE A NEW TABLE that has FOREIGN KEY references to the tables that are apart of this Many to Many 
+								  relationship
+					-Scenario:		* "Series can have many Reviewers. Reviewers can have many Series reviewd. We make a NEW TABLE called REVIEWS that has ID pointers to  the Reviewers Table and
+								  Series Table"
