@@ -409,3 +409,18 @@ One To Many:
 									** An Inner Join just gets the inner circle where they overlap
 								
 					-Notes:			* Order of how you comma seperate the tables matters in the sense of how your data is presented to you
+								* You can treat these JOINs as regular graphs that you can GROUP BY, use AS, etc...
+								* JOIN can be INNER JOIN
+
+	-Left Join:			-Scenario:		* There are other types of join besider 'inner join'. We have left and right joins (here we cover left)
+								* Thinking in terms of the Venn Diagram we'll get the Left Circle from the Left join
+								* "Select everything from A, along with any matching records in B"
+								* "For every user how much have they spent? Even if they haven't ordered anything"
+
+					-Syntax:		$SELECT * FROM customers
+								 LEFT JOIN orders
+									ON customers.id = orders.customer_id;
+
+					-Notes:			* So it includes everything from table A along with corresponding things for table B, but for anything else in B it comes in as NULL by default
+								  which can be modified by using:
+									$SELECT first_name, last_name, IFNULL(SUM(amount), 0) FROM customers LEFT JOIN orders //etc...
