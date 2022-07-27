@@ -424,3 +424,17 @@ One To Many:
 					-Notes:			* So it includes everything from table A along with corresponding things for table B, but for anything else in B it comes in as NULL by default
 								  which can be modified by using:
 									$SELECT first_name, last_name, IFNULL(SUM(amount), 0) FROM customers LEFT JOIN orders //etc...
+
+	-Right Join:			-Scenario:		* "Right side of Venn Diagram"
+
+					-Syntax:		$SELECT * FROM customers
+								 RIGHT JOIN orders
+									ON customers.id = orders.customer_id;
+					-IMPORTANT:		*Works the same as left join. THE IMPORTANT THING HERE IS WE NOTE THINGS WHEN WE ATTEMPT TO BREAK OUR DATA.
+									** When we try to delete data that FOREIGN KEYS are DEPENDENT to, it raises an error. (Even DROP table doesn't work)
+									   FIX: *** DROP tables in order
+
+	-How to DELETE			-Syntax:		* YOU MUST DO THIS WHEN DEFINING YOUR FOREIGN KEY:
+	 when tied down							$ FOREIGN KEY(customer_id) REFERENCES customers(id) ON DELETE CASCADE;
+	 by a FOREIGN KEY:						"When a customer is deleted that has a corresponding order, delete the order as well"
+								* NOW REGULAR DELETE SHOULD WORK
