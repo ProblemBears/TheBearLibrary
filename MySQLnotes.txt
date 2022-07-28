@@ -518,5 +518,14 @@ INSTAGRMA DATABASE CLONE
 
 					-IMPORTANT:		* NOTE: We store a pair in a PRIMARY KEY. It has the effect if "only one combination of those two parameters
 								        can exist. Therefore, in this case, we can't spam the Like button.
+
+	-Followers Schema:		-Syntax:			$ CREATE TABLE follows (
+        									follower_id INTEGER NOT NULL,
+        									followee_id INTEGER NOT NULL,
+        									created_at TIMESTAMP DEFAULT NOW(),
+        									FOREIGN KEY(follower_id) REFERENCES users(id),
+        									FOREIGN KEY(followee_id) REFERENCES users(id),
+        									PRIMARY KEY(follower_id, followee_id)			//Like Likes Schema so we can't spam follow someone
+    								  );
 	
 	
