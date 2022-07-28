@@ -489,5 +489,21 @@ INSTAGRMA DATABASE CLONE
         									created_at TIMESTAMP DEFAULT NOW()
     								  );
 
-	
+	-Photos Schema:			-Syntax:			$ CREATE TABLE photos (
+        									id INTEGER AUTO_INCREMENT PRIMARY KEY,
+        									image_url VARCHAR(255) NOT NULL,
+        									user_id INTEGER NOT NULL,
+        									created_at TIMESTAMP DEFAULT NOW(),
+        									FOREIGN KEY(user_id) REFERENCES users(id)
+    								  );
+
+	-Comments Schema:		-Syntax:			$ CREATE TABLE comments (
+        									id INTEGER AUTO_INCREMENT PRIMARY KEY,
+        									comment_text VARCHAR(255) NOT NULL,
+        									photo_id INTEGER NOT NULL,
+        									user_id INTEGER NOT NULL,
+        									created_at TIMESTAMP DEFAULT NOW(),
+        									FOREIGN KEY(photo_id) REFERENCES photos(id),
+        									FOREIGN KEY(user_id) REFERENCES users(id)
+    								  );
 	
