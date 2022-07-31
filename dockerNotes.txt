@@ -1,0 +1,6 @@
+DOCKER IMAGES & CONTAINERS: THE CORE BUILDING BLOCKS
+	-Images and Containers:				* Images are the blueprints for containers, the contain the code + required tools/runtimes
+	 What and Why?					* Containers are the running "unit of software"
+							* So IMAGES are used to create MULTIPLE CONTAINERS
+
+	
