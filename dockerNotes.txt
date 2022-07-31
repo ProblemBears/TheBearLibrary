@@ -3,4 +3,14 @@ DOCKER IMAGES & CONTAINERS: THE CORE BUILDING BLOCKS
 	 What and Why?					* Containers are the running "unit of software"
 							* So IMAGES are used to create MULTIPLE CONTAINERS
 
-	
+	-Using and Running External			* We can Find images
+	 (Pre-Built) Images:					** Coworkers hand it to us
+								** DockerHub - Where we can search community images
+									*** EX: 	- We can run NodeJS's image via a container by using the command:
+											  " docker run node " (anywhere in terminal) which runs a container
+											  and pulls the image if not already locally installed.
+
+											- The program is running but since containers isolate it inside, we
+											  can't see it. To verify then, we do "docker ps -a" to see all processes
+
+											- "docker run -it node" to actually INTERACT with the container's process
