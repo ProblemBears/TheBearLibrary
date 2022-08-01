@@ -74,3 +74,5 @@ DOCKER IMAGES & CONTAINERS: THE CORE BUILDING BLOCKS
 							  on a PORT:
 
 
+	-Images are read only:				* We have to rebuild our image everytime we change our code because the COPY command is what
+							  acutally updates the Image. (There is a faster way later)
