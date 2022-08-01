@@ -59,3 +59,18 @@ DOCKER IMAGES & CONTAINERS: THE CORE BUILDING BLOCKS
 													  		  we us CMD (which works exactly like RUN but has weird syntax)
 
 															* This should always be the last command in your Dockerfile
+
+	-Running a container				* To create the Image:		Terminal -> Directory Where "Dockerfile" resides
+	 based on our own				  (using the Dockerfile)	$ docker build .
+	 Image:						
+							* To run the newly
+							  created image:		$ docker run <image-id>
+
+							* To Shut down a		$ docker ps				//To show the running containers & their info
+							  running container:		$ docker stop <container-name> 		//might take a while
+
+							* To actually make		$ docker run -p <port>:<docker_exposed_port> <container_id> 
+							  the image run
+							  on a PORT:
+
+
