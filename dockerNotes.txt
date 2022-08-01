@@ -1,0 +1,78 @@
+DOCKER IMAGES & CONTAINERS: THE CORE BUILDING BLOCKS
+	-Images and Containers:				* Images are the blueprints for containers, the contain the code + required tools/runtimes
+	 What and Why?					* Containers are the running "unit of software"
+							* So IMAGES are used to create MULTIPLE CONTAINERS
+
+	-Using and Running External			* We can Find images
+	 (Pre-Built) Images:					** Coworkers hand it to us
+								** DockerHub - Where we can search community images
+									*** EX: 	- We can run NodeJS's image via a container by using the command:
+											  " docker run node " (anywhere in terminal) which runs a container
+											  and pulls the image if not already locally installed.
+
+											- The program is running but since containers isolate it inside, we
+											  can't see it. To verify then, we do "docker ps -a" to see all processes
+
+											- "docker run -it node" to actually INTERACT with the container's process
+
+	-Node.js App-					* Typically we build on top of or create an image based on another image (such as those on the DockerHub)
+	 Building Our					* EX:
+	 Own Image with						* Normally, for a Node.js app. We would npm install dependencies and then do "node app.js" to run
+	 a Dockerfile:							  our app (which may be a server)
+
+								* Instead, with Docker, we can create our own IMAGE that contains our app AND ALSO utilizes the NODE.JS
+								  Image. To do this we do the following:
+
+									1) In your App's root directory: Create a file called "Dockerfile" (The VSCode Docker Extension helps)
+										-The "Dockerfile" - contains the instructions for Docker that we want to execute when we build
+												    our own image.
+
+									2) Write the following code in "Dockerfile" (w/ explanations):
+										FROM node				** We build on an image that exist on our system or the DockerHub
+															** "Hey Docker, in my own image I want to start by pulling the node Image.
+
+										COPY . /app				** COPY - Which files that are in our local machine should go in the external Image
+
+															** .  - Source to be copied, in this case . refers to the directory where the
+																Dockerfile is located (our App's entire contents except for the Dockerfile)
+
+															** /app  - Destination of the copy, where . refers to the root directory inside of the
+														   		   FROM'd image (Every image/container) has its own internal filesystem
+														    	*** It's actually recommended to put it in some subfolder so here we replace
+														            "." with "/app (an absolute path)"
+
+										WORKDIR /app				** Sets the working directory to the FROM'd Image's app directory where we copied our
+													  		   App files into previously.
+
+															** If we had set this before the COPY then we could've just used "COPY . ."
+
+										RUN npm install				** NOW because we're in the correct working directory where we copied our files into
+													   		   we can run "npm install" successfully.
+															** This runs when the Image is created
+
+										EXPOSE 80				** "When this container is started, expose port 80 to our local system"
+															** This is necessary because since Docker containers are isolated, they
+															   even have their own ports, which is why we have to "expose them" to our system ports
+
+										CMD ["node", "server.js"]		X WE CAN NOT do RUN node server.js because the Dockerfile serves as instructions of how to setup an Image
+										  			  		  THE CONTAINER IS THE THING WE RUN!!! Instead, To tell a container to "run" something when it starts
+													  		  we us CMD (which works exactly like RUN but has weird syntax)
+
+															* This should always be the last command in your Dockerfile
+
+	-Running a container				* To create the Image:		Terminal -> Directory Where "Dockerfile" resides
+	 based on our own				  (using the Dockerfile)	$ docker build .
+	 Image:						
+							* To run the newly
+							  created image:		$ docker run <image-id>
+
+							* To Shut down a		$ docker ps				//To show the running containers & their info
+							  running container:		$ docker stop <container-name> 		//might take a while
+
+							* To actually make		$ docker run -p <port>:<docker_exposed_port> <container_id> 
+							  the image run
+							  on a PORT:
+
+
+	-Images are read only:				* We have to rebuild our image everytime we change our code because the COPY command is what
+							  acutally updates the Image. (There is a faster way later)
