@@ -69,10 +69,30 @@ DOCKER IMAGES & CONTAINERS: THE CORE BUILDING BLOCKS
 							* To Shut down a		$ docker ps				//To show the running containers & their info
 							  running container:		$ docker stop <container-name> 		//might take a while
 
-							* To actually make		$ docker run -p <port>:<docker_exposed_port> <container_id> 
+							* To actually make		$ docker run -p <port>:<docker_exposed_port> <image_id> 
 							  the image run
 							  on a PORT:
 
 
 	-Images are read only:				* We have to rebuild our image everytime we change our code because the COPY command is what
 							  acutally updates the Image. (There is a faster way later)
+
+	-Understanding Image Layers:			* Docker caches every instruction in the Dockerfile, therefore, when we rebuild it only executes
+							  instructions that need to reexecute (ex: Only Copy executes when you change your code and rebuild)/
+							  This is what is meant by layer based.
+
+	-Stopping & Restarting				$ docker |command|--help
+	 Containers:					$ docker start <container_name>		-	to restart an "Exited" container (in contast to the "run" command which starts a new container)
+
+	-Understanding Attached
+	 & Detached Containers:				- Attached refers to the Container blocking your terminal sesssion when you run it it, because it serves as a log for your container
+							- By default, "run" is in attached mode, and "start" is detached
+							- To "run" in detached mode "-d" flag:
+								$ docker run -p 8000:80 -d <image_id>
+							- To "start" in attached mode "-a" flag:
+								$ docker start -a <container_name>
+							- To attach yourself to a detached container:
+								$ docker attach <container_name>
+							- To get container logs without attaching:
+								$ docker logs <container_name>
+								$ docker logs -f <container_name> 	// to "follow" aka attach
