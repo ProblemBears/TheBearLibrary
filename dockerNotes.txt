@@ -96,3 +96,36 @@ DOCKER IMAGES & CONTAINERS: THE CORE BUILDING BLOCKS
 							- To get container logs without attaching:
 								$ docker logs <container_name>
 								$ docker logs -f <container_name> 	// to "follow" aka attach
+
+	-Entering Interactive Mode:			- (Switching to Python) we have the scenario where the code states that user input will be required
+							  so we have to make our Docker Container "interactive":
+								1) Dockerfile for Python:
+									FROM python
+
+									WORKDIR /app
+
+									COPY . /app
+
+									CMD [ "python", "rng.py"]
+
+								2) Generate an Image that runs in interactive mode and w/ a tty terminal:
+									$ docker run -i -t <image-id>		//-i and -t can be shorthanded to -it for interactive mode terminal tty.
+
+
+								3) The process stops when the input is put in. We can re-"start" it in attached mode, but A TIDBIT IS that when we 
+								   generated the image with "run -i -t", the -i flag is forgotten sp we have to respecify it when we "start" as follows:
+									$ docker start -a -i <container_name>
+
+	-Deleting Images & Containers:			-Delete a container:
+								$ docker stop <container-name> 		//if the container is running
+								$ docker rm <container-name1> <container_name2> //etc...
+
+							-Delete all stopped containers:
+								$ docker container prune
+
+							-Display all images:
+								$ docker images
+							-Remove images:
+								$ docker rmi <image_id1> <image_id2> //etc...			//You can only remove images that don't have containers (even stopped ones)
+							-Remove all images that don't have running containers:
+								$ docker image prune
