@@ -151,3 +151,8 @@ DOCKER IMAGES & CONTAINERS: THE CORE BUILDING BLOCKS
 								  DOCKER know this format so it'll set the REPOSITORY and TAG fields when we search up
 								  all docker images
 							- After giving a Docker Image a Repo:Tag , we can use that to run containers and not use <image_id>
+
+	-Sharing Images - Overview:			1) We can share the whole directory that includes the Dockerfile so that people can run the 
+							   Docker commands to build an image out of it
+
+							2) We can share a built image: we just download it and run it
