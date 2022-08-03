@@ -129,3 +129,15 @@ DOCKER IMAGES & CONTAINERS: THE CORE BUILDING BLOCKS
 								$ docker rmi <image_id1> <image_id2> //etc...			//You can only remove images that don't have containers (even stopped ones)
 							-Remove all images that don't have running containers:
 								$ docker image prune
+
+	-Removing Stopped Containers			$ docker run -p 3000:80 -d --rm <image_id>
+	 Automatically:						** The --rm  flag removes containers automatically after stopping
+
+	-A Look Behind the Scenes -			- Multiple Containers using the same Image share the code given by the Image. They make their own
+	 Inspecting Images:				  thin layer above the image where they can change things (like their own filesystem)
+							- To inspect an image:
+								$ docker image inspect <image_id>
+
+	-Copying Files into &				-Copy files/folders into or out of a running container:
+	 From a Container:					$docker cp <sourcePath>/. <container-name>:/<containerDestPath>		//where "/." copies all files in that sourcePath of you local machine
+									*reverse the source and dest paths to copy from a container to the local machine
