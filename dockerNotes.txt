@@ -156,3 +156,15 @@ DOCKER IMAGES & CONTAINERS: THE CORE BUILDING BLOCKS
 							   Docker commands to build an image out of it
 
 							2) We can share a built image: we just download it and run it
+
+	-Pushing Images to Dockerhub:			-Sign up for DockerHub
+							-Share an image:
+								* DockerHub: Repositories > Create Repository
+								* Name image to match DockerHub repo image:
+									** By running it again
+									** By renaming an old image:	$ docke tag <old_name:tag> <new_name:tag>
+								*To allow connection to DockerHub:
+									$ docker login
+								$ docker push <image_name>
+							-Use an image:
+								$ docker pull <image_name>
