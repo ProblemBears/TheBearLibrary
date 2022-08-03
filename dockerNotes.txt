@@ -141,3 +141,13 @@ DOCKER IMAGES & CONTAINERS: THE CORE BUILDING BLOCKS
 	-Copying Files into &				-Copy files/folders into or out of a running container:
 	 From a Container:					$docker cp <sourcePath>/. <container-name>:/<containerDestPath>		//where "/." copies all files in that sourcePath of you local machine
 									*reverse the source and dest paths to copy from a container to the local machine
+
+	-Naming & Tagging				-When you run a container you can name it with:
+	 Containers and Images:					$ docker run -p 3000:80 -d --rm --name <new_name> <image_id>
+
+							-To name(tag) an image while building:
+								$ docker build -t goals:v1 .
+								* Convention says tags should be named in this format:	repoName : tag	(ex: node:v14 )
+								  DOCKER know this format so it'll set the REPOSITORY and TAG fields when we search up
+								  all docker images
+							- After giving a Docker Image a Repo:Tag , we can use that to run containers and not use <image_id>
