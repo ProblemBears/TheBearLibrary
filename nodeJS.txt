@@ -19,4 +19,11 @@ IMPROVED DEVELOPMENT WORKFLOW & DEBUGGING:
 											 --save-dev	: to install for development	(Creates devDependncies in your package.json)
 											 -g 		: install to your machine
 
-	-			
+	-Using Nodemon for Autorestarts:		-Why:			* We would have to stop/rerun our server code manually otherwise
+
+							-Process:		1) Create a "start" script with the value "nodemon app.js"
+										2) Use "npm start" to run that script, which runs nodemon
+										3) Now when we save a project, the server automatically reruns
+
+							-Notes:			* You can not use nodemon in terminal if you install it as a local dependency. You would have to install it as
+										  a global dependency to use it in terminal
