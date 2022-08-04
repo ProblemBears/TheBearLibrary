@@ -1,0 +1,22 @@
+IMPROVED DEVELOPMENT WORKFLOW & DEBUGGING:
+	-Understanding NPM Scripts:			-Process:		1) npm init
+										2) Go to package.json
+										3) Insert a key/value in "scripts"
+										4) Finally, you can do "npm run <key>" where the key is the name of your script
+										   you specified in "scripts"
+
+							-Notes:			* Creating a "start" script is an exception where you don't have to use "run"
+										  so you could simply do "npm start"
+
+							-Notes:			* They key/values should not have whitespace
+										* You should wrap in double quotes
+
+	-Installing 3rd Party Packages:			-Process:		1) Go to the root of your App
+										2) $ npm install <package>
+											Ex1) $ npm install nodemon --save-dev 	//since this is needed for easy save/restart during development
+							
+							-Notes:			* Flags: --save 	: to install as a production dependency
+											 --save-dev	: to install for development	(Creates devDependncies in your package.json)
+											 -g 		: install to your machine
+
+	-			
