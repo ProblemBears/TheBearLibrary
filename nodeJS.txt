@@ -48,3 +48,19 @@ WORKING WITH EXPRESS.JS:
 														 	 	  for initializing a manager)
 										4) const server = http.createServer(app)	//app is a valid requestHandler
 										5) server.listen(3000);
+
+	-Adding Middleware:				-Definition:		* Middleware - an incoming request is "funneled" through functions by Express.js
+
+							-Notes:			* Instead of having one request handler, there's a possibility of hooking up multiple functions that the request
+										  will go through until it is sent as a response
+
+							-Process:		1) To put a function in the Middleware:
+											$ app.use();	* Param 1: A function that receives three arguments - (req, res, next) => {}
+														** next: Is a function that will be passed to this param function
+													         	 by Express.js. Used to move on to the next middleware
+
+										2) To allow the request to travel on to the "next" middleware:
+											$ (Inside the app.use() Parameter 1 function) write next().
+										   So if we have another app.use() along the way. the next() allows it to "funnel" to the next Middleware
+
+										
