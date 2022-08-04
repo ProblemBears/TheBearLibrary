@@ -63,4 +63,9 @@ WORKING WITH EXPRESS.JS:
 											$ (Inside the app.use() Parameter 1 function) write next().
 										   So if we have another app.use() along the way. the next() allows it to "funnel" to the next Middleware
 
-										
+	-How Middleware Works:				-What:			* We can now send a response with Express.js (which is easier than in vanilla w/ a utinility function ".send()"
+
+							-Process:		1) In the last middleware function do:
+											$ res.send('<h1> Hello from Express! </h1>)
+
+							-Notes:			* The Response Headers are automatically set by Express (although we could set it manually with res.setHeader() )	
