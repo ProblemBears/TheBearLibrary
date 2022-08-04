@@ -89,6 +89,18 @@ WORKING WITH EXPRESS.JS:
 
 	-Parsing Incoming Request:			-What/How:			* Handling a POST request:
 												1) Have a page that has a form
-												   (In this case we set it up through routes): 
-													
-											
+												  (In this case we set it up through routes): 
+													$ app.use('/add-product', (req, res, next) => {
+														res.send('<form action="/product"><input type="text" name="title> <button type="submit"> Add Product </button> </form>');
+												  	});
+
+												2) Add a middleware that parses the request (this should usually be the first middleware for all routes):		
+													a) npm install --save body-parser
+													b) const bodyParser = require('body-parser');
+													c) app.use(bodyParser.urlencoded(extended:false));		//Where this function yields a middleware function that parses and even calls next
+
+												3) Now make a root based on the "action" of the form from (1):
+													$ app.use('/product', (req, res, next) => {
+														console.log(req.body
+														res.redirect('/'); //To redirect to the home page
+													  });
