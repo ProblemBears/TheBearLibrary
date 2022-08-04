@@ -69,3 +69,11 @@ WORKING WITH EXPRESS.JS:
 											$ res.send('<h1> Hello from Express! </h1>)
 
 							-Notes:			* The Response Headers are automatically set by Express (although we could set it manually with res.setHeader() )	
+
+	-Express.js - BTS:				-Important:		* Instead of http.createServer(app).listen(3000). We can use express to do this instead:
+											$app.listen(3000);
+											** Which means we also don't need the ('http') import
+
+										* The official code can be seen in "Github -> Express -> express/lib/application.js"
+
+	
