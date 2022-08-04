@@ -86,3 +86,9 @@ WORKING WITH EXPRESS.JS:
 										  '/app-js' and put it above the '/' code with no middleware.next(), so that it matches the actual path first and isn't
 										  able to travel to the next. THIS IS MADE THIS WAY SO THAT WE CAN FUNNEL THINGS TO MULTIPLE PAGES IF WE NEED IT LIKE:
 											** Putting '/' above a '/app-js' above another '/' Where the first '/' console logs ("this always runs")
+
+	-Parsing Incoming Request:			-What/How:			* Handling a POST request:
+												1) Have a page that has a form
+												   (In this case we set it up through routes): 
+													
+											
