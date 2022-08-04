@@ -27,3 +27,14 @@ IMPROVED DEVELOPMENT WORKFLOW & DEBUGGING:
 
 							-Notes:			* You can not use nodemon in terminal if you install it as a local dependency. You would have to install it as
 										  a global dependency to use it in terminal
+
+
+WORKING WITH EXPRESS.JS:
+	-What is Express.js?:				-Why?:			* Server logic is complex! 
+										* It's a framework that does the heavylifting
+
+							-Alternatives:		* Express.js (is the most popular)
+										* Vanilla Node.js 
+										* Adonis.js (Laravel inspired from PHP)
+										* Koa
+										* Sails.js
