@@ -1,0 +1,106 @@
+IMPROVED DEVELOPMENT WORKFLOW & DEBUGGING:
+	-Understanding NPM Scripts:			-Process:		1) npm init
+										2) Go to package.json
+										3) Insert a key/value in "scripts"
+										4) Finally, you can do "npm run <key>" where the key is the name of your script
+										   you specified in "scripts"
+
+							-Notes:			* Creating a "start" script is an exception where you don't have to use "run"
+										  so you could simply do "npm start"
+
+							-Notes:			* They key/values should not have whitespace
+										* You should wrap in double quotes
+
+	-Installing 3rd Party Packages:			-Process:		1) Go to the root of your App
+										2) $ npm install <package>
+											Ex1) $ npm install nodemon --save-dev 	//since this is needed for easy save/restart during development
+							
+							-Notes:			* Flags: --save 	: to install as a production dependency
+											 --save-dev	: to install for development	(Creates devDependncies in your package.json)
+											 -g 		: install to your machine
+
+	-Using Nodemon for Autorestarts:		-Why:			* We would have to stop/rerun our server code manually otherwise
+
+							-Process:		1) Create a "start" script with the value "nodemon app.js"
+										2) Use "npm start" to run that script, which runs nodemon
+										3) Now when we save a project, the server automatically reruns
+
+							-Notes:			* You can not use nodemon in terminal if you install it as a local dependency. You would have to install it as
+										  a global dependency to use it in terminal
+
+
+WORKING WITH EXPRESS.JS:
+	-What is Express.js?:				-Why?:			* Server logic is complex! 
+										* It's a framework that does the heavylifting
+
+							-Alternatives:		* Express.js (is the most popular)
+										* Vanilla Node.js 
+										* Adonis.js (Laravel inspired from PHP)
+										* Koa
+										* Sails.js
+
+	-Installing Express.js:				-Process:		1) npm install --save express
+
+										2) const express = require('express');		(Ctrl + Click to see the code)
+										   const http = require('http');
+
+										3) const app = express();			(Since the express module exports a function we have to execute
+														 	 	  for initializing a manager)
+										4) const server = http.createServer(app)	//app is a valid requestHandler
+										5) server.listen(3000);
+
+	-Adding Middleware:				-Definition:		* Middleware - an incoming request is "funneled" through functions by Express.js
+
+							-Notes:			* Instead of having one request handler, there's a possibility of hooking up multiple functions that the request
+										  will go through until it is sent as a response
+
+							-Process:		1) To put a function in the Middleware:
+											$ app.use();	* Param 1: A function that receives three arguments - (req, res, next) => {}
+														** next: Is a function that will be passed to this param function
+													         	 by Express.js. Used to move on to the next middleware
+
+										2) To allow the request to travel on to the "next" middleware:
+											$ (Inside the app.use() Parameter 1 function) write next().
+										   So if we have another app.use() along the way. the next() allows it to "funnel" to the next Middleware
+
+	-How Middleware Works:				-What:			* We can now send a response with Express.js (which is easier than in vanilla w/ a utinility function ".send()"
+
+							-Process:		1) In the last middleware function do:
+											$ res.send('<h1> Hello from Express! </h1>)
+
+							-Notes:			* The Response Headers are automatically set by Express (although we could set it manually with res.setHeader() )	
+
+	-Express.js - BTS:				-Important:		* Instead of http.createServer(app).listen(3000). We can use express to do this instead:
+											$app.listen(3000);
+											** Which means we also don't need the ('http') import
+
+										* The official code can be seen in "Github -> Express -> express/lib/application.js"
+
+	-Handling Different Routes:			-What:			* We want to handle request for different routes.
+
+							-How:			* There are actually 4 overloads of app.use(), we were using the one with one argument. With 2 arguments we can specify
+										  a path:
+											$ app.use('/', (req, res, next) => {} );
+
+							-Problems:		* Express reads the path '/' as a match even if there is more like '/app-js'. Therefore, in code, we can make the actual
+										  '/app-js' and put it above the '/' code with no middleware.next(), so that it matches the actual path first and isn't
+										  able to travel to the next. THIS IS MADE THIS WAY SO THAT WE CAN FUNNEL THINGS TO MULTIPLE PAGES IF WE NEED IT LIKE:
+											** Putting '/' above a '/app-js' above another '/' Where the first '/' console logs ("this always runs")
+
+	-Parsing Incoming Request:			-What/How:			* Handling a POST request:
+												1) Have a page that has a form
+												  (In this case we set it up through routes): 
+													$ app.use('/add-product', (req, res, next) => {
+														res.send('<form action="/product"><input type="text" name="title> <button type="submit"> Add Product </button> </form>');
+												  	});
+
+												2) Add a middleware that parses the request (this should usually be the first middleware for all routes):		
+													a) npm install --save body-parser
+													b) const bodyParser = require('body-parser');
+													c) app.use(bodyParser.urlencoded(extended:false));		//Where this function yields a middleware function that parses and even calls next
+
+												3) Now make a root based on the "action" of the form from (1):
+													$ app.use('/product', (req, res, next) => {
+														console.log(req.body
+														res.redirect('/'); //To redirect to the home page
+													  });
