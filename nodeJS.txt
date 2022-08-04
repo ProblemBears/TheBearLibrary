@@ -76,4 +76,13 @@ WORKING WITH EXPRESS.JS:
 
 										* The official code can be seen in "Github -> Express -> express/lib/application.js"
 
-	
+	-Handling Different Routes:			-What:			* We want to handle request for different routes.
+
+							-How:			* There are actually 4 overloads of app.use(), we were using the one with one argument. With 2 arguments we can specify
+										  a path:
+											$ app.use('/', (req, res, next) => {} );
+
+							-Problems:		* Express reads the path '/' as a match even if there is more like '/app-js'. Therefore, in code, we can make the actual
+										  '/app-js' and put it above the '/' code with no middleware.next(), so that it matches the actual path first and isn't
+										  able to travel to the next. THIS IS MADE THIS WAY SO THAT WE CAN FUNNEL THINGS TO MULTIPLE PAGES IF WE NEED IT LIKE:
+											** Putting '/' above a '/app-js' above another '/' Where the first '/' console logs ("this always runs")
