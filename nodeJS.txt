@@ -38,3 +38,13 @@ WORKING WITH EXPRESS.JS:
 										* Adonis.js (Laravel inspired from PHP)
 										* Koa
 										* Sails.js
+
+	-Installing Express.js:				-Process:		1) npm install --save express
+
+										2) const express = require('express');		(Ctrl + Click to see the code)
+										   const http = require('http');
+
+										3) const app = express();			(Since the express module exports a function we have to execute
+														 	 	  for initializing a manager)
+										4) const server = http.createServer(app)	//app is a valid requestHandler
+										5) server.listen(3000);
