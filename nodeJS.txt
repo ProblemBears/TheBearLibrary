@@ -28,6 +28,8 @@ IMPROVED DEVELOPMENT WORKFLOW & DEBUGGING:
 							-Notes:			* You can not use nodemon in terminal if you install it as a local dependency. You would have to install it as
 										  a global dependency to use it in terminal
 
+							-IMOPORTANT:		* Restart nodemon if you install a new package
+
 
 WORKING WITH EXPRESS.JS:
 	-What is Express.js?:				-Why?:			* Server logic is complex! 
@@ -104,3 +106,15 @@ WORKING WITH EXPRESS.JS:
 														console.log(req.body
 														res.redirect('/'); //To redirect to the home page
 													  });
+
+												*) Now since the req is parsed using (2), (3) is able to use it
+
+							-Next:			* This route currently would listen to any request, but we onlly want to use it for 
+										  a POST request...
+
+	-Limiting Middleware Execution			-Syntax:		* To do POST requests for a route:
+	 to POST Requests:								$ app.post('/',()=>{});		//instead of app.use()
+
+										* To do GET requests use: $ app.get
+
+										* Others are: delete, patch, put
