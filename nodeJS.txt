@@ -151,4 +151,11 @@ WORKING WITH EXPRESS.JS:
 											$ app.use((req, res, next) => {
 												res.status(404).send('<h1>Page not found</h1>');
 											  });
+
+	-Filtering Paths:				-What/How:		* Sometimes route paths have common starting paths like '/admin/add-product'. We could
+										  add this path to every route but that would be tedious. Instead, we could let external
+										  routes have normal route names, and in the main App.js, we can use a "filter path"
+										  in our app.use('/admin', ()=>{})
+
+	-
 											
