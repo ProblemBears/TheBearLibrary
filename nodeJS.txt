@@ -157,5 +157,29 @@ WORKING WITH EXPRESS.JS:
 										  routes have normal route names, and in the main App.js, we can use a "filter path"
 										  in our app.use('/admin', ()=>{})
 
-	-
+	-Serving HTML Files:				-Notes:			* ModelViewController conventions creates a directory called "View" where we put html files
+
+							-Process:		1) const path = require('path');	// A NodeJS core module that helps generate paths
+
+										2) In your routes do:
+											$ res.sendFile( path.join( __dirname, 'views', 'somePage.html')
+												** We can not use absolute paths because '/' refers to the device root.
+												   Instead, we make use of NodeJS's GLOBAL VARIABLE: __dirname which
+												   generates an absolute path to the current file directory, and the
+												   path.join() simply generates a path with concatenated parameters
+												   ASWELL as generates valid paths for both Windows and Linux systems
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
 											
