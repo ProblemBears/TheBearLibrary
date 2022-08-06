@@ -28,6 +28,8 @@ IMPROVED DEVELOPMENT WORKFLOW & DEBUGGING:
 							-Notes:			* You can not use nodemon in terminal if you install it as a local dependency. You would have to install it as
 										  a global dependency to use it in terminal
 
+							-IMOPORTANT:		* Restart nodemon if you install a new package
+
 
 WORKING WITH EXPRESS.JS:
 	-What is Express.js?:				-Why?:			* Server logic is complex! 
@@ -104,3 +106,49 @@ WORKING WITH EXPRESS.JS:
 														console.log(req.body
 														res.redirect('/'); //To redirect to the home page
 													  });
+
+												*) Now since the req is parsed using (2), (3) is able to use it
+
+							-Next:			* This route currently would listen to any request, but we onlly want to use it for 
+										  a POST request...
+
+	-Limiting Middleware Execution			-Syntax:		* To do POST requests for a route:
+	 to POST Requests:								$ app.post('/',()=>{});		//instead of app.use()
+
+										* To do GET requests use: $ app.get
+
+										* Others are: delete, patch, put
+
+	-Using Express Router:				-What:			*Typically, we want to put our routing code throughout different files and import in the main
+										 app.js file. Express.js actually gives us a way of outsourcing Express logic to other files.
+
+							-Process:		1) Convention says we put route logic in a "/routes" directory
+										2) Add files like : 
+													* "admin.js" - where we'll store routes only accessible to admins
+													* "shop.js" - routes that the user can see
+										3) For each of these files:
+											a) const express = require('express');
+
+											b) const router = express.Router();
+												* This is like a mini-Express app pluggable into the main one
+
+											c) router.use('/someRoute' (req, res, next)=>{}) //Can still use get, post, etc.
+
+											d) module.exports = router;
+
+										4) In your main file (app.js):
+											a) const adminRoutes = require('./routes/admin.js');
+
+											b) app.use(adminRoutes)		//because adminRoutes is a valid middleware function
+															//just as before, the order still matters
+
+							-Notes:			* get, post , etc. do exact matching for the path in contrast to 'use'
+
+	-Adding a 404 Error Page:			-What:			*Previously we swicthed all our routes to have matching paths with get or post. We want
+										 the power of 'use' for error pages when we go to invalid routes
+
+							-How:			* At the end of your main app.js do:
+											$ app.use((req, res, next) => {
+												res.status(404).send('<h1>Page not found</h1>');
+											  });
+											
