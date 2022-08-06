@@ -182,7 +182,17 @@ WORKING WITH EXPRESS.JS:
 							-Notes: 			* process.mainModule.filename may be deprecated, instead possibly use:
 											$ module.exports = path.dirname(require.main.filename);
 
-	
+	-Serving Files Statically				-What:			* We want to serve CSS files that connect to HTML files that we also serve. So we need to be able to serve 
+										  files 'statically'
+
+							-How:			1) Create a 'public' directory.
+										2) In app.js we plug-in one of Express's built-in middleware (after our parser middleware/ before our page routes):
+											$ app.use( express.static( pathToFolderWeWantToServeStatically ) );
+										3) Make sure the html files have <style> tags with path links relative to the 'public' folder we served statically
+										   (since Express forwards file request to the static folder)
+
+							-Notes:			* Up until now the info we send has been private. Meaning if our route specified a file being served,
+										  it would yield a 404 error.
 
 
 
