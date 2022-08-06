@@ -169,13 +169,20 @@ WORKING WITH EXPRESS.JS:
 												   path.join() simply generates a path with concatenated parameters
 												   ASWELL as generates valid paths for both Windows and Linux systems
 
+	-Using a Helper Function for			-What/How:		* We don't want to tediously generate a root path by manipulating __dirname. Instead we generate a root path:
+	 Navigation:									1) Create a '/util' directory, and create a 'path.js' file in it.
+											2) In that file write:
+												const path = require('path');
+
+												module.exports = path.dirname(process.mainModule.filename);	   //where process is globally available via Node
+
+											3) In any file you want to use it import it like so:
+												const rootDir = require('pathToIt');
+
+							-Notes: 			* process.mainModule.filename may be deprecated, instead possibly use:
+											$ module.exports = path.dirname(require.main.filename);
+
 	
-
-
-
-
-
-
 
 
 
