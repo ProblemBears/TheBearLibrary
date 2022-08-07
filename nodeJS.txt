@@ -195,8 +195,77 @@ WORKING WITH EXPRESS.JS:
 										  it would yield a 404 error.
 
 
+THE MODEL VIEW CONTROLLER (MVC):
+	-What is the MVC?:				-Definitions:		* Model - Represent your data in your code; work with your data (save, fetch, etc.)
+										* View - What the user sees; decoupled from you Application code.
+										* Controller - Connects your Models and Views.
+										* Routes - Decide what Controller logic to execute
+
+	-Adding Controllers:				-What:			* We don't want to put our Controller Logic into the files in our "/routes" directory, because the files there
+										  would quickly get large. 
+
+							-How:			1) Instead, we separate each file into a "/controllers" directory with respective files
+										2) We export those functions using: $ export.someFuncName = (req, res, next) => {}
+										3) We import those exports with $ const productsController = require('pathToController')
+										4) We use the references of the functions with $ productsController.funcReference not execution
+
+	-Adding a Product Model:				-Code:			* In a '/models' directory .js file we write:
+
+										const products = [];
+
+										module.exports = class Product {
+											constructor(t) {
+												this.title = t;
+											}
+
+											save() {
+												products.push(this);
+											}
+
+											static fetchAll() {
+												return products;
+											}
+										}
+
+							-Then:			* In the some '/controller' .js we import the Model in
+
+	-Storing Data in Files via			-What:			* Previously, we stored data into an array called 'products'. Instead, we may want to store the data into a file
+	 the Model:
+							-How:			1) Delete the previous products[] and import this instead:
+											const fs = require('fs');
+											const path = require('path');
 
 
+										2) In save() do this instead:
+											//contstruct a path to the file (it must exist and conventionally reside in '/data')
+											fs.readFile(path, (err, fileContent) => {
+												let products = [];
+												if(!err) {
+													products = JSON.parse(fileContent);
+												}
+												products.push(this);
+												fs.writeFile(path, JSON.stingify(products), (err) => {} );
+											});
 
+							-Error:			* Despite this we still will get an error which we will solve next...
+
+	-Fetching Data from Files Via			-IMPORTANT:		* We were getting an error previously because doing file operations is usually asynchronous. Therefore,
+	 the Model:								  we can solve this by sending a function argument into the Model which the model will execute by also giving
+										  its own argument (the products array). This is a callback.
+
+							-How:			* In contollers/product.js:
+											Product.fetchAll( products => {
+												res.render(//Code)
+											}
+
+										* In models/product.js:
+											static fetchAll(cb) {
+												const p = //Get Path Code;
+
+												fs.readFile(p, (err, fileContent) => {
+													if(err) cb([]);
+													else cb( JSON.parse(fileContent) );
+												}
+											}
 
 											
