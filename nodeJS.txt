@@ -209,4 +209,26 @@ THE MODEL VIEW CONTROLLER (MVC):
 										3) We import those exports with $ const productsController = require('pathToController')
 										4) We use the references of the functions with $ productsController.funcReference not execution
 
+	-Adding a Product Model:				-Code:			* In a '/models' directory .js file we write:
+
+										const products = [];
+
+										module.exports = class Product {
+											constructor(t) {
+												this.title = t;
+											}
+
+											save() {
+												products.push(this);
+											}
+
+											static fetchAll() {
+												return products;
+											}
+										}
+
+							-Then:			* In the some '/controller' .js we import the Model in
+
+	
+
 											
