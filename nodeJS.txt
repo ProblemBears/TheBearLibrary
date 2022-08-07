@@ -229,6 +229,24 @@ THE MODEL VIEW CONTROLLER (MVC):
 
 							-Then:			* In the some '/controller' .js we import the Model in
 
-	
+	-Storing Data in Files via			-What:			* Previously, we stored data into an array called 'products'. Instead, we may want to store the data into a file
+	 the Model:
+							-How:			1) Delete the previous products[] and import this instead:
+											const fs = require('fs');
+											const path = require('path');
+
+
+										2) In save() do this instead:
+											//contstruct a path to the file (it must exist and conventionally reside in '/data')
+											fs.readFile(path, (err, fileContent) => {
+												let products = [];
+												if(!err) {
+													products = JSON.parse(fileContent);
+												}
+												products.push(this);
+												fs.writeFile(path, JSON.stingify(products), (err) => {} );
+											});
+
+							-Error:			* Despite this we still will get an error which we will solve next...
 
 											
