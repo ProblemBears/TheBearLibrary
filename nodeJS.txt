@@ -195,8 +195,11 @@ WORKING WITH EXPRESS.JS:
 										  it would yield a 404 error.
 
 
-
-
+THE MODEL VIEW CONTROLLER (MVC):
+	-What is the MVC?				-Definitions:		* Model - Represent your data in your code; work with your data (save, fetch, etc.)
+										* View - What the user sees; decoupled from you Application code.
+										* Controller - Connects your Models and Views.
+										* Routes - Decide what Controller logic to execute
 
 
 											
