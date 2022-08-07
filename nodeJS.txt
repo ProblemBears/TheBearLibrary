@@ -249,4 +249,23 @@ THE MODEL VIEW CONTROLLER (MVC):
 
 							-Error:			* Despite this we still will get an error which we will solve next...
 
+	-Fetching Data from Files Via			-IMPORTANT:		* We were getting an error previously because doing file operations is usually asynchronous. Therefore,
+	 the Model:								  we can solve this by sending a function argument into the Model which the model will execute by also giving
+										  its own argument (the products array). This is a callback.
+
+							-How:			* In contollers/product.js:
+											Product.fetchAll( products => {
+												res.render(//Code)
+											}
+
+										* In models/product.js:
+											static fetchAll(cb) {
+												const p = //Get Path Code;
+
+												fs.readFile(p, (err, fileContent) => {
+													if(err) cb([]);
+													else cb( JSON.parse(fileContent) );
+												}
+											}
+
 											
