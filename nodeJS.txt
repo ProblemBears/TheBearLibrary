@@ -196,10 +196,17 @@ WORKING WITH EXPRESS.JS:
 
 
 THE MODEL VIEW CONTROLLER (MVC):
-	-What is the MVC?				-Definitions:		* Model - Represent your data in your code; work with your data (save, fetch, etc.)
+	-What is the MVC?:				-Definitions:		* Model - Represent your data in your code; work with your data (save, fetch, etc.)
 										* View - What the user sees; decoupled from you Application code.
 										* Controller - Connects your Models and Views.
 										* Routes - Decide what Controller logic to execute
 
+	-Adding Controllers:				-What:			* We don't want to put our Controller Logic into the files in our "/routes" directory, because the files there
+										  would quickly get large. 
+
+							-How:			1) Instead, we separate each file into a "/controllers" directory with respective files
+										2) We export those functions using: $ export.someFuncName = (req, res, next) => {}
+										3) We import those exports with $ const productsController = require('pathToController')
+										4) We use the references of the functions with $ productsController.funcReference not execution
 
 											
