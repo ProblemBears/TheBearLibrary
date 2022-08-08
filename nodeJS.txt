@@ -269,7 +269,7 @@ THE MODEL VIEW CONTROLLER (MVC):
 											}
 
 DYNAMIC ROUTES & ADVANCED MODELS:
-	-Adding the Product ID to			-How:			* We place an ID property into our Model
+	-Adding the Product ID to				-How:			* We place an ID property into our Model
 	 the Path:								* In some element of some View we create some route with the unique ID of some product.
 	
 	-Extracting Dynamic Parameters:			-What:			* We must now create that Route in our '/routes'
@@ -283,3 +283,8 @@ DYNAMIC ROUTES & ADVANCED MODELS:
 												const prodId = req.params.productId;	//WHICH CORRESPONDS TO OUR :productId above	
 												//Use the id
 											}					
+
+	-Loading Product Detail Data:			-How:			1) In a '/model' file we insert a static function in our Model class called findById(id, cb)
+										2) We pass the dynamic route's id that we inserted via the ':' syntax
+
+	
