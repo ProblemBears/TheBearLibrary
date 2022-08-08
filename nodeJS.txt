@@ -268,4 +268,28 @@ THE MODEL VIEW CONTROLLER (MVC):
 												}
 											}
 
-											
+DYNAMIC ROUTES & ADVANCED MODELS:
+	-Adding the Product ID to				-How:			* We place an ID property into our Model
+	 the Path:								* In some element of some View we create some route with the unique ID of some product.
+	
+	-Extracting Dynamic Parameters:			-What:			* We must now create that Route in our '/routes'
+
+							-How:			1) In the Express Router Path, We can make a path of the form '/products/:productId' where the colon specifies a
+										   variable section in a path (keep in mind all Routes that have '/product/something' should go before routes with
+										   variable sections, otherwise they'd never be touched)
+
+										2) In some '/controllers' file we export a function like so:
+											exports.getProduct = (req, res, next) => {
+												const prodId = req.params.productId;	//WHICH CORRESPONDS TO OUR :productId above	
+												//Use the id
+											}					
+
+	-Loading Product Detail Data:			-How:			1) In a '/model' file we insert a static function in our Model class called findById(id, cb)
+										2) We pass the dynamic route's id that we inserted via the ':' syntax
+
+	-Rendering the Product Detail			-How:			1) In the findById()'s callback we can render our View based on the argument (the ID) attached to the 
+	 View:									   callback. We do this with
+											res.render('pathToView', {product: product})	//Where the product property is used throughout the View
+																	// and the product value is the product w/ the ID from our query
+
+	-TBC? : A lot of EJS
