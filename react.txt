@@ -90,6 +90,13 @@ What is React.js?
 							-Conclusion:	* Therefore, since the Component prop in _app.js contains what is to be rendered. We could simply wrap our
 									  Header Component around it
 
+	-Using Programmatic 				-What/How:	* In our Component for giving a button some link to it's own ID Page. We can use 'useRouter()'
+	 (Imperative) Navigation:					  imported again from 'next/router'. Then in our Handler for that React Component we can specify
+										$ router.push('/' + props.id);	//pushes a new page on the Page Stack based on the ID passed through props
+
+							-Continue:	* Now we just need to add a Next.js '/page' route at that path of the route pushed
+
+							-Convention:	* Use JSX on '/components' and also style them there so that our '/pages' stay lean. 
 
 
 
