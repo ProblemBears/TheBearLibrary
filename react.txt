@@ -53,6 +53,9 @@ What is React.js?
 	 (with Parameters):						  files with square brackets:
 												[someIdentifier].js
 
+									*We can alsp have dynamic folders:
+												[someFolderIdentifier]
+
 	-Extracting Dynamic				-What/How:	* To extract the Paramter Value of our Dynamic Page. We make use of a Next.js special React hook:
 	 Parameter Values:							import { useRouter } from 'next/router';
 
@@ -76,7 +79,16 @@ What is React.js?
 
 									* Keeping it as a SPA allows us to keep States across pages
 
+	-The "_app.js" File &				- What:		* We use a Wrapper component to "wrap" our Navigation bar onto Next pages we have. Although, if we had many
+	 Layout Wrapper:						  pages, you could see how this could become cumbersome. Enter the _app.js file
 
+							-IMPORTANT:	* "_app.js" is a special file in Next.js that resides in "/pages". It acts as a root component that
+									  receives destructured props of the form {Component, pageProps} where:
+										** Component - holds the actual page content that should be rendered. (so it changes)
+										** pageProps - are specific props any of our pages might be getting
+
+							-Conclusion:	* Therefore, since the Component prop in _app.js contains what is to be rendered. We could simply wrap our
+									  Header Component around it
 
 
 
