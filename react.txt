@@ -45,3 +45,19 @@ What is React.js?
 							-Important:	* YOU CAN OMIT 'react' imports in Next.js
 									* The code is pre rendered so HTML code is sent giving us the advantage of no initial loading
 									  flickers and improved SEO
+
+	-Adding Nested Paths &				-What/How:	* Folders can be added to '/pages' which in turn makes nested routes. If you want to still get 
+	 Pages (Nested Routes):						  get a route of the folder name, then we add index.js in that folder
+
+
+
+
+
+
+
+
+
+
+
+
+
