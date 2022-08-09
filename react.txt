@@ -19,3 +19,11 @@ What is React.js?
 3 - REACT BASICS & WORKING WITH COMPONENTS
 	-Creating a new React Project				*cd into a directory where you want to create the project folder
 	 (with dummy code):					*Do:	$ npx create-react-app some-directory-name	//Then cd into it and do $npm start
+
+4 - A (PRETTY DEEP DIVE) INTRODUCTION TO Next.js
+	-Creating a New Next.js				-How:		1) Have NPM installed
+	 Project & App:							2) Go to a directory where you want to spawn a new project directory
+									3) To auto create:	$ npx create-next-app@latest
+									4) It prompts you to name the directory
+
+	-Adding First Pages:
