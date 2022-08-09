@@ -26,4 +26,22 @@ What is React.js?
 									3) To auto create:	$ npx create-next-app@latest
 									4) It prompts you to name the directory
 
-	-Adding First Pages:
+	-Adding First Pages:				-Prereq:	* Delete the following:
+										** /pages/api directory
+										** /styles/Home.module.css
+										** /pages/index.js	//We delete this to show Next.js Routing
+
+							-What/How:	* Next.js reads the pages directory structure to define routes:
+										Ex: We put the following files in '/pages' and they have routes:
+											** index.js = domain.com/
+											** news.js = domain.com/news
+
+									* Then, we can render the page by exporting A React component like usual (index.html):
+										function HomePage() {
+											return <h1>Hello World!</h1>
+										}
+										export default HomePage;
+
+							-Important:	* YOU CAN OMIT 'react' imports in Next.js
+									* The code is pre rendered so HTML code is sent giving us the advantage of no initial loading
+									  flickers and improved SEO
