@@ -1,0 +1,21 @@
+What is React.js?
+	-A JavaScript library for building UI (client-side JS library)
+	-Extra functionality can be added via community packages. For things other than UI (e.g: routing)
+	-Competitors: *Angular - component based UI; uses TypeScript; has more features; overkill for small projects
+		      *Vue.js - less popular than React & Angular
+	-Course Outline: (Divided to these three categories)
+		*Basics & Foundations:
+			**Components & Building UI
+			**Working w/ Events & Data: "props" and "state"
+			**Styling React Apps & Components
+			**Intro into "React Hooks"
+		*Advanced Concepts:
+			**Side Effects, "Refs" & More React Hooks
+			**React's Context API & Redux
+			**Forms, Http Requests & "Custom Hooks"
+			**Routing, Deployment, NextJS, & More
+		*Summaries and Refreshers
+
+3 - REACT BASICS & WORKING WITH COMPONENTS
+	-Creating a new React Project				*cd into a directory where you want to create the project folder
+	 (with dummy code):					*Do:	$ npx create-react-app some-directory-name	//Then cd into it and do $npm start
