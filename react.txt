@@ -62,6 +62,19 @@ What is React.js?
 											const saveParam = router.query.someIdentifier	//the thing we put in the [] in our filename
 										}
 
+	-Linking Between Pages:				-What/How:	* Yes we could use anchor tags to link between pages, but that would send the server new requests and
+									  this app would not be a single page app
+
+									* Instead, we do:
+										import Link from 'next/link';
+
+										//and instead of <a> we use...
+										<Link href="/someFolder/someFile"> Text Here </Link>	// where '/' is the pages folder 
+
+							-Note:		* We know our code asks the server for a new page if when we refresh, we see a cross pop out quickly.
+									  With this <Link> that should not happen.
+
+									* Keeping it as a SPA allows us to keep States across pages
 
 
 
