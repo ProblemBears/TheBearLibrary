@@ -49,7 +49,18 @@ What is React.js?
 	-Adding Nested Paths &				-What/How:	* Folders can be added to '/pages' which in turn makes nested routes. If you want to still get 
 	 Pages (Nested Routes):						  get a route of the folder name, then we add index.js in that folder
 
+	-Creating Dynamic Pages				-What/How:	* The  issue of Dynamic Routes (for things like different productId's) arises. We handle it by naming
+	 (with Parameters):						  files with square brackets:
+												[someIdentifier].js
 
+	-Extracting Dynamic				-What/How:	* To extract the Paramter Value of our Dynamic Page. We make use of a Next.js special React hook:
+	 Parameter Values:							import { useRouter } from 'next/router';
+
+										function SomeComponent(){
+											const router = useRouter();
+											
+											const saveParam = router.query.someIdentifier	//the thing we put in the [] in our filename
+										}
 
 
 
