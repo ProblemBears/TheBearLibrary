@@ -98,7 +98,11 @@ What is React.js?
 
 							-Convention:	* Use JSX on '/components' and also style them there so that our '/pages' stay lean. 
 
+	-How Pre-rendering Works &			-Problem:	* We want to pre-render a page with data, but with data for which we havee to wait, and we have to tell
+	 Which Problem We Face:						  Next.js when we're done waiting. If we don't then the HTML we yield will not contain our data and therefore
+									  be bad for SEO
 
+	-
 
 
 
