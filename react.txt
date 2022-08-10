@@ -149,3 +149,13 @@ What is React.js?
 									* You can also pass in the "context" parameter, which gives you access too context.req & context.res
 
 							-Which:		* getStaticProps() is faster
+
+	-Working with Param for SSG Data		-What:		* You can't get the URL of a Dynamic Parameter with the help of useRouter() because this is a build-time function.
+	 Fetching:							  Therefore, you use the context parameter.
+
+							-How:		* In the export async function getStaticProps(context), before the return do:
+										const id = context.params.someFileIdentifier;
+
+							-Continue:	* But when we set it in our return object. We get the error "getStaticPaths is required"...
+
+	-
