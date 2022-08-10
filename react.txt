@@ -102,9 +102,34 @@ What is React.js?
 	 Which Problem We Face:						  Next.js when we're done waiting. If we don't then the HTML we yield will not contain our data and therefore
 									  be bad for SEO
 
-	-
+	-Data fetching for Static Pages:		-What/How:		*Next.js gives us Two Forms of Pre-rendering which can be used to control how pages are rendered:
+											1) Static Generation -  * A Page Component is pre-rendered when you build the App for deployment.
+														* But, if you need to wait for data(fetching). In the Page component where
+														  you need to do that, you must export a special function:
+															export function getStaticProps(){};
+														  NextJS Looks for this function, and if it finds it, it executes this
+														  function during this pre-rendering process. (It gets called before even
+														  your Page Component).
+														* getstaticProps() is allowed to be async. It can run any code a server 
+														  would run (ex: file system, authentication). Simply, because this code
+														  is executed during the build process, it never executes in a visitor's machine.
+															** So you could fetch data from an API here
+															** You always have to return an object of the form:
+																{
+																props: {propsObjectToBeUsedInPageComponent}
+																}
+															   Which makes that build time prop insertion available in
+															   Your props passed to your Page Component
+											2) Server-side Rendering
 
+	-More on Static Site Generation:		-Analysis:	* To build for deployment we'd have to run:
+	(SSG)									$ npm run build
 
+									* After doing that, we get log output that shows we generated static pages, and it shows us which ones.
 
+							-Problem(s):	* Since the SSG is built at runtime, if we update the data that it feeds to props, then it would not
+									  be updated:
+										** A FIX (Incremental Static Generation): In our return object, add the following:
+											revalidate: 10		//Which means it will be regenerated every 10 seconds on the server
 
 
