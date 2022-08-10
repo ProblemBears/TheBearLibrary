@@ -132,4 +132,20 @@ What is React.js?
 										** A FIX (Incremental Static Generation): In our return object, add the following:
 											revalidate: 10		//Which means it will be regenerated every 10 seconds on the server
 
+							-End Result:	* export async function getStaticProps() {
+										// fetch data from an API
+										return {
+											props: {
+												meetups: DUMMY_MEETUPS
+											},
+											revalidate: 10
+										};
+									 }
 
+	-Exploring Server-side Rendering		-What:		* If we want to dynamically update the Page not during the build process or every couple of seconds we use
+	 (SSR) with "getServerSideProps":				  getServerSideProps(). It's similar to the previous one except it runs always on the server after deployment.
+									  You could run any server side code in  that function (even sensitive info stuff)
+
+									* You can also pass in the "context" parameter, which gives you access too context.req & context.res
+
+							-Which:		* getStaticProps() is faster
