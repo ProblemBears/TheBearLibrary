@@ -269,7 +269,7 @@ THE MODEL VIEW CONTROLLER (MVC):
 											}
 
 DYNAMIC ROUTES & ADVANCED MODELS:
-	-Adding the Product ID to				-How:			* We place an ID property into our Model
+	-Adding the Product ID to			-How:			* We place an ID property into our Model
 	 the Path:								* In some element of some View we create some route with the unique ID of some product.
 	
 	-Extracting Dynamic Parameters:			-What:			* We must now create that Route in our '/routes'
