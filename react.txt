@@ -158,4 +158,27 @@ What is React.js?
 
 							-Continue:	* But when we set it in our return object. We get the error "getStaticPaths is required"...
 
-	-
+	-Preparing Paths w/ "getStaticPaths"		-What:		* getStaticPaths - is a function you need to export in a Page Component file if its a dynamic page
+	 & Working With Fallback Pages:							   and you're using getStaticProps()
+
+							-How:		* If the conditions are met then export that function like so:
+										export async function getStaticPaths() {
+											return {
+												paths: [
+												]
+											}
+										}
+										** This returns an object that describes all dynamic segment values for which this page should be pre generated
+										** paths keeps an array of objects. One object per version of this dynamic page in the form:
+											{ params: { meetupId: 'someId' } }
+
+									* After doing this, you'll solve the first error, but get another about a 'fallback'. To fix it, in the returned object
+									  of getStaticPaths(), we also have to define the 'fallback' property which takes a boolean value:
+											return {
+												fallback: false,
+												paths: [
+												]
+											}
+									  it tells Next.js whether your paths[] contains all supported parameter values, or just some of them.
+										false = all parameter values defined		true = some
+									  We use false which gives us a 404 error when we go to an undefined path.
