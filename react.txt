@@ -182,3 +182,21 @@ What is React.js?
 									  it tells Next.js whether your paths[] contains all supported parameter values, or just some of them.
 										false = all parameter values defined		true = some
 									  We use false which gives us a 404 error when we go to an undefined path.
+
+	-Introducing API Routes:			-What:		* Allows you to do POST,GET, SET requests using the same server as your Next project.
+
+							-How:		1) Add a special folder to you '/pages' called: 'api'		//this allows Next to turn any .js files to API routes
+										* Turned into endpoints that can be targeted by request and get/return JSON
+									2) Add files that correspond to routes. Except in those files there aren't Page Component. There is server-side code.
+										* Ex: An API route with file structure /pages/api/example.js 	has the route  api/example
+
+									3) Write the following (convention says the function is named handler): 
+										function handler(req, res) {
+											if( req.method === 'POST' ) {
+												const data = req.body;
+
+												const { title, image, address, description } = data;
+											}
+										}
+
+										export default handler;
