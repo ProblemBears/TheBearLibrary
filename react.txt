@@ -217,5 +217,21 @@ What is React.js?
 											client.close();
 											res.status(201).json({message: 'Meetup Inserted!'});
 
-	-
-									   
+	-Sending HTTP Requests to our			-How:		1) Go to some page where we need to make the request
+	 API Routes:							2) Set up a async function addMeetupHandler(enteredMeetupData) {}
+									3) Write:
+										const response = await fetch('someDomainPath', {	//External: website URL, Internal: abs path
+											method: 'POST',
+											body: JSON.stringify(someData),
+											headers: {
+												'Content-Type': 'application/json'
+											}
+										})
+
+	-Deploying Next.js Projects:			-How:		1) Vercel is great for Next.js deploying, it does it via Gtihub repos
+									2) IF you don't use Vercel then you would have to do 'npm run build'. Vercel runs this for you
+									3) If connecting to other servers via code, make sure you open access on them (MongoDB Atlas 0.0.0.0 IP)
+
+							-Problem:	* We get an error when trying to click a button to a dynamic route. The problem lies with the "fallback" property in
+									  getStaticProps(). We have to give it the value of 'blocking' or true, which generates the page on demand.
+									  We use "blocking" because it doesn't render anything until there's something to show
