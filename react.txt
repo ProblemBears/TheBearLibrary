@@ -277,6 +277,22 @@ What is React.js?
 											}
 										}
 
+	-Adding "head" Metadata":			-What:		* For any deployed webpage you should consider adding metadata. Inspecting <Head> shows things are missing.
+									* For example titles, and descriptions for Google Searches
+
+							-How:		1) Navigate to some Page Component
+									2) import Head from 'next/head';
+									3) <Fragment>
+										<Head>
+											<title> React Meetups </ title>
+											<meta name='description' content='some example descriiption that Google sees' .?
+										</ Head >
+										<SomeComponent />
+									   </Fragment>
+									4) We can do this on all Pages!
+									5) For Dyanmic Single Pages we can use the dynamic data from our props that we got from getStaticProps:
+										{props.meetupData.title}
+
 									5) Make sure Page Component props isn't hardcoded and recieves the new getStaticPRops data
 
 	-Deploying Next.js Projects:			-How:		1) Vercel is great for Next.js deploying, it does it via Gtihub repos
