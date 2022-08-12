@@ -200,3 +200,22 @@ What is React.js?
 										}
 
 										export default handler;
+
+	-Working w/ MongoDB:				-How:		1) Create a cluster (M0 Free Tier)
+									2) Give a Network & Database Access
+									3) On the Cluster Do Connect > Connect to your Application > Copy Code (of correct Driver)
+									4) (For Node.js) npm install mongodb (the official driver for Node.js)
+									5) In some '/pages/api' file we can do:
+										import { MongoClient } from 'mongodb';
+
+										//inside the handler function (which can be made async):
+											const client = await MongoClient.connect('//pasteConectionString' );
+											const db = client.db();
+
+											const meetupsCollection = db.collection('meetups');
+`											const result = await meetupsCollection.insertOne(data);
+											client.close();
+											res.status(201).json({message: 'Meetup Inserted!'});
+
+	-
+									   
