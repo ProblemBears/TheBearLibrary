@@ -247,6 +247,38 @@ What is React.js?
 											}) 
 										)
 
+	-Getting Meetup Details Data			-What:		* Previously, for dynamic singular pages, we had to define a getStaticPaths() function which returns an object
+	 & Preparing Pages:						  with the 'paths:' property that defines all dynamic paths. Boq qw uaw paths based on IDs stored in mongoDB.
+
+							-How:		1) in getStaticPaths connect to MongoDB and then do:
+										const meetups = await meetupsCollection.find({}, {_id: 1}).toArray();
+																	//Fetch all documents and only their id fields
+										client.close(); //close your connection
+									2) Now, instead of hardcoding the paths: [{params: {meetupId: 'm1'}}, {params: {meetupId: 'm2'}}. We do:
+										return {
+											fallback: false,
+											paths: meetups.map(meetup => ( { params: { meetpID: meetup._id.toString() } } ) );
+										}
+									
+									3) Now we actually have to render based on that dynamic path. So in getStaticProps() we also connect to mongoDB
+									   but just query for one ID:
+											import {MongoClient, ObjectId } from 'mongodb';
+											const selectedMeetup = await meetupsCollection.findOne({_id: ObjectId(meetupId) }); 
+																//Where meetupId was gotten from context.params.meetupId
+
+									4) In getStaticProps we now return:
+										return {
+											props: {
+												meetupData: {
+													id: selectedMeetup._id.toString(),	//Making sure we don't get ObjectId Type
+													title: selectedMeetup.address,
+													//etc...
+												}
+											}
+										}
+
+									5) Make sure Page Component props isn't hardcoded and recieves the new getStaticPRops data
+
 	-Deploying Next.js Projects:			-How:		1) Vercel is great for Next.js deploying, it does it via Gtihub repos
 									2) IF you don't use Vercel then you would have to do 'npm run build'. Vercel runs this for you
 									3) If connecting to other servers via code, make sure you open access on them (MongoDB Atlas 0.0.0.0 IP)
