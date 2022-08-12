@@ -228,6 +228,25 @@ What is React.js?
 											}
 										})
 
+	-Getting Data from the Database:		-How:		1) One Way: Create an API Route that connects to the DB and gets the data
+										a) Then in a Page component's getStaticProps() do a fetch() (provided in Next.js server-side code). But that
+										   would be redundant.
+
+									2) Don't create an API Route and just do that code (the MongoDB import and connection) in the Page Component
+										* Yes imports can be used in server-side snippets as well. Next.js automatically seperate them into
+										  their own bundle imports
+
+							-Important:	* MongoDB returns data with an auto generated ID, which has a strange format and hence we have to map()
+									  the return to an acceptable format. Here we do it in our getStaticProps()'s return:
+										return {
+											meetups: meetups.map(meetup => ({
+												title: meetup.title,
+												address: meetup.address,
+												image: meetup.image,
+												id: meetup._id.toString()
+											}) 
+										)
+
 	-Deploying Next.js Projects:			-How:		1) Vercel is great for Next.js deploying, it does it via Gtihub repos
 									2) IF you don't use Vercel then you would have to do 'npm run build'. Vercel runs this for you
 									3) If connecting to other servers via code, make sure you open access on them (MongoDB Atlas 0.0.0.0 IP)
