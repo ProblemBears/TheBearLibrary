@@ -302,3 +302,5 @@ What is React.js?
 							-Problem:	* We get an error when trying to click a button to a dynamic route. The problem lies with the "fallback" property in
 									  getStaticProps(). We have to give it the value of 'blocking' or true, which generates the page on demand.
 									  We use "blocking" because it doesn't render anything until there's something to show
+
+WEEKEND
