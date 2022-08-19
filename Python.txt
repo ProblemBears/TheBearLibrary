@@ -1,0 +1,15 @@
+Function Type Hints: https://stackoverflow.com/questions/56506017/what-is-the-meaning-of-listint-in-this-function-declaration
+
+SELF HAS TO BE USED FOR CALLING METHODS OF A CLASS.
+
+FOR LOOP:
+for i in range(start, end, step)
+
+PUSH A LIST TO THE END OF A LIST:
+someList.extend(anotherList[inclusiveIndex:] push all elements from inclusiveIndex to the end to list
+
+PYTHON DOESN'T HAVE ++ or -- DO += or -= instead
+
+None is null in python
+
+?: operat is simply- a if condition else b
