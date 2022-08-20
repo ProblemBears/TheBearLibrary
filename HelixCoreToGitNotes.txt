@@ -1,4 +1,0 @@
-Perforce:						Git:
-
-Depots							Repo
-Changelist						Commit
