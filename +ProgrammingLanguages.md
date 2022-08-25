@@ -1,8 +1,20 @@
 # Language Comparisons
 
-## Arraylists/Vectors/Dynamic Arrays
+## Table of Contents
+---
+1. [Dynamic Arrays](#1)
+    - [Instantiation](#1-a)
+    - [Push](#1-b)
 
-### 0. Libraries / Instantiation
+---
+
+<div id='1'/>
+
+## 1. Dynamic Arrays
+
+<div id='1-a'/>
+
+### Instantiation/Libraries
 - C++
     ```c++
     #include <vector>;
@@ -11,14 +23,16 @@
     ```
 - Python
     ```python
-    a = [] #Dynamic Arrays are built-in
+    a = []              #built-in
     ```
 - JavaScript
     ```js
-    let a = []; //Also built-in
+    let a = [];         //built-in
     ```
 
-### 1. Adding Elements to the End of an ArrayList:
+<div id='1-b'/>
+
+### Push
 - C++
     ```c++
     a.push_back(23);
