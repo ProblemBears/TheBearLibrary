@@ -17,7 +17,7 @@
 ### Instantiation/Libraries
 - C++
     ```c++
-    #include <vector>;
+    #include <vector>
 
     vector<int> = a;
     ```
@@ -30,12 +30,25 @@
     let a = [];         //built-in
     ```
 
-<div id='1-b'/>
+<div id='1-b' />
 
-### Push
+### Push / Pop
 - C++
     ```c++
-    a.push_back(23);
+    /* Element Access */
+    a[someIndex];
+    a.front();
+    a.back();
+
+    /* Capacity */
+    a.empty();
+    a.size();
+
+    /* Modifiers */
+    a.clear();
+    a.erase(a.begin() + 2); //arg2 : Erase range
+    a.push_back(32);
+    a.pop_back();
     ```
 - Python
     ```python
