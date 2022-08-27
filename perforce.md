@@ -21,3 +21,25 @@
     - Go to the Depot Tab
     - File > New... > Depot... > Name the Depot
     - Ensure the **Depot Type** is set to **stream** (a writable depot that contains **streams** a type of branch)
+
+2. Edit the **TypeMap**
+    - In a new terminal, type `p4 typemap` and press Enter - A Text Editor will load with a File
+    - Underneath the line that says `TypeMap:`, indent and then add lines for each file extension and/or path you want to specify. On each line, specify the file type and /or modifers, and the pattern to match. (More Info in the source above)
+    - Sample Unreal engine TypeMap:
+      ```
+        Typemap:
+          binary+w //....exe
+          binary+w //....dll
+          binary+w //....lib
+          binary+w //....app
+          binary+w //....dylib
+          binary+w //....stub
+          binary+w //....ipa
+          binary+l //....uasset
+          binary+l //....umap
+          binary+l //....upk
+          binary+l //....udk
+          binary+l //....ubulk
+          binary+wS //..._BuiltData.uasset
+      ```
+3. Create the Main Stream
