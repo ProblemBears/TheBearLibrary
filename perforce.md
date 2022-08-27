@@ -43,3 +43,14 @@
           binary+wS //..._BuiltData.uasset
       ```
 3. Create the Main Stream
+    - In P4V, go to **View > Stream Graph**
+    - Make sure your project's depot is select in the **Stream Graph > Depot: drop-down menu**
+    - Right-click in an empty space in the Stream Graph on the right side and select **New Stream...**
+    - Fill in the stream info:
+      - Give your stream a name (ex: "main")
+      - Make sure the *Stream type* is set to **mainline**
+      - Double check that your **Depot:** is set correctly
+      - (Optional) Add a description of the stream
+      - Uncheck both the "Create a workspace..." and "Populate..." options at the bottom. We will do this manually in the next step.
+        ![Streams Graph](https://help.perforce.com/helix-core/quickstart-unreal/Content/Resources/Images/game-create-main-stream-5_800x533.png)
+    - Click **OK**. You will now see your stream in the Stream Graph
