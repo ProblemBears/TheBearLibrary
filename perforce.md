@@ -1,13 +1,13 @@
 <h1 style="text-align: center;"> Perforce - Helix Core Guide </h1>
 
 ## Why Helix Core?
----
+
 - Helix Core's Version Control tools are used by most AAA game development studios such as Epic Games, the creators of
   Unreal Engine. Therefore, game engines like Unreal Engine have built-in support for Helix Core such as visualizations
   for each commit (changelist submission).
 
 ## Installation
----
+
 1. **P4D** - The Helix Core Server is installed into your computer to make it act as the manager/storage for all your **depots**. It also sets up a port (by default 1666) in which **clients** using different computers (your computer can be a client too) can connect to. The computer that has P4D installed on it **should ideally be on at all times** in order to allow clients to connect at any time. Other useful installs are:
     - **P4Admin** - A visual tool for **Admin users** to create depots, add users, change permissions, assign groups, etc...
 2. **P4V** - A GUI tool to access versioned files. Otherwise, we would have to just use the command line
