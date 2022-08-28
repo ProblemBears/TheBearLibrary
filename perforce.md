@@ -112,4 +112,11 @@
       - Under `[Launcher]` add a path to your Perforce Workspaces directory, in a form similar to the following:\
       `CreatedProjectPaths=E:/Perforce/P4_Workspaces`
       - Restart the Epic Games Launcher Process
-
+7. Use source control extension in Unreal Engine
+    - In UE5 click on the bottom left where it says "Source Control Off" (or **Tools>Connect to Source Control**)
+    - Login with:\
+    Provide = Perforce\
+    Server = 1666 if the Helix Core Server is installed in your machine **OR** serverIPAddress:1666 if someone hosts the Helix Core server on their machine.
+      - NOTE: 1666 is the default PORT #. It is possible this is different of the Server Admin changed it.
+    - Then choose your username and the correct project Workspace
+    - Unreal Engine now has the max benefit of Helix Core versioning!
