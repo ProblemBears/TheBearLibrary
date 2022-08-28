@@ -24,7 +24,7 @@
 
 2. Edit the **TypeMap**
     - In a new terminal, type `p4 typemap` and press Enter - A Text Editor will load with a File
-    - Underneath the line that says `TypeMap:`, indent and then add lines for each file extension and/or path you want to specify. On each line, specify the file type and /or modifers, and the pattern to match. (More Info in the source above)
+    - Underneath the line that says **TypeMap:**, indent and then add lines for each file extension and/or path you want to specify. On each line, specify the file type and /or modifers, and the pattern to match. (More Info in the source above)
     - Sample Unreal engine TypeMap:
       ```
         Typemap:
@@ -54,3 +54,15 @@
       - Uncheck both the "Create a workspace..." and "Populate..." options at the bottom. We will do this manually in the next step.
         ![Streams Graph](https://help.perforce.com/helix-core/quickstart-unreal/Content/Resources/Images/game-create-main-stream-5_800x533.png)
     - Click **OK**. You will now see your stream in the Stream Graph
+4. Create a workspace and associate it with a stream
+    - In the main window of P4V, click the **Workspace** tab, open the drop-down list, and click **New Workspace...**. Alternatively, you can right-click on a stream and select **New Workspace...**.
+    - Configure the *Basic* tab:
+
+      ![Workspace Basic](https://help.perforce.com/helix-core/quickstart-unreal/Content/Resources/Images/game-create-workspace-2.png)
+    - (Optional) Configure the Advanced tab to set up a few more helpful options:
+
+      ![Workspace Advanced](https://help.perforce.com/helix-core/quickstart-unreal/Content/Resources/Images/game-create-workspace-3.png)
+    - Click **OK** and you should see a new Workspace under your **Workspace tab**
+
+5. Setup and Create the ignore file
+    - 
