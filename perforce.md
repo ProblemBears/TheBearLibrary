@@ -81,18 +81,35 @@
     - **Example Ignore file for Unreal Engine**
       ```
       # User-specific folders or temporary files that should not be versioned.
-        Saved/
-        Intermediate/
-        DerivedDataCache/
-        FileOpenOrder/
-        obj/
+      Saved/
+      Intermediate/
+      DerivedDataCache/
+      FileOpenOrder/
+      obj/
       # Certain file types that should not be versioned.
-        *.pdb
-        *-Debug.*
+      *.pdb
+      *-Debug.*
       # Visual Studio user settings files that should be ignored.
-        .vs/
-        *.vcxproj
-        *.sln
+      .vs/
+      *.vcxproj
+      *.sln
       ```
+      [Link to a higly recommended p4Ignore](https://github.com/github/gitignore/blob/main/UnrealEngine.gitignore)
+
     - Finally, submit the *.p4ignore* in a **changelist**
-6. 
+6. Add Project Files
+    - Create an Unreal Project and navigate to it's location in File Explorer
+    - Copy all of the project files into your workspace root folder (in P4V click **Refresh**)
+    - Add all of the files into a **Changelist** (Your previous *.gitignore* will remove all unescessary files when you submit the changelist)
+    - Make sure the .p4ignore does its job. When you **Add**, your changelist should only contain files from your **Config, Content, and Source directories, as well as your .uproject file.** If this isn't the case, then your .p4ignore isn't working.
+    - **Submit your Changelist**
+    - Now all your files (that weren't **ignored**) are stored in the depot on your server (where you installed  **P4D**)
+    - (Optional) Now that you moved your project it may be the case that the Epic Games Launcher won't conveniently detect it in **My Projects**. This means the only ways to open the project easily are through Perforce, or your file explorer. To fix this we can:
+      - Navigate to:\
+      `C:\Users[username]\AppData\Local\EpicGamesLauncher\Saved\Config\Windows directory`
+      - Open:\
+      `GameUserSettings.ini`
+      - Under `[Launcher]` add a path to your Perforce Workspaces directory, in a form similar to the following:\
+      `CreatedProjectPaths=E:/Perforce/P4_Workspaces`
+      - Restart the Epic Games Launcher Process
+
