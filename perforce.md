@@ -64,5 +64,35 @@
       ![Workspace Advanced](https://help.perforce.com/helix-core/quickstart-unreal/Content/Resources/Images/game-create-workspace-3.png)
     - Click **OK** and you should see a new Workspace under your **Workspace tab**
 
-5. Setup and Create the ignore file
-    - 
+5. Setup and create the ignore file
+    - In order to use an ignore file, we need to tell our local Helix Core client where to look for an ignore file. This is done by setting the P4IGNORE environment variable or by using the `p4 set` command.\
+    \
+    Let's decide to call our ignore files **.p4ignore** by opening a terminal and typing:
+      ```
+      p4 set P4IGNORE=.p4ignore
+      ```
+    - Now that Helix Core knows to look for a file called *.p4ignore* in the workspace, we can create the ignore file.
+    - Inside your workspace's root directory create a file called *.p4ignore*
+    - In that file, write one line for each path you want ignored, and save:
+      - Paths are case-sensitive
+      - \* can be used as a wildcard to match any number of characters
+      - Putting a / at the end of a path will only match directories. Otherwise it will match any files OR directories with the same characters.
+      - A ! at the beginning of a line will make sure that matches files are not ignored, even if a previous rule matches them.
+    - **Example Ignore file for Unreal Engine**
+      ```
+      # User-specific folders or temporary files that should not be versioned.
+        Saved/
+        Intermediate/
+        DerivedDataCache/
+        FileOpenOrder/
+        obj/
+      # Certain file types that should not be versioned.
+        *.pdb
+        *-Debug.*
+      # Visual Studio user settings files that should be ignored.
+        .vs/
+        *.vcxproj
+        *.sln
+      ```
+    - Finally, submit the *.p4ignore* in a **changelist**
+6. 
