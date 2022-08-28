@@ -13,7 +13,7 @@
 2. **P4V** - A GUI tool to access versioned files. Otherwise, we would have to just use the command line
 
 ## Unreal Engine Process
----
+
 [Based On the Helix Core Docs](https://help.perforce.com/helix-core/quickstart-unreal/Content/quickstart/game-home-quickstart.html)
 
 1. Create a Stream Depot
