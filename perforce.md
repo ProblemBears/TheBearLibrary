@@ -122,7 +122,10 @@
     - Unreal Engine now has the max benefit of Helix Core versioning!
 
 ## Working with Streams
-[Based on the Helix Core Streams Guide](https://www.perforce.com/manuals/p4v/Content/P4V/chapter.streams.html)
+[Based on the Helix Core Streams Guide](https://www.perforce.com/manuals/p4v/Content/P4V/chapter.streams.html)\
+Helpful resources:\
+[AAA Studio Tips](https://www.perforce.com/blog/vcs/ue5-update-perforce-streams)\
+[Perforce Streams Quickstart Video](https://www.youtube.com/watch?v=ggty1lkL1gA)
 - **Streams** are the branching mechanism used by Helix Core. The visual gateway for manipulating streams can be found in **P4V's Stream Graph Tab**. 
 - The **mainline branching model** is ideal in **P4V** because the **Streams Graph** orders streams visually, by ordering the most stable streams higher up. This means "child" streams are less stable and therefore, they should always **merge down** from their "parent" before they **copy up**.
 
@@ -142,3 +145,12 @@ This opens a dialog where you can specify:
   - **Parent View** - Almost any stream should be set to **inherit** except for **Release streams** which should have **noinherit** so that Parent "propogation" is disabled (since release stream only copy up)
   - **Create a workspace to use with this stream** - If you already have one, it might be convenient not to tick it since we can switch one workspace between many streams
   - You can also configure **Stream Views** in the **Advanced** tab. Read more from the reference above.
+- **Using the Stream Graph** -
+  - If you don't see your newly added Stream, then make sure you Select it on the left hierarchy and click **Apply** when you're on **Picker Mode**. Otherwise, go to **Filter Mode**. Picker Mode is ideal if your Graph gets too complicated, and you only want to see certain nodes
+  - The arrows signifies whether you can **Merge Down/Copy up** and the wires become color-coded with the following meanings.
+    - **Gray** - no merge or copy required
+    - **Green** - a merge or copy is available
+    - **Orange** - stream must be updated, after which merge or copy is available
+  - The **Workspace Icon** that looks Like a TV indicates what stream you are currently working in. **You can drag it to another stream to switch your workspace to that stream**. The Stream field value in the workspace definition changes to the new stream. When you do this, if you have checked out files to the following:
+    - **The default changelist** - P4V shelves them automatically in a numbered changelist with the description "Switched branch shelf" and unshelves them again to the default changelist when you switch back to that stream. However, note that the numbered changelist created for the interim shelf does not get deleted and remains in the system
+    - **A numbered changelist** - P4V prompts you to shelve those files before switching. When you switch back to that stream, those files remain shelved in the numbered changelist. You have to unshelve them manually.
