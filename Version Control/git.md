@@ -75,170 +75,112 @@ To do this merge follow, these basic steps:
 
 
 ## Undoing changes and time travelling
+
+- **Detached Head**: Instead of pointing 
+to a branch the head points to a commit.
+	- Reattach the head by switching to any branch
+
 |||
 | --- | --- |
-To view previous commit: (Puts u in detached head state) | git checkout <7digit-commit-hash>
-(DETACHED HEAD: Instead of pointing 
-to a branch it points to a
-commit.Reattach head by switching to 
-any branch)
+| To view previous commit: (Puts u in detached head state) | `git checkout <7digit-commit-hash>` |
+| Checkout by referencing commits |	`git checkout HEAD~2` (where HEAD~2 is 2 commits before HEAD) |
+| Go back to last branch: | 		`git switch -` |
+| Discarding changes to Revert to your last Commit: | `git checkout HEAD <filename>` or `git checkout -- <filename>`(...) |
+| The new way of doing Above (since checkout "Does many things" So this is like git Switch in a way of Trying to take away Work from checkout): | `git restore <file-name>`|
+| Restoring Files to a State prior to HEAD: | `git restore --source Head~1 <file-name>` (Head~1 can be a hash) |
+| Unstage files with Restore: |		`git restore --staged <file-name>` |
+| Reset a branch to a Specific commit. Which deletes the commits But keeps their changes in The working directory (So you could possibly Use them to create another Branch): | `git reset <commit-hash>` |
+| If you want to drop the Changes too: |		`git reset --hard <commit-hash>` |
+| Revert is similar to Reset but it does things Different. It Creates a brand new Commit that undoes The changes from a commit (BETTER FOR COLLABORATION): | `git revert <commit-hash>` |
 
-Checkout by referencing commits	git checkout HEAD~2 (where HEAD~2 is 2 commits before HEAD)
-Relative to a particular
-commit(weird syntax)
+## Github Basics
 
-Go back to last branch: 		git switch -
+- [SSH Key Generation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+- **Get Code On GitHub: (2 Options)**
+	1. (We must specify a remote if we do this)
+		- Create a new repo on GitHub
+		- Connect your local repo (add a remote)
+		- Push up your changes to GitHub
+		- Github example:
+			```
+			git remote add origin <repo-url>
+			git branch -M main
+			git push -u origin main		
+			```						
+	2. (Remote is specified by the cloning process)
+		- Create a brand new repo on Github
+		- Clone it down to your machine
+		- Do some work locally
+		- Push up your changes to Github
+- A Remote is really two things: **a URL** and **a Label**
 
-Discarding changes to 		git checkout HEAD <filename> or git checkout -- <filename> (...)
-Revert to your last
-Commit:
-
-The new way of doing		git restore <file-name>
-Above (since checkout
-"Does many things"
-So this is like git
-Switch in a way of
-Trying to take away
-Work from checkout):
-
-Restoring Files to a		git restore --source Head~1 <file-name> (Head~1 can be a hash)
-State prior to HEAD:
-
-Unstage files with		git restore --staged <file-name>
-Restore:
-
-Reset a branch to a 		git reset <commit-hash>
-Specific commit.
-Which deletes the commits
-But keeps their changes in
-The working directory
-(So you could possibly
-Use them to create another
-Branch):
-If you want to drop the		git reset --hard <commit-hash>
-Changes too:
-
-Revert is similar to		git revert <commit-hash>
-Reset but it does things
-Different. It
-Creates a brand new 
-Commit that undoes
-The changes from a commit
-(BETTER FOR COLLABORATION):
+|||
+|---|---|
+| Get a local copy of an Existing repository: (Most popular repo hoster Is GitHub) | `git clone <url>` |
+| To view existing remotes: |		`git remote` or `git remote -v` (verbose, for more info) |
+| Adding a new remote: |		`git remote add <name> <url>` (a common name is origin but the name is not special) |
+| Rename remote:	|		`git remote rename <old> <new>` |
+| Delete remote:	|		`git remote remove <name>` |
+| To push work to the Remote connection (Like Github): |  `git push <remote> <branch>` |
+| To push a local branch To a remote branch of A different name we do: | `git push <remote> <local-branch>:<remote-branch>` (not common) |
+| Push branch to a remote And connect upstream: (This links the remote and local branch, so that we just have to use git push and not specify the Remote and branch over and over again. Also works to shorten git pull) | `git push -u <origin> <main>` |
+| Clone a remote repo to a local computer: |	git clone <url> |
+| To view remote branches: |	`git branch -r` |
+| Checkout remote branch: |	`git checkout origin/main` |
+| Create CONNECTED local branches For remote branches By doing: | `git switch <remote-branch-same-name>` |
 
 
-GITHUB BASICS
-Get a local copy of an		git clone <url>
-Existing repository:
-(Most popular repo roster
-Is GitHub)
+- **Fetching -** Allows us to download changes from a remote repo W/O MESSING UP our working directory (It's as if the remote branch becomes it's own branch)
 
-SSH Key Generation:		https://docs.github.com/en/authentication/connecting-to-github-with-ssh
+|||
+|---|---|
+| Fetch a remote |		`git fetch <remote>` |
+| Fetch a specific branch: |		`git fetch <remote> <branch>` |
 
-Get Code On GitHub:
-	Option 1: (We must specify a remote if we do this)
-		-Create a new repo on GitHub
-		-Connect your local repo (add a remote)
-		-Push up your changes to GitHub
-		-Github example:
-			git remote add origin https://github.com/ProblemBears/EloquentJS-Solutions.git	(add remote)
-			git branch -M main								(rename master branch to main because Github doesn't like using master anymore)
-			git push -u origin main								
-	Option 2: (Remote is specified by the cloning process)
-		-Create a brand new repo on Github
-		-Clone it down to your machine
-		-Do some work locally
-		-Push up your changes to Github
+- **Pulling -** Actually updates our HEAD branch and what whatever changes are retrieved from remote (think of it as - `git pull = git fetch + git merge`)
 
-A Remote is really two things: a URL and a Label
-To view existing remotes:		git remote or git remote -v (verbose, for more info)
-Adding a new remote:		git remote add <name> <url> (a common name is origin but the name not special)
-Rename remote:			git remote rename <old> <new>
-Delete remote:			git remote remove <name>
+|||
+|---|---|
+| Fetch the latest info From specified branch and Merge those changes into Our current branch (THIS MEANS WHERE MATTERS): | `git pull <remote> <branch>` (merge conflicts may happen!) |
+| Shorthand above (because Git defaults the origin And the connected branch Of the current so...) Simply do: | `git pull` |
 
-To push work to the		git push <remote> <branch>
-Remote connection
-(Like Github):
+## Github Pages
+- You get one user GitHub page for portfolio AND unlimited for each repo
+- can only be in JS/CSS/HTML (so static)
+- **Setup:** <br />&nbsp;&nbsp; **Settings > GitHub Pages > Select a Branch >** Pick a directory with an index.html
 
-To push a local branch		git push <remote> <local-branch>:<remote-branch> (not common)
-To a remote branch of
-A different name we do:
+## Pull Request
+- Upload your feature branch to a remote repo and for that branch Click on Pull Request so that it could possibly be merged in
+- To handle merge conflicts locally we follow these instructions
+	1. Bring in the changes to test:
+		```	
+		git fetch origin
+		git switch <feature-branch>
+		git merge main
+		FIX CONFLICTS!
+		(THIS HANDLES THE MERGE CONFLICTS ON THE FEATURE BRANCH)
+		```
+	2. Merge the changes and update on Github:
+		```
+		git switch main
+		git merge --no-ff <feature-branch> (no fast forward aka Commit merge)
+		git push origin main
+		```
 
-Push branch to a remote		git push -u <origin> <main>
-And connect upstream:
-(This links the remote and local branch, so that we just have to use git push and not specify the 
-Remote and branch over and over again. Also works to shorten git pull)
+## Configuring branch protection rules:
+**Settings > Branches > Branch Protection Rules**
 
-Clone a remote repo		git clone <url>
-To a local computer:
-
-A Remote Tracking Branch is a reference to the state of the master branch on the remote (can't move it yourself). It's a bookmark to the last know commit on the master branch
-To view remote branches:	git branch -r
-Checkout remote branch:	git checkout origin/main
-
-When you first clone a repo from the remote, IT WON'T CREATE LOCAL BRANCHES FOR ALL THE REMOTE BRANCHES, JUST THE DEFAULT ONE. ALTHOUGH it does know about the remote branches (see git branch -r)
-Create CONNECTED
-local branches
-For remote branches 		git switch <remote-branch-same-name>
-By doing:
-
-
-FETCHING: Allows us to download changes from a remote repo W/O SCREWING UP our working directory
-(It's as if the remote branch becomes it's own branch)
-Fetch a specific branch		git fetch <remote> (all changes)
-From a remote using:		git fetch <remote> <branch> (specific branch)
-
-PULLING: Actually updates our HEAD branch and what whatever changes are retrieved from remote
-	(think of it as - git pull = git fetch + git merge)
-Fetch the latest info
-From specified branch and		git pull <remote> <branch> (merge conflicts may happen!)
-Merge those changes into
-Our current branch
-(THIS MEANS WHERE MATTERS):
-
-Shorthand above (because		git pull
-Git defaults the origin
-And the connected branch
-Of the current so...)
-Simply do:
-
-
-GITHUB PAGES:
-	-You get one user GitHub page for portfolio AND unlimited for each repo
-	-can only be in JS/CSS/HTML (so static)
-	-SETUP:
-		Settings > GitHub Pages > Select a Branch > Should have a index.html
-
-PULL REQUEST:
-	-Upload your  feature branch to a remote repo and for that branch Click on Pull Request
-	 so that it could possibly be merged in
-To handle merge conflicts
-Locally we follow these instructions
-1) Bring in the changes to test:	git fetch origin
-				git switch <feature-branch> (GitHub has the legacy way of doing)
-				git merge main
-				//FIX CONFLICTS!
-   (THIS HANDLES THE MERGE CONFLICTS ON THE FEATURE BRANCH)
-2) Merge the changes and update on Github:
-				git switch main
-				git merge --no-ff <feature-branch> (no fast forward. Commit merge)
-				git push origin main
-PULL REQUEST CONCLUSION: Github will autodetect the pull request merge. (Delete branch if u want)
-
-CONFIGURING BRANCH PROTECTION RULES:
-	Settings > Branches > Branch Protection Rules
-
-FORKING: COPY OF A GITHUB REPO ON OUR GITHUB ACCOUNT
-	-Allows us to create a personal copy of other people's repos. We call these copies a
-	 "fork" of the original. (LIKE PRS, NOT A GIT FEATURE)
-	-Then you could clone, push, pull on your version of the repo on your GitHub
-	-We usually have a remote called "upstream" that points to the original GitHub Repo
+## Forking: Copy of a Github repo on our Github account
+- Allows us to create a personal copy of other people's repos. We call these copies a
+	 "fork" of the original.
+- Then you could clone, push, pull on your version of the repo on your GitHub
+- We usually have a remote called "upstream" that points to the original GitHub Repo
 	 that we forked, not to push to it (WE CAN'T), but to pull the daily changes it might
 	 go through as an open source project.
-	-Finally, we can do pull request on our GitHub fork to merge to the original
-	-TO SETUP SECOND REMOTE FOR ORIGINAL:
-		1) Copy URL from the original
-		2) Setup Second remote:
-			git remote add upstream <url>
-		3) Pull from the original with:
-			git pull upstream <branch>
+- Finally, we can do pull request on our GitHub fork to merge to the original
+- To setup second remote for original:
+	1. Copy URL from the original
+	2. Setup Second remote:
+		`git remote add upstream <url>`
+	3. Pull from the original with:
+		`git pull upstream <branch>`
