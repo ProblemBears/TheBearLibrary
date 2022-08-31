@@ -74,9 +74,10 @@ To do this merge follow, these basic steps:
 | Completely empty stash:           |	`git stash clear`           |
 
 
-UNDOING CHANGES AND TIME TRAVELING
-To view previous commit:		git checkout <7digit-commit-hash> 
-(Puts u in detached head state)
+## Undoing changes and time travelling
+|||
+| --- | --- |
+To view previous commit: (Puts u in detached head state) | git checkout <7digit-commit-hash>
 (DETACHED HEAD: Instead of pointing 
 to a branch it points to a
 commit.Reattach head by switching to 
