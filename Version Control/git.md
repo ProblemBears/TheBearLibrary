@@ -1,5 +1,19 @@
-<h1 style="text-align: center;"> Git/GitHub Reference Guide</h1>
+<h1 style="text-align: center;">Git/GitHub Reference Guide</h1>
 
+## Table of Contents
+1. [Git Config](#git-config)
+2. [Git Basics](#git-basics)
+3. [Commits in Detail](#commits-in-detail)
+4. [Branches](#branches)
+5. [Merging Branches](#merging-branches)
+6. [Git Diff](#git-diff)
+7. [Git Stash](#git-stash)
+8. [Undoing changes and time traveling](#undoing-changes-and-time-travelling)
+9. [Github Basics](#github-basics)
+10. [Github Pages](#github-pages)
+11. [Pull Request](#pull-request)
+12. [Configuring branch protection rules](#configuring-branch-protection-rules)
+13. [Forking](#forking-copy-of-a-github-repo-on-our-github-account)
 ## Change Text Editor
 1. https://git-scm.com/book/en/v2/Appendix-C%3A-Git-Commands-Setup-and-Config (copy/paste for your editor)
 2. If you get error when try to commit DO: CTRL + SHIFT + P -> Type: "Code" -> Click "Shell Command: Install 'code command in path"
