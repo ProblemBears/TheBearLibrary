@@ -49,11 +49,11 @@ CREATING DATABASES AND TABLES:
 						*Dataypes are important to avoid inconsistent data Ex:(Age: 1, 3, ten)
 						*MySQL enforces Datatypes when making tables
 						*Numeric Types:			String Type:			Date Types:
-							** INT				** CHAR				** DATE
+							** INT			** CHAR			** DATE
 							** SMALLINT			** VARCHAR			** DATETIME
 							** TINYINT			** BINARY			** TIMESTAMP
-							** MEDIUMINT			** VARBINARY			** TIME
-							** BIGINT			** BLOB				** YEAR
+							** MEDIUMINT		** VARBINARY		** TIME
+							** BIGINT			** BLOB			* YEAR
 							** DECIMAL			** TINYBLOB
 							** NUMERIC			** MEDIUMBLOB
 							** FLOAT			** LONGBLOB
