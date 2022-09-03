@@ -187,6 +187,20 @@
     - The engine handles the lighting
     - It's up to the shader artist to pass correct values into Material Sockets to get physically accurate materials
 
+## 3 - What are Data Types?
+- Float
+    - Scalar values
+    - Gets duplicated in RGBa Channels and math operations
+- Float2
+    - Good for storing UV coordinates
+- Float3
+    - Good for color
+- Float4
+    - Good for storing colors with an Alpha channel
+- Math operations are only valid among the same data type or a singular Float
+    - Float + Float4 and Float3 + Float 3 &check;
+    - Float3 + Float4 &cross;
+- If you plug in a Float4 to an input that only takes up to Float3, Unreal Engine simply ignores the fourth channel
 
 ## Node Glossary
 | Node | Description|
@@ -194,3 +208,8 @@
 | Texture Sample | Contains a reference to a Texture Map |
 | Constant | A single number ( 0 = Black and 1 = White) |
 | Constant3Vector | A Vector that can signify a color via RGB representation
+| Mask | Filters the input inorder to output specific channels |
+| Split Components | Splits the input into individual channels |
+| Append | Stick two floats together |
+| AppendMany | Stick more than two nodes together |
+| Swizzle | Rearranges the order of a Float3 input |
