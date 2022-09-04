@@ -3,6 +3,9 @@
 ## Table of Contents
 1. [What is a Shader?](#1---what-is-a-shader)
 2. [Basics of PBR](#2---basics-of-pbr)
+3. [What are Datatypes?](#3---what-are-data-types)
+4. [Distortion Shader](#4---distortion-shader)
+
 - [Node Glossary](#node-glossary)
 
 ## 1 - What is a Shader?
@@ -201,6 +204,24 @@
     - Float + Float4 and Float3 + Float 3 &check;
     - Float3 + Float4 &cross;
 - If you plug in a Float4 to an input that only takes up to Float3, Unreal Engine simply ignores the fourth channel
+
+## 4 - Distortion Shader
+1. `TexCoord` + `Float2(0, 0.1)` &rarr; `Texture Sample(RGB)` &rarr; `Root[Base Color, Emissive color]` :
+    - Shifts the UVs down(positive) by 0.1.
+    - If we replace the `Float2` with `Time`, which is a node that holds a **Float1 that increases linearly as long as the program runs**, then the "Shifting" effect would be animated moving diagonally in the positive directions
+        - We can slow down Time by multiplying by something like a `Float2(0.5,0)` which signifies slowing movement of the U-direction by half and stopping movement of the V-direction completely
+2. To offset UV coordintes by a different amount for every pixel (as opposed to uniform movement)
+    - We make a noise texture
+        - In Photoshop we can use the Render Clouds function with different RGB channels
+    - Append the R & G channels of that texture to make a **Float2** that we can add with our `TexCoord`
+        - This would result in an extremely noisy texture. We can minimize this effect by scaling it down using `Multiply(float2, 0.03)` **and then** adding it with the `TexCoord`
+    - To animate our Noisy Offset Texture we can use the exact same scroll effect on this texture instead of the one connected to the root (our "Image Texture" that we're applying the "Offset Texture" to)
+3. Finally, we don't want the animation of the Noisy Texture to look repetitive
+    - We can duplicate the Scrolling noisy effect except we make it scroll in a different direction at a different speed rate
+    - Then we add both of them
+- Use Cases :
+    - Heat Haze
+    - Rippling water
 
 ## Node Glossary
 | Node | Description|
