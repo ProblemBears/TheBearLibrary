@@ -206,8 +206,8 @@
 - If you plug in a Float4 to an input that only takes up to Float3, Unreal Engine simply ignores the fourth channel
 
 ## 4 - Distortion Shader
-1. `TexCoord` + `Float2(0, 0.1)` &rarr; `Texture Sample(RGB)` &rarr; `Root[Base Color, Emissive color]` :
-    - Shifts the UVs down(positive) by 0.1.
+1. Animated Scrolling
+    - `TexCoord` + `Float2(0, 0.1)` &rarr; `Texture Sample(RGB)` &rarr; `Root[Base Color, Emissive color]` : Shifts the UVs down(positive) by 0.1.
     - If we replace the `Float2` with `Time`, which is a node that holds a **Float1 that increases linearly as long as the program runs**, then the "Shifting" effect would be animated moving diagonally in the positive directions
         - We can slow down Time by multiplying by something like a `Float2(0.5,0)` which signifies slowing movement of the U-direction by half and stopping movement of the V-direction completely
 2. To offset UV coordintes by a different amount for every pixel (as opposed to uniform movement)
@@ -223,14 +223,53 @@
     - Heat Haze
     - Rippling water
 
+<div align="center">
+<img src="../images/Unreal%20Engine/Shaders/4%20-%20Distortion.png">
+</div>
+
+## 5 - Flipbook Animation
+- What's a flipbook effect?
+    - An animated texture map usually applied to particle billboards
+    - VFX artists us them to represent very complex effects as cheaply as possible
+- Creating a flipbook effect -
+    - Create (or film) a complex visual effect or animation
+    - Process each frame so that it's square
+    - Arrange the frames in a texture atlas
+    - Use a shader the plays back the frames
+- Unreal Engine has a built-in `FlipBook` node that you need only provide the following things:
+    - A `TexCoord` to `FlipBook[UVs]`
+    - `Constants` to define `FlipBook: [# of Rows] & [# of Cols]`
+    - `Time` to `FlipBook[Animation Phase]`. By Default this is 30FPS.
+        - We can scale the time by multiplying with a Constant (by 0.8 would would make it 24FPS)
+    ![UE Flipbook](../images/Unreal%20Engine/Shaders/5-%20Flipbook%20(UE).png)
+- To implement a Flipbook effect without UE's built-in node:
+    1. Get one frame of you FlipBook Texture
+        - ( `Const(1)` / `Const2(col, rows)` ) * (`TexCoord`) &rarr; `Texture Sample[UVs]`
+    2. Now we have to adjust the UVs so they slowly adjust from one frame to the next
+        - Configure a `Time` node to ba **period** which increments to a limit and then goes back to 0
+        - Multiply by a `Constant(FPS)` that signifies the amount of frames per second
+        - Use `Floor` so that our 'shifting effect' stays at a certain digit, until `Time` reaches the next digit. Otherwise, it would be a scrolling animation
+        - If we add this directly to the `TexCoord`  then the 'flipbook' would step through diagonally
+    3. We'll use (ii) to increment the columns but to increment the row we need to add the following
+        - We need a reference of our `Const2(cols,rows)` again
+        - We need to extract the amount U from the `Const2` with a `ComponentMask`. We'll use this to divide our previous time by the amount of columns, so that when we complete the last column, the V increments.
+        - We make sure that we also `Floor` this value
+    4. Finally, we append both (ii) and (iii) and add it to the `TexCoord` which will be multiplied to our (i)
+        - You can think of the append as a dynamic vector that changes over time
+    ![My Flipbook](../images/Unreal%20Engine/Shaders/5%20-%20Flipbook%20(Implementation).png)
+
+
+
 ## Node Glossary
 | Node | Description|
 |---|---|
 | Texture Sample | Contains a reference to a Texture Map |
-| Constant | A single number ( 0 = Black and 1 = White) |
-| Constant3Vector | A Vector that can signify a color via RGB representation
+| Constant | A single number ( 0 = Black and 1 = White) | 
+| Constant3Vector | A Vector that can signify a color via RGB representation |
 | Mask | Filters the input inorder to output specific channels |
 | Split Components | Splits the input into individual channels |
 | Append | Stick two floats together |
 | AppendMany | Stick more than two nodes together |
 | Swizzle | Rearranges the order of a Float3 input |
+| FlipBook | Allows you to use FlipBook textures |
+| Frac | Throws away the left side of the decimal; leaving the right
