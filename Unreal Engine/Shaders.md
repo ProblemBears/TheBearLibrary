@@ -5,6 +5,7 @@
 2. [Basics of PBR](#2---basics-of-pbr)
 3. [What are Datatypes?](#3---what-are-data-types)
 4. [Distortion Shader](#4---distortion-shader)
+5. [Flipbook Animation](#5---flipbook-animation)
 
 - [Node Glossary](#node-glossary)
 
