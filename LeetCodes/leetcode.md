@@ -4,8 +4,11 @@
 - Linked Lists
     - [234. Palindrome Linked List](#234-palindrome-linked-list)
 - Trees
-    - [144. Binary Tree Preorder Traversal](#144-binary-tree-preorder-traversal)
-    - [102. Binary Tree Level Order Traversal](#102-binary-tree-level-order-traversal)
+    - Traversal
+        - [144. Binary Tree Preorder Traversal](#144-binary-tree-preorder-traversal)
+        - [102. Binary Tree Level Order Traversal](#102-binary-tree-level-order-traversal)
+    - Binary Search Tree
+        - [98. Validate Binary Search (Medium)](#)
 - Tries
 - Graphs
 - Stacks
@@ -152,3 +155,47 @@
         - [Submissions](https://leetcode.com/problems/binary-tree-level-order-traversal/submissions/)
     - Other Approaches
         - Recursive &cross;
+
+### 98. Validate Binary Search Tree
+- [Problem](https://leetcode.com/problems/validate-binary-search-tree/)
+    - Given the root of a binary tree, determine if it is a valid binary search tree (BST).  
+  
+        A valid BST is defined as follows:
+        - The left subtree of a node contains only nodes with keys less than the node's key.
+        - The right subtree of a node contains only nodes with keys greater than the node's key.
+        - Both the left and right subtrees must also be binary search trees.
+
+- My Solutions
+    - Approach 1 - Recursive Traversal With Valid Range (**C++**)
+        - Explanation:
+            - At first, it may seem that you can trivially just compare the left and right child. But this will not work because it is possible that the node may have something like a great great grandchild that ends up being bigger than the grandparent.
+            - Therefore, we have to Top-Down Recursively pack our recursive function with a low and a high range, and if any node is not within that exclusive range then the whole thing fails and returns false.
+        ```c++
+        class Solution {
+        public:
+            bool isValidBST(TreeNode* root) 
+            {
+                return helper(root, nullptr, nullptr);
+            }
+            
+            bool helper(TreeNode* root, TreeNode* lo, TreeNode* hi )
+            {
+                if(!root) return true;
+                
+                if( 
+                    (lo && !(lo->val < root->val) ) 
+                    or
+                    (hi && !(root->val <  hi->val) ) 
+                )
+                    return false;
+                
+                return helper(root->right, root, hi) and helper(root->left, lo, root);
+                
+            }
+        };
+        ```
+        - [Submissions](https://leetcode.com/problems/validate-binary-search-tree/submissions/) - C++
+    - Other Approaches
+        - Iterative Traversal with Valid Range &cross;
+        - Recursive Inorder Traversal &cross;
+        - Iterative Inorder Traversal &cross;
