@@ -8,7 +8,7 @@
         - [144. Binary Tree Preorder Traversal](#144-binary-tree-preorder-traversal)
         - [102. Binary Tree Level Order Traversal](#102-binary-tree-level-order-traversal)
     - Binary Search Tree
-        - [98. Validate Binary Search (Medium)](#)
+        - [98. Validate Binary Search (Medium)](#98-validate-binary-search-tree)
 - Tries
 - Graphs
 - Stacks
@@ -199,3 +199,63 @@
         - Iterative Traversal with Valid Range &cross;
         - Recursive Inorder Traversal &cross;
         - Iterative Inorder Traversal &cross;
+
+### 285. Inorder Successor in BST
+- [Problem](https://leetcode.com/problems/inorder-successor-in-bst/)
+    - Given the root of a binary search tree and a node p in it, return the in-order successor of   that node in the BST. If the given node has no in-order successor in the tree, return null.  
+    The successor of a node p is the node with the smallest key greater than p.val.
+
+- My Solutions
+    - Approach 1 - Without Using BST Properties (**C++**)
+        - Explanation:
+            - For any Binary Tree we can find the inorder successor of a node by implementing
+            the following two cases in order:
+                1. We simply need to find the leftmost node in the subtree rooted at
+                p->right **(NOTICE p IS NOT THE ROOT)**  
+                Because we need to find the
+                successor of p, so if p has a right child then it would be that child's left most
+                descendant (if it has no left than it's simply p->right)
+                2. Otherwise, we do an inorder traversal
+                where we continuously update our previous pointer. When our previous
+                equals the p TreeNode*, since it is our "previous", we can assume that
+                the recursive stack frame we are currently in is our Successor. Of course,
+                we have to make sure not to overwrite Case 1's answer if there is any, 
+                because that case is always logically true and takes precedent over this case.
+        ```c++
+        class Solution {
+        public:
+            TreeNode* previous = nullptr;
+            TreeNode* res = nullptr;
+        public:
+            TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+                //Case 1
+                if(p->right)
+                {
+                    TreeNode* leftMost = p->right;
+                    while(leftMost->left)
+                        leftMost = leftMost->left;
+                    res = leftMost;
+                }
+                //Case 2
+                else
+                    case2Inorder(root, p);
+                return res;
+            }
+            
+            void case2Inorder(TreeNode* node, TreeNode* p)
+            {
+                if(!node) return;
+                case2Inorder(node->left, p);
+                if(previous == p && !res)
+                {
+                    res = node;
+                    return;
+                }
+                previous = node;
+                case2Inorder(node->right, p);
+            }
+        };
+        ```
+        - [Submissions](https://leetcode.com/problems/inorder-successor-in-bst/submissions/) - C++
+    - Other Approaches
+        - Using BST Properties &cross;
