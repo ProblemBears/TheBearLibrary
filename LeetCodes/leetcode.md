@@ -9,6 +9,7 @@
         - [102. Binary Tree Level Order Traversal](#102-binary-tree-level-order-traversal)
     - Binary Search Tree
         - [98. Validate Binary Search (Medium)](#98-validate-binary-search-tree)
+        - [285. Inorder Successor in BST (Medium)](#285-inorder-successor-in-bst)
 - Tries
 - Graphs
 - Stacks
@@ -31,6 +32,10 @@
 - 9/2/2022
     - [144. Binary Tree Preorder Traversal](#144-binary-tree-preorder-traversal)
     - [102. Binary Tree Level Order Traversal](#102-binary-tree-level-order-traversal)
+- 9/3/2022
+    - [98. Validate Binary Search (Medium)](#98-validate-binary-search-tree)
+- 9/4/2022
+    - [285. Inorder Successor in BST (Medium)](#285-inorder-successor-in-bst)
 
 ## Linked List
 ### 234. Palindrome Linked List
