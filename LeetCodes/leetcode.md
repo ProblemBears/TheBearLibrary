@@ -4,13 +4,16 @@
 - Linked Lists
     - [234. Palindrome Linked List](#234-palindrome-linked-list)
 - Trees
-    - Traversal
+    - Binary Tree
         - [144. Binary Tree Preorder Traversal](#144-binary-tree-preorder-traversal)
         - [102. Binary Tree Level Order Traversal](#102-binary-tree-level-order-traversal) 
     - Binary Search Tree
         - [98. Validate Binary Search](#98-validate-binary-search-tree)
         - [285. Inorder Successor in BST](#285-inorder-successor-in-bst)
-
+        - [701. Insert into a Binary Search Tree](#701-insert-into-a-binary-search-tree)
+        - [450. Delete Node in a BST](#450-delete-node-in-a-bst) (TODO)
+    - N-Ary
+        - (Unknown)
 - Tries
 - Graphs
 - Stacks
@@ -39,7 +42,10 @@
     - [285. Inorder Successor in BST](#285-inorder-successor-in-bst)
 - 9/5/2022
     - [285. Inorder Successor in BST (#2)](#285-inorder-successor-in-bst)
-    - 
+    - [701. Insert into a Binary Search Tree](#701-insert-into-a-binary-search-tree)
+- 9/6/2022
+    - [450. Delete Node in a BST](#450-delete-node-in-a-bst) (TODO)
+    - (UNKNOWN: N-ary) (TODO)
 
 ## Linked List
 ### 234. Palindrome Linked List
@@ -69,7 +75,7 @@
             return recursive_helper();
         };
         ```
-    - [Submissions](https://leetcode.com/problems/palindrome-linked-list/submissions/)
+- [Submissions](https://leetcode.com/problems/palindrome-linked-list/submissions/)
 - Other Approaches:
     - Copy into Array List and us the Two Pointer Technique &check;
     - Reverse Second Half In-Place &cross;
@@ -108,7 +114,7 @@
                         stack.append(cur.left)
                 return res
         ```
-        - [Submissions](https://leetcode.com/problems/binary-tree-preorder-traversal/submissions/)
+    - [Submissions](https://leetcode.com/problems/binary-tree-preorder-traversal/submissions/)
     - Other Approaches
         1. Recursion &check;
         2. Morris traversal &cross;
@@ -161,7 +167,7 @@
             }
         };
         ```
-        - [Submissions](https://leetcode.com/problems/binary-tree-level-order-traversal/submissions/)
+    - [Submissions](https://leetcode.com/problems/binary-tree-level-order-traversal/submissions/)
     - Other Approaches
         - Recursive &cross;
 
@@ -203,7 +209,7 @@
             }
         };
         ```
-        - [Submissions](https://leetcode.com/problems/validate-binary-search-tree/submissions/) - C++
+    - [Submissions](https://leetcode.com/problems/validate-binary-search-tree/submissions/) - C++
     - Other Approaches
         - Iterative Traversal with Valid Range &cross;
         - Recursive Inorder Traversal &cross;
@@ -296,17 +302,51 @@
     - [Submissions](https://leetcode.com/problems/inorder-successor-in-bst/submissions/) - C++
 
 ### 701. Insert into a Binary Search Tree
-- [Problem](https://leetcode.com/problems/inorder-successor-in-bst/)
+- [Problem](https://leetcode.com/problems/insert-into-a-binary-search-tree/)
     - You are given the root node of a binary search tree (BST) and a value to insert into the tree. *Return the root node of the BST after the insertion*. It is **guaranteed** that the new value does not exist in the original BST.
 
         Notice that there may exist multiple valid ways for the insertion, as long as the tree remains a BST after insertion. You can return any of them.
 
 - My Solutions
-    - Approach 1 - Without Using BST Properties (**C++**)
+    - Approach 1 - Recursion (**Python**)
         - Explanation:
-            
+            1. **Base Case:**   
+            &nbsp;Once we reach a null node, we return a pointer of a newly allocated Node(val)
+            2. **Recursive Step:**  
+            &nbsp;If the target is greater than the current value
+                1. We traverse to the right node recursively
+                2. Otherwise, we traverse left
+                3. For 1 and 2. We make sure to connec the current node to the recursively returned Node
+            3. **Return:**  
+            &nbsp;Lastly, reutnring the root ensures we keep the structure of our tree
         ```py
+        class Solution:
+        def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+            if not root:
+                return TreeNode(val)
+            
+            if root.val < val:
+                root.right = self.insertIntoBST(root.right, val)
+            else:
+                root.left = self.insertIntoBST(root.left, val)
+                
+            return root
         ```
-    - [Submissions](https://leetcode.com/problems/insert-into-a-binary-search-tree/submissions/) - C++
+    - [Submissions](https://leetcode.com/problems/insert-into-a-binary-search-tree/submissions/) - Python
     - Other Approaches
         - Iteration &check;
+
+### 450. Delete Node in a BST
+- [Problem](https://leetcode.com/problems/delete-node-in-a-bst/)
+    - Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.
+    - Basically, the deletion can be divided into two stages:
+        1. Search for a node to remove.
+        2. If the node is found, delete the node.
+
+- My Solutions
+    - Approach 1 - Recursion (**Python**)
+        - Explanation:
+        ```py
+        ```
+    - [Submissions](https://leetcode.com/problems/delete-node-in-a-bst/submissions/)
+    - Other Approaches
