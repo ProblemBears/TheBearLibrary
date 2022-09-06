@@ -6,10 +6,11 @@
 - Trees
     - Traversal
         - [144. Binary Tree Preorder Traversal](#144-binary-tree-preorder-traversal)
-        - [102. Binary Tree Level Order Traversal](#102-binary-tree-level-order-traversal)
+        - [102. Binary Tree Level Order Traversal](#102-binary-tree-level-order-traversal) 
     - Binary Search Tree
-        - [98. Validate Binary Search (Medium)](#98-validate-binary-search-tree)
-        - [285. Inorder Successor in BST (Medium)](#285-inorder-successor-in-bst)
+        - [98. Validate Binary Search](#98-validate-binary-search-tree)
+        - [285. Inorder Successor in BST](#285-inorder-successor-in-bst)
+
 - Tries
 - Graphs
 - Stacks
@@ -33,9 +34,12 @@
     - [144. Binary Tree Preorder Traversal](#144-binary-tree-preorder-traversal)
     - [102. Binary Tree Level Order Traversal](#102-binary-tree-level-order-traversal)
 - 9/3/2022
-    - [98. Validate Binary Search (Medium)](#98-validate-binary-search-tree)
+    - [98. Validate Binary Search](#98-validate-binary-search-tree)
 - 9/4/2022
-    - [285. Inorder Successor in BST (Medium)](#285-inorder-successor-in-bst)
+    - [285. Inorder Successor in BST](#285-inorder-successor-in-bst)
+- 9/5/2022
+    - [285. Inorder Successor in BST (#2)](#285-inorder-successor-in-bst)
+    - 
 
 ## Linked List
 ### 234. Palindrome Linked List
@@ -261,6 +265,48 @@
             }
         };
         ```
-        - [Submissions](https://leetcode.com/problems/inorder-successor-in-bst/submissions/) - C++
+    - Approach 2 - Using BST properties
+        - Explanation:
+            - We iteratively traverse the tree in A BST manner ( therefore if the BST is balanced we can get our result in O(logN) instead of Approach 1's O(N) ).
+            - While the traversal doesn't end.  
+             We check if **p.val** is **equal to or greater than** the **current node in our traversal's val**
+                - **If yes then -** our answer is on the right subtree
+                - **Otherwise** -The **current node** is a potential successor and we move to the left subtree for the next iteration.
+        ```c++
+        class Solution {
+        public:
+            TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+                TreeNode* successor = nullptr;
+                
+                while(root)
+                {
+                    if( p->val >= root->val)
+                        root = root->right;
+                    else
+                    {
+                        successor = root;
+                        root = root->left;
+                    }
+                }
+                
+                return successor;
+            }
+        };
+        ```  
+    - [Submissions](https://leetcode.com/problems/inorder-successor-in-bst/submissions/) - C++
+
+### 701. Insert into a Binary Search Tree
+- [Problem](https://leetcode.com/problems/inorder-successor-in-bst/)
+    - You are given the root node of a binary search tree (BST) and a value to insert into the tree. *Return the root node of the BST after the insertion*. It is **guaranteed** that the new value does not exist in the original BST.
+
+        Notice that there may exist multiple valid ways for the insertion, as long as the tree remains a BST after insertion. You can return any of them.
+
+- My Solutions
+    - Approach 1 - Without Using BST Properties (**C++**)
+        - Explanation:
+            
+        ```py
+        ```
+    - [Submissions](https://leetcode.com/problems/insert-into-a-binary-search-tree/submissions/) - C++
     - Other Approaches
-        - Using BST Properties &cross;
+        - Iteration &check;
