@@ -6,6 +6,7 @@
 3. [What are Datatypes?](#3---what-are-data-types)
 4. [Distortion Shader](#4---distortion-shader)
 5. [Flipbook Animation](#5---flipbook-animation)
+6. [Environment Blending](#6---environment-blending)
 
 - [Node Glossary](#node-glossary)
 
@@ -259,6 +260,24 @@
         - You can think of the append as a dynamic vector that changes over time
     ![My Flipbook](../images/Unreal%20Engine/Shaders/5%20-%20Flipbook%20(Implementation).png)
 
+## 6 - Environment Blending
+- **Scenario -**
+    - Your environment artists comes to you and says "I'm tired of making rocks! We have levels in snow, deserts, jungles and I have to make different variations of rocks for each. Can you create a shader that applies these effects to my existing rocks?
+- Implementation
+    - The key to this is plugging in each Texture Map to you want to blend together to a `Lerp`
+        - So blend Color Maps using one `Lerp` and their Normal Maps using another
+    - Then we can manipulate the alpha value.   
+        - In the case of blending Moss with a Rock, this would not look right. We would want Moss only at the top slightly trickling down, as opposed to it looking like a transparent overlay. Therefore, to add this effect we do the following:
+            1. Use the `VertexNormalWS` to get the global direction of each vertex normal.
+                - These normals are normalized so their limits are in the range [-1, 1]
+            2. We only want the **up** and **down** values of the normals, hence since Unreal Egnine's Coordinate System is Z-up, we isolate the B component of the vertex normals using a `ComponentMask(-, -, B)`
+                - We can do math here before feeding it to (3). `Power` would focus the "blend margin" towards the top, while adding by 1 would create a perfect horizon in the middle.
+            3. Our `Lerp`'s Alpha parameter accepts values in the range [0, 1]. If it goes out of these bounds then ther interpolation may look weird. Therefore, we clamp the values received from the `ComponentMask` (since they may be negative) with `Clamp{min=0 & max=1}`
+            4. Alternatively, we can throw away the first step (1) by deleting `Vertex Normals` and instead convert the tangents of our stone's Normal Map to World Space by plugging in the **RGB** to the `TransformVector{Tangenet Space -> World Space}`. **This gives it an extremely good blending effect**.
+                - Also, even  if the rock is rotated, the effect still stays at the top!
+- Conclusion
+    - Now all it takes to add snow or sand to a rock, is a simple texture swap
+    
 
 
 ## Node Glossary
@@ -273,4 +292,6 @@
 | AppendMany | Stick more than two nodes together |
 | Swizzle | Rearranges the order of a Float3 input |
 | FlipBook | Allows you to use FlipBook textures |
-| Frac | Throws away the left side of the decimal; leaving the right
+| Frac | Throws away the left side of the decimal; leaving the right |
+| Lerp | Blends between A and B depending on the Alpha value |
+| Clamp | Limits input to a Lower and Outer bound |
