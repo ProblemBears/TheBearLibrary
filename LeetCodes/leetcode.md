@@ -13,7 +13,7 @@
         - [701. Insert into a Binary Search Tree](#701-insert-into-a-binary-search-tree)
         - [450. Delete Node in a BST](#450-delete-node-in-a-bst)
     - N-Ary
-        - (Unknown)
+        - [589. N-ary Tree Preorder Traversal](#589-n-ary-tree-preorder-traversal)
 - Tries
 - Graphs
 - Stacks
@@ -44,8 +44,8 @@
     - [285. Inorder Successor in BST (#2)](#285-inorder-successor-in-bst)
     - [701. Insert into a Binary Search Tree](#701-insert-into-a-binary-search-tree)
 - 9/6/2022
-    - [450. Delete Node in a BST](#450-delete-node-in-a-bst) (TODO)
-    - (UNKNOWN: N-ary) (TODO)
+    - [450. Delete Node in a BST](#450-delete-node-in-a-bst)
+    - [589. N-ary Tree Preorder Traversal](#589-n-ary-tree-preorder-traversal)
 
 ## Linked List
 ### 234. Palindrome Linked List
