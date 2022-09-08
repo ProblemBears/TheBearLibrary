@@ -11,7 +11,7 @@
         - [98. Validate Binary Search](#98-validate-binary-search-tree)
         - [285. Inorder Successor in BST](#285-inorder-successor-in-bst)
         - [701. Insert into a Binary Search Tree](#701-insert-into-a-binary-search-tree)
-        - [450. Delete Node in a BST](#450-delete-node-in-a-bst) (TODO)
+        - [450. Delete Node in a BST](#450-delete-node-in-a-bst)
     - N-Ary
         - (Unknown)
 - Tries
@@ -344,11 +344,88 @@
         2. If the node is found, delete the node.
 
 - My Solutions
-    - Approach 1 - Recursion (**Python**)
+    - Approach 1 - Recursion (**Java**)
         - Explanation:
+            1. Do normal recursive BST traversal until you reach the node to be deleted.
+            2. If the node has no children. Then simply return **null**
+            3. Otherwise, if it has a right child. Get the inorder successor's value and copy it to our current node to be "deleted", it's actually overwritten not deleted. Therefore, we still have that duplicate value we copied to delete, so we use the same delete function except we pass the "override value" for our new target and the right child as our new "root". It should delete, since the successor definetely a leaf.
+            4. Otherwise, we do the same as (3) except for the predecessor
+            5. Return the root
         ```py
+        class Solution {
+        /*
+        One step right and then always left
+        */
+        public int successor(TreeNode root) {
+            root = root.right;
+            while (root.left != null) root = root.left;
+            return root.val;
+        }
+
+        /*
+        One step left and then always right
+        */
+        public int predecessor(TreeNode root) {
+            root = root.left;
+            while (root.right != null) root = root.right;
+            return root.val;
+        }
+
+        public TreeNode deleteNode(TreeNode root, int key) {
+            if (root == null) return null;
+
+            // delete from the right subtree
+            if (key > root.val) root.right = deleteNode(root.right, key);
+            // delete from the left subtree
+            else if (key < root.val) root.left = deleteNode(root.left, key);
+            // delete the current node
+            else {
+            // the node is a leaf
+            if (root.left == null && root.right == null) root = null;
+            // the node is not a leaf and has a right child
+            else if (root.right != null) {
+                root.val = successor(root);
+                root.right = deleteNode(root.right, root.val);
+            }
+            // the node is not a leaf, has no right child, and has a left child    
+            else {
+                root.val = predecessor(root);
+                root.left = deleteNode(root.left, root.val);
+            }
+            }
+            return root;
+        }
+        }
         ```
     - [Submissions](https://leetcode.com/problems/delete-node-in-a-bst/submissions/)
-    - Other Approaches
 
-## Unknown
+## 589. N-ary Tree Preorder Traversal
+- [Problem](https://leetcode.com/problems/n-ary-tree-preorder-traversal/)
+    - Given the root of an n-ary tree, return the preorder traversal of its nodes' values.
+
+        Nary-Tree input serialization is represented in their level order traversal. Each group of children is separated by the null value (See examples)
+
+- My Solutions
+    - Approach 1 - Iteration (**Python**)
+        - Explanation:
+            1. Instantiate a result array and stack
+            2. Put the root in the stack
+            3. While the stack isn't empty
+                1. Pop the current node from the stack
+                2. Place it in the result
+                3. Put all chidren of the current node into the stack in reverse order
+            4. Return the result
+        ```py
+        class Solution:
+        def preorder(self, root: 'Node') -> List[int]:
+            if root is None:
+                return []
+            
+            stack, res = [root, ], []
+            while stack:
+                root = stack.pop()
+                res.append(root.val)
+                stack.extend(root.children[::-1])
+            return res
+        ```
+    - [Submissions](https://leetcode.com/problems/n-ary-tree-preorder-traversal/submissions/)
