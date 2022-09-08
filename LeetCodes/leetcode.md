@@ -14,6 +14,7 @@
         - [450. Delete Node in a BST](#450-delete-node-in-a-bst)
     - N-Ary
         - [589. N-ary Tree Preorder Traversal](#589-n-ary-tree-preorder-traversal)
+        - [590. N-ary Tree Postorder Traversal](#590-n-ary-tree-postorder-traversal)
 - Tries
 - Graphs
 - Stacks
@@ -46,6 +47,8 @@
 - 9/6/2022
     - [450. Delete Node in a BST](#450-delete-node-in-a-bst)
     - [589. N-ary Tree Preorder Traversal](#589-n-ary-tree-preorder-traversal)
+- 9/7/2022
+    - [590. N-ary Tree Postorder Traversal](#590-n-ary-tree-postorder-traversal)
 
 ## Linked List
 ### 234. Palindrome Linked List
@@ -429,3 +432,28 @@
             return res
         ```
     - [Submissions](https://leetcode.com/problems/n-ary-tree-preorder-traversal/submissions/)
+
+## 590. N-ary Tree Postorder Traversal
+- [Problem](https://leetcode.com/problems/n-ary-tree-postorder-traversal/)
+    - Given the root of an n-ary tree, return the postorder traversal of its nodes' values.
+
+        Nary-Tree input serialization is represented in their level order traversal. Each group of children is separated by the null value
+
+- My Solutions
+    - Approach 1 - Recursion (**Python**)
+
+        ```py
+        class Solution:
+            def postorder(self, root: 'Node') -> List[int]:
+                return self.helper(root, [])
+            
+            def helper(self, root, res):
+                if root is None:
+                    return res
+                
+                for c in root.children:
+                    res = self.helper(c, res)
+                res.append(root.val)
+                return res
+        ```
+    - [Submissions](https://leetcode.com/problems/n-ary-tree-postorder-traversal/submissions/)
