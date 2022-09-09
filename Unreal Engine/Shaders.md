@@ -271,10 +271,11 @@
             1. Use the `VertexNormalWS` to get the global direction of each vertex normal.
                 - These normals are normalized so their limits are in the range [-1, 1]
             2. We only want the **up** and **down** values of the normals, hence since Unreal Egnine's Coordinate System is Z-up, we isolate the B component of the vertex normals using a `ComponentMask(-, -, B)`
-                - We can do math here before feeding it to (3). `Power` would focus the "blend margin" towards the top, while adding by 1 would create a perfect horizon in the middle.
+                - We can do math here before feeding it to (c). `Power` would focus the "blend margin" towards the top, while adding by 1 would create a perfect horizon in the middle.
             3. Our `Lerp`'s Alpha parameter accepts values in the range [0, 1]. If it goes out of these bounds then ther interpolation may look weird. Therefore, we clamp the values received from the `ComponentMask` (since they may be negative) with `Clamp{min=0 & max=1}`
             4. Alternatively, we can throw away the first step (1) by deleting `Vertex Normals` and instead convert the tangents of our stone's Normal Map to World Space by plugging in the **RGB** to the `TransformVector{Tangenet Space -> World Space}`. **This gives it an extremely good blending effect**.
                 - Also, even  if the rock is rotated, the effect still stays at the top!
+    ![Environment Blending](../images/Unreal%20Engine/Shaders/6%20-%20Environment%20Blending.png)
 - Conclusion
     - Now all it takes to add snow or sand to a rock, is a simple texture swap
     
