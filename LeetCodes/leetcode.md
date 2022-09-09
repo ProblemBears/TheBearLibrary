@@ -17,6 +17,7 @@
         - [590. N-ary Tree Postorder Traversal](#590-n-ary-tree-postorder-traversal)
         - [429. N-ary Tree Level Order Traversal](#429-n-ary-tree-level-order-traversal)
 - Tries
+    - [208. Implement Trie (Prefix Tree)](#208-implement-trie-prefix-tree)
 - Graphs
 - Stacks
 - Queues
@@ -51,6 +52,9 @@
 - 9/7/2022
     - [590. N-ary Tree Postorder Traversal](#590-n-ary-tree-postorder-traversal)
     - [429. N-ary Tree Level Order Traversal](#429-n-ary-tree-level-order-traversal)
+- 9/8/2022
+    - [208. Implement Trie (Prefix Tree)](#208-implement-trie-prefix-tree) (TODO)
+    - [UNKOWN]()
 
 ## Linked List
 ### 234. Palindrome Linked List
@@ -404,7 +408,7 @@
         ```
     - [Submissions](https://leetcode.com/problems/delete-node-in-a-bst/submissions/)
 
-## 589. N-ary Tree Preorder Traversal
+### 589. N-ary Tree Preorder Traversal
 - [Problem](https://leetcode.com/problems/n-ary-tree-preorder-traversal/)
     - Given the root of an n-ary tree, return the preorder traversal of its nodes' values.
 
@@ -435,7 +439,7 @@
         ```
     - [Submissions](https://leetcode.com/problems/n-ary-tree-preorder-traversal/submissions/)
 
-## 590. N-ary Tree Postorder Traversal
+### 590. N-ary Tree Postorder Traversal
 - [Problem](https://leetcode.com/problems/n-ary-tree-postorder-traversal/)
     - Given the root of an n-ary tree, return the postorder traversal of its nodes' values.
 
@@ -460,7 +464,7 @@
         ```
     - [Submissions](https://leetcode.com/problems/n-ary-tree-postorder-traversal/submissions/)
 
-## 429. N-ary Tree Level Order Traversal
+### 429. N-ary Tree Level Order Traversal
 - [Problem](https://leetcode.com/problems/n-ary-tree-level-order-traversal/)
     - Given an n-ary tree, return the level order traversal of its nodes' values.
 
@@ -505,3 +509,6 @@
     - Other Approaches:
         - Simplified BFS &cross;
         - Recursion &cross;
+
+## Tries
+### 208. Implement Trie (Prefix Tree)
