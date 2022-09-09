@@ -8,6 +8,7 @@
 5. [Flipbook Animation](#5---flipbook-animation)
 6. [Environment Blending](#6---environment-blending)
 7. [Shader Performance Optimization](#7---shader-performance-optimization)
+8. [Bump Offset and Parallax Occlusion Mapping](#8---bump-offset-and-parallax-occlusion-mapping)
 
 - [Node Glossary](#node-glossary)
 
@@ -301,6 +302,23 @@
         - Create an AmbientOcclusion Specular Metal Roughness texture (ASMR) by packing them into individual channels
         - This can be done in software like Photoshop
 
+## 8 - Bump Offset and Parallax Occlusion Mapping
+- Two methods of making normal mapping look more realistic
+    1. Offset Mapping (basic effect, simplest)
+        1. Import a Height Map
+        2. Connect the R Channel of (a) to `BumpOffset`
+        3. Connect the output of (b) to the "UVs" input of all your `Texture Samples`
+        - BumpOffset shifts the white areas of your HeightMap based on the camera's position
+        - IF you hadn't applied this, then your Normal Map would've looked flatter than it should
+    ![Offset Mapping](../images/Unreal%20Engine/Shaders/8%20-%20Offset%20Mapping.png)
+    2. Parallax Occlusion Mapping (best looking effect, most expensive)
+        1. Plug in a `Texture Object` into a `ParallaxOcclusionMapping(Heightmap Texture (T2d))` (we need a Texture Object and not Sample, because the `ParallaxOcclusionMapping` does the sampling multiple times). Then define a Height Ratio and a HeightMap Channel.
+        2. Connect the "Parallax Uvs" Output to every Texture Sample.
+        - ParalaxOcclusionMapping does ray tracing
+        - Increase Min Steps and Max Steps for better detail
+    ![Parallax Occlusion Mapping](../images/Unreal%20Engine/Shaders/8%20-%20Parallax%20Occlusion%20Mapping.png)
+
+
 ## Node Glossary
 | Node | Description|
 |---|---|
@@ -316,3 +334,6 @@
 | Frac | Throws away the left side of the decimal; leaving the right |
 | Lerp | Blends between A and B depending on the Alpha value |
 | Clamp | Limits input to a Lower and Outer bound |
+| BumpOffset | Requires a Height Map in its Height input. Shifts based on black & white and the camera position |
+| Texture Object | Contains the location of a texture without sampling |
+| ParallaxOcclusionMapping | Used for better normals (See 8) |
