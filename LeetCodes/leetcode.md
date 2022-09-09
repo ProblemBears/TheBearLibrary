@@ -15,6 +15,7 @@
     - N-Ary
         - [589. N-ary Tree Preorder Traversal](#589-n-ary-tree-preorder-traversal)
         - [590. N-ary Tree Postorder Traversal](#590-n-ary-tree-postorder-traversal)
+        - [429. N-ary Tree Level Order Traversal](#429-n-ary-tree-level-order-traversal)
 - Tries
 - Graphs
 - Stacks
@@ -49,6 +50,7 @@
     - [589. N-ary Tree Preorder Traversal](#589-n-ary-tree-preorder-traversal)
 - 9/7/2022
     - [590. N-ary Tree Postorder Traversal](#590-n-ary-tree-postorder-traversal)
+    - [429. N-ary Tree Level Order Traversal](#429-n-ary-tree-level-order-traversal)
 
 ## Linked List
 ### 234. Palindrome Linked List
@@ -457,3 +459,49 @@
                 return res
         ```
     - [Submissions](https://leetcode.com/problems/n-ary-tree-postorder-traversal/submissions/)
+
+## 429. N-ary Tree Level Order Traversal
+- [Problem](https://leetcode.com/problems/n-ary-tree-level-order-traversal/)
+    - Given an n-ary tree, return the level order traversal of its nodes' values.
+
+        Nary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value (See examples).
+
+- My Solutions
+    - Approach 1 - BFS using a Queue (**Javascript**)
+        - Explanation:
+            1. Create a queue, return array, and push the root to the queue
+            2. While the queue isn't empty
+                1. Create a level return array, and get the current queue size (this is the size of the current level)
+                2. For every node in the current level (use the level size to know the end of a level)
+                    1. Pop the node from the queue
+                    2. Store its value in the level return array
+                    3. Store its children in the queue
+                3. Store the level return array in the main return array
+            5. Return the main return array
+
+        ```js
+        var levelOrder = function(root) {
+            if(!root) return [];
+            
+            let res = [];
+            let q = [];
+            
+            q.push(root);
+            while(q.length){
+                let level = [];
+                let levelSize = q.length;
+                
+                for(let i = 0; i < levelSize; i++){
+                    let cur = q.shift();
+                    q = q.concat(cur.children);
+                    level.push(cur.val);
+                }
+                res.push(level);
+            }
+            return res;
+        };
+        ```
+    - [Submissions](https://leetcode.com/problems/n-ary-tree-level-order-traversal/submissions/) - C++, JavaScript, 
+    - Other Approaches:
+        - Simplified BFS &cross;
+        - Recursion &cross;
