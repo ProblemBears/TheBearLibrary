@@ -7,6 +7,7 @@
 4. [Distortion Shader](#4---distortion-shader)
 5. [Flipbook Animation](#5---flipbook-animation)
 6. [Environment Blending](#6---environment-blending)
+7. [Shader Performance Optimization](#7---shader-performance-optimization)
 
 - [Node Glossary](#node-glossary)
 
@@ -278,8 +279,27 @@
     ![Environment Blending](../images/Unreal%20Engine/Shaders/6%20-%20Environment%20Blending.png)
 - Conclusion
     - Now all it takes to add snow or sand to a rock, is a simple texture swap
-    
 
+## 7 - Shader Performance Optimization
+- Three methods to calculate shader performance :
+    1. Shader Complexity View Mode
+        - Viewport &rarr; ViewMode &rarr; Optomization ViewMode &rarr; Shader Complexity `Alt+8`
+        - Least best
+    2. Shader Instruction Count
+        - You can see this in your stats
+        - Medium best
+    3. Test on your target platform
+        - Every platform has different performance capabilties
+        - Most accurate, but also hardest
+- Four methods to optimize your shaders
+    1. Get rid of anything you're not using
+    2. Refactor math formulas
+    3. "Pipelining" - Combining components into float4s to do less math
+        - In our Distortion Shader we could have a Vector4 take in both Vec2s and do the same calulcations, excpept later on we filter them back to individual Vec2s
+    4. Texture Channel Packing
+        - Sampling a lot of textures is expensive
+        - Create an AmbientOcclusion Specular Metal Roughness texture (ASMR) by packing them into individual channels
+        - This can be done in software like Photoshop
 
 ## Node Glossary
 | Node | Description|
