@@ -10,6 +10,7 @@
 7. [Shader Performance Optimization](#7---shader-performance-optimization)
 8. [Bump Offset and Parallax Occlusion Mapping](#8---bump-offset-and-parallax-occlusion-mapping)
 9. [Texture Compression and Settings](#9---texture-compression-and-settings)
+10. [Cloth Shading](#10---cloth-shading)
 
 - [Node Glossary](#node-glossary)
 
@@ -333,6 +334,25 @@
         - For height maps you can also use Grayscale for more quality since it stores a single channel
     - Have sRGB ticked mainly only for Color Maps
     - These changes would be visible in your Texture Node previews
+
+## 10 - Cloth Shading
+- If we look at images of cloth we see that lighting either effects the edges, or the middle
+    - Silk is bright in the middle and dark on the edges
+    - Cotton is brighter on the edges and darker in the middle
+- When you see something like this you should think of `Fresnel` although in this case we won't use it because we want to customize it more.
+- The following shader effect is based on Uncharted 2's cloth shading:
+    1. A basic fresnel can be created by doing the `DotProduct` of `CameraVectorWS` and `PixelNormalWS`
+        - Because, if the surface normal is pointing away from the camera it gives us a darker shade (the edges) and if it's pointing directly at us a lighter shade (the center)
+    2. If we do `1-x` it inverts the dark and light areas.
+    3. We can insert a `Power` to control the fall off (the higher the power the sharper the fall off) 
+    4. After the fall off, we can use `Multiply` to tweak the brightness (or darkness) of the edges
+    5. Duplicate all of this to and get rid of the inversion. We'll `Add` one that's inverted and one that's not inverted, in order to make the effect bright on the edges and center, with darkness in between.
+        - The inversion is the outer fresnel
+        - the non inversion is the inner fresnel
+        - With the four controls (multiplies and powers) we can create all different kinds of cloth effects (like satin, silk, denim) just by adjusting the falloff and brightness
+    6. Lastly add your Color and Normal Map (possibly scale their UVs with `Multiply` for more "grainy" cloth) and `Multiply` the Color Map with the Fresnel Effect (The Normal Map simply goes to the `Root[Normal]`)
+        - We can also replace (i)'s `PixelNormalWS` with our Normal Map's RGB output
+    ![Cloth Shading](../images/Unreal%20Engine/Shaders/10%20-%20Cloth%20Shading.png)
 
 ## Node Glossary
 | Node | Description|
