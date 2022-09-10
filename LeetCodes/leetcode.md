@@ -20,7 +20,7 @@
     - [208. Implement Trie (Prefix Tree)](#208-implement-trie-prefix-tree)
 - Graphs
     - Disjoint Set
-        - []()
+        - [547. Number of Provinces](#547-number-of-provinces)
 - Stacks
 - Queues
 - Heaps
@@ -56,7 +56,7 @@
     - [429. N-ary Tree Level Order Traversal](#429-n-ary-tree-level-order-traversal)
 - 9/8/2022
     - [208. Implement Trie (Prefix Tree)](#208-implement-trie-prefix-tree)
-    - [UNKOWN]()
+    - [547. Number of Provinces](#547-number-of-provinces)
 
 ## Linked List
 ### 234. Palindrome Linked List
@@ -580,3 +580,94 @@
                 return True
         ```
     - [Submissions](https://leetcode.com/problems/implement-trie-prefix-tree/submissions/) - C++, JavaScript, Python
+
+## Graphs
+### 547. Number of Provinces
+- [Problem](https://leetcode.com/problems/number-of-provinces/https://leetcode.com/problems/number-of-provinces/)
+    - There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c.
+
+        A province is a group of directly or indirectly connected cities and no other cities outside of the group.
+
+        You are given an n x n matrix isConnected where isConnected[i][j] = 1 if the ith city and the jth city are directly connected, and isConnected[i][j] = 0 otherwise.
+
+        Return the total number of provinces.
+
+- My Solutions
+    - Approach 3 - Union-Find (**Python**)
+        - Explanation:
+            1. UnionFind's `root[]` is a representation of connected provininces. Initially, every node's root is itself which represents all of them being seperated and not yet connected
+                - `unify` forms the connections in this UnionFind
+                - `find` is used by unify, to get the root of a node, and simultaneously update the roots of nodes to the root
+                - `islands` returns the answer to how many provinces there are by making use of the fact that nodes with the root as their index is the head of an island, otherwise it's part of an island
+            2. Therefore, we create the UnionFind representation from the adjacency matrix and get the result from it.
+        ```c++
+        class UnionFind {
+        private:
+            vector<int> root, rank;
+        public:
+            UnionFind(int size)
+                : root(size), rank(size)
+            {
+                for(int i = 0; i < size; i++)
+                {
+                    root[i] = i;
+                    rank[i] = 1;
+                }
+            }
+            
+            void unify(int x, int y)
+            {
+                int rootX = find(x);
+                int rootY = find(y);
+                if(rootX != rootY)
+                {
+                    if(rank[rootX] > rank[rootY])
+                        root[rootY] = rootX;
+                    else if(rank[rootX] < rank[rootY])
+                        root[rootX] = rootY;
+                    else
+                    {
+                        root[rootY] = rootX;
+                        rank[rootX] += 1;
+                    }
+                }
+            }
+            
+            int find(int x)
+            {
+                if( x == root[x] ) return x;
+                return root[x] = find(root[x]);
+            }
+            
+            int islands(){
+                int res = 0;
+                for(int i = 0; i < root.size(); i++)
+                {
+                    if(root[i] == i)
+                        res++;
+                }
+                return res;
+            }
+        };
+
+        class Solution {
+        public:
+            int findCircleNum(vector<vector<int>>& isConnected) {
+                int n = isConnected.size();
+                UnionFind uf = UnionFind(n);
+                for(int i = 0; i < n; i++)
+                {
+                    for(int j = 0; j < n; j++)
+                    {
+                        if(isConnected[i][j])
+                            uf.unify(i, j);
+                    }
+                }
+                return uf.islands();
+            }
+        };
+        ```
+    - [Submissions](https://leetcode.com/problems/number-of-provinces/submissions/) - C++, Python
+    - Other Approaches
+        1. DFS &cross;
+        2. BFS &cross;
