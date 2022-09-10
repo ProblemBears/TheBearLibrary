@@ -9,6 +9,7 @@
 6. [Environment Blending](#6---environment-blending)
 7. [Shader Performance Optimization](#7---shader-performance-optimization)
 8. [Bump Offset and Parallax Occlusion Mapping](#8---bump-offset-and-parallax-occlusion-mapping)
+9. [Texture Compression and Settings](#9---texture-compression-and-settings)
 
 - [Node Glossary](#node-glossary)
 
@@ -318,6 +319,20 @@
         - Increase Min Steps and Max Steps for better detail
     ![Parallax Occlusion Mapping](../images/Unreal%20Engine/Shaders/8%20-%20Parallax%20Occlusion%20Mapping.png)
 
+## 9 - Texture Compression and Settings
+- Texture Compression settings are important to get the right balance between performance and detail
+- To see texture details *double-click* the Texture and look at it's **Details panel**
+    - **Method :** Streamed means the engine loads it when a certain object gets near
+    - **Format :** DXT1 is one of the best compression formats
+    - **Number of Mips :** When you import a texture into UE it creates a **MipMap chain** which is copies of the texture but at lower resolutions (so from something like 4k to 4x4)
+- In the details panel we can also change compression settings
+    - Compress without Alpha: &check; - If you know you won't use the alpha channel for this texture
+    - Compression Settings: 
+        - For most use DXT1
+        - For normals use normals, for asmr textures and height maps use mask
+        - For height maps you can also use Grayscale for more quality since it stores a single channel
+    - Have sRGB ticked mainly only for Color Maps
+    - These changes would be visible in your Texture Node previews
 
 ## Node Glossary
 | Node | Description|
