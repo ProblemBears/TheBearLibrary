@@ -19,6 +19,8 @@
 - Tries
     - [208. Implement Trie (Prefix Tree)](#208-implement-trie-prefix-tree)
 - Graphs
+    - Disjoint Set
+        - []()
 - Stacks
 - Queues
 - Heaps
@@ -53,7 +55,7 @@
     - [590. N-ary Tree Postorder Traversal](#590-n-ary-tree-postorder-traversal)
     - [429. N-ary Tree Level Order Traversal](#429-n-ary-tree-level-order-traversal)
 - 9/8/2022
-    - [208. Implement Trie (Prefix Tree)](#208-implement-trie-prefix-tree) (TODO)
+    - [208. Implement Trie (Prefix Tree)](#208-implement-trie-prefix-tree)
     - [UNKOWN]()
 
 ## Linked List
@@ -512,3 +514,69 @@
 
 ## Tries
 ### 208. Implement Trie (Prefix Tree)
+- [Problem](https://leetcode.com/problems/implement-trie-prefix-tree/)
+    - A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.
+
+        Implement the Trie class:
+
+        - `Trie()` Initializes the trie object.
+        - `void insert(String word)` Inserts the string word into the trie.
+        - `boolean search(String word)` Returns true if the string word is in the trie (i.e., was - inserted before), and false otherwise.
+        - `boolean startsWith(String prefix)` Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
+
+
+- My Solutions
+    - Approach 1 - Array initialized with 26 nulls (**Python**)
+        - Explanation:
+            - Traversal is the key to most of these functions. It starts with checking whether there's a node of the current character that we can traverse to, and if there isn't for:
+                - `insert` we add a node and continue the traversal. we mark it as word at the last traversed node.
+                - `search` it fails. Otherwise, at the end of a traversal it must check if the ending is a word
+                - `startsWith` also fails. But, it returns true if it completes it's traversal.
+        ```py
+        class TrieNode:
+            def __init__(self):
+                self.children = [None]*26
+                self.isWord = False
+                
+            def hasChild(self, c):
+                return self.children[ord(c)-ord('a')] != None
+            
+            def putChild(self, c):
+                self.children[ord(c)-ord('a')] = TrieNode()
+                
+            def getChild(self, c):
+                return self.children[ord(c)-ord('a')]
+            
+            def markWord(self):
+                self.isWord = True
+                
+        class Trie:
+
+            def __init__(self):
+                self.root = TrieNode()
+
+            def insert(self, word: str) -> None:
+                node = self.root
+                for c in word:
+                    if not node.hasChild(c):
+                        node.putChild(c)
+                    node = node.getChild(c)
+                node.markWord()
+
+            def search(self, word: str) -> bool:
+                node = self.root
+                for c in word:
+                    if not node.hasChild(c):
+                        return False
+                    node = node.getChild(c)
+                return node.isWord
+
+            def startsWith(self, prefix: str) -> bool:
+                node = self.root
+                for c in prefix:
+                    if not node.hasChild(c):
+                        return False
+                    node = node.getChild(c)
+                return True
+        ```
+    - [Submissions](https://leetcode.com/problems/implement-trie-prefix-tree/submissions/) - C++, JavaScript, Python
