@@ -11,6 +11,7 @@
 8. [Bump Offset and Parallax Occlusion Mapping](#8---bump-offset-and-parallax-occlusion-mapping)
 9. [Texture Compression and Settings](#9---texture-compression-and-settings)
 10. [Cloth Shading](#10---cloth-shading)
+11. [Volumetric Ice Shader](#11---volumetric-ice-shader)
 
 - [Node Glossary](#node-glossary)
 
@@ -353,6 +354,27 @@
     6. Lastly add your Color and Normal Map (possibly scale their UVs with `Multiply` for more "grainy" cloth) and `Multiply` the Color Map with the Fresnel Effect (The Normal Map simply goes to the `Root[Normal]`)
         - We can also replace (i)'s `PixelNormalWS` with our Normal Map's RGB output
     ![Cloth Shading](../images/Unreal%20Engine/Shaders/10%20-%20Cloth%20Shading.png)
+
+## 11 - Volumetric Ice Shader
+- A **volumetric effect** simulates the appearance of objects inside other objects (like  ice)
+- To start, we need a grayscale Perlin Noise texture. We wantt the noise to move around as if it were under the surface instead of on the surface.
+    - Think of it as a sub-surface below the surface, that "shits" relative to our Camera vector.
+    - A vector that has this "shifting" effect is a **Reflection Vector** but it reflects going going upwards, therefore, for since our sub surface is below the surface, we need to inver the reflection vector to create a **Transmission Vector**
+    <div align="center">
+        <img src="../images/Unreal%20Engine/Shaders/11%20-%20Transmission%20Vector.png" width="400">
+    </div>
+- To create this shader :
+    1. To yield a "shifting" effect for the texture
+        - `CameraVector`&rarr;`TransformVector{world->tangenet}` & `Float3(0,0,1)` plugged into `CustomReflectionVector[CameraVector,Normal]` respectively. Since it yield's a Float3 we also filter it with a `ComponentMask{R,G}`
+    2. The texure would still be way behind the surface, so we need controls
+        - To control the offset we wire the `CustomReflectionVector` to a `Mask`&rarr;`Abs` and then `Divide` it with a `Float1` (as the numerator; controls the offset). Multiply it by the masked Reflection Vector.
+            - The lower the numerator, the slower the shifting effect
+        - To control the amount of offset based on the resolution of the texture we do the same as above, except with the resolution of the texture. Multiply it by the previous Multiply.
+        - `Add` this to the `TexCoord` before feeding it to the `Texture Sample`
+    3. Still, the surface would still look smooth, we should give it blemishes.
+        -We can do this by replacing the straight normal `Float(0,0,1)` with a Normal Map
+    4. To offset some pixels more than others we can use the same grayscale Perlin Noise texture multiplied by 50 in place of our offset control
+    ![Volumetric Ice Shader](../images/Unreal%20Engine/Shaders/11%20-%20Volumetric%20Ice%20shader.png)
 
 ## Node Glossary
 | Node | Description|
