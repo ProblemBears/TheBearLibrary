@@ -12,6 +12,7 @@
 9. [Texture Compression and Settings](#9---texture-compression-and-settings)
 10. [Cloth Shading](#10---cloth-shading)
 11. [Volumetric Ice Shader](#11---volumetric-ice-shader)
+12. [Rustling Leaves Shader](#12---rustling-leaves-shader)
 
 - [Node Glossary](#node-glossary)
 
@@ -376,6 +377,20 @@
     4. To offset some pixels more than others we can use the same grayscale Perlin Noise texture multiplied by 50 in place of our offset control
     ![Volumetric Ice Shader](../images/Unreal%20Engine/Shaders/11%20-%20Volumetric%20Ice%20shader.png)
 
+## 12 - Rustling Leaves Shader
+- If we were to give individual polygons to every leaf in a tree it would be very expensive. Therefore, we should just make one square polygon with a texture that has hundreds of leaves so we can make a shader that animates every individual leaf in that texture
+- To create the shader :
+    1. We need smooth alternating movement to simulate a breeze
+        - We can already do a scrolling effect by adding `Time` and scaling it's speed.
+        - Now we need to make sure the scroll alternates back and forth by connecting it to a `Sine` which stays in the range [-1, 1]. We can also scale this to stay at a lower range.
+    2. Now we have to isolate individual leaves to make them wiggle in different amounts
+        - We can do this by painting RGB where certain leaves are in a new Mask Texture (it doesn't have to be high quality or perfectly positioned)
+        - Then we tweak the single channel time scale and sine scale in our (i) to three channels which we can multiply by our Mask Texture.
+        - Finally, we split the components and add them before adding them to the `TexCoord`
+    3. To give the leaves more of a 3D feel, we can add the following to our `Root[Normal]`
+        - Scale the `Sine` range and multiply it by the Mask Texture before adding it to the `VertexNormalWS`c
+    ![Alternating Leaves](../images/Unreal%20Engine/Shaders/12%20-%20Rustling%20Leaves%20Shader.png)
+
 ## Node Glossary
 | Node | Description|
 |---|---|
@@ -394,3 +409,5 @@
 | BumpOffset | Requires a Height Map in its Height input. Shifts based on black & white and the camera position |
 | Texture Object | Contains the location of a texture without sampling |
 | ParallaxOcclusionMapping | Used for better normals (See 8) |
+| CustomReflectionVector | Takes in a normal and |
+| Sine | Given an ever increasing value. This alternates in the range [-1, 1] |
