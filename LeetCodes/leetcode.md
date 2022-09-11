@@ -28,6 +28,7 @@
 - Hash Tables
 - BFS
 - DFS
+    - [1971. Find if Path Exists in Graph](#1971-find-if-path-exists-in-graph)
 - Binary Search
 - Merge Sort
 - Quick Sort
@@ -671,3 +672,49 @@
     - Other Approaches
         1. DFS &cross;
         2. BFS &cross;
+
+## DFS
+### 1971. Find if Path Exists in Graph
+- [Problem](https://leetcode.com/problems/find-if-path-exists-in-graph/)
+    - There is a bi-directional graph with n vertices, where each vertex is labeled from 0 to n - 1 (inclusive). The edges in the graph are represented as a 2D integer array edges, where each edges[i] = [ui, vi] denotes a bi-directional edge between vertex ui and vertex vi. Every vertex pair is connected by at most one edge, and no vertex has an edge to itself.
+
+        You want to determine if there is a valid path that exists from vertex source to vertex destination.
+
+        Given edges and the integers n, source, and destination, return true if there is a valid path from source to destination, or false otherwise.
+
+- My Solutions
+    - Approach - Iterative DFS (**Python**)
+        - Explanation:
+            1. Form a **graph representation** out of the given **edges**. Here we make an **adjacency list** to represent our graph
+            2. Then we do our DFS to see if a path from **source to destination** exists :
+                1. Put the source node in the queue and seen array
+                2. While the queue isn't empty
+                    1. Pop the front of the queue. This is our **current** node
+                    2. If this is the destination return **True** because a path does exist!
+                    3. Otherwise, add all of the neighbors of the current node to the queue and seen array, to continue the DFS
+            3. If the DFS ends without ever reaching the destination, return false
+        ```py
+        class Solution:
+        def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+            adjacency_list = [[] for _ in range(n)]
+            for x, y in edges:
+                adjacency_list[x].append(y)
+                adjacency_list[y].append(x)
+                
+            q = collections.deque([source])
+            seen = set([source])
+            
+            while q:
+                node = q.popleft()
+                
+                if node == destination:
+                    return True
+                
+                for neighbor in adjacency_list[node]:
+                    if neighbor not in seen:
+                        seen.add(neighbor)
+                        q.append(neighbor)
+                        
+            return False
+        ```
+    - [Submissions](https://leetcode.com/problems/find-if-path-exists-in-graph/submissions/) - C++ &cross;, Python &check;
