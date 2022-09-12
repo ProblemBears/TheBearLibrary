@@ -13,6 +13,7 @@
 10. [Cloth Shading](#10---cloth-shading)
 11. [Volumetric Ice Shader](#11---volumetric-ice-shader)
 12. [Rustling Leaves Shader](#12---rustling-leaves-shader)
+13. [Rain Wetness Shader](#13---rain-wetness-shader)
 
 - [Node Glossary](#node-glossary)
 
@@ -391,6 +392,23 @@
         - Scale the `Sine` range and multiply it by the Mask Texture before adding it to the `VertexNormalWS`c
     ![Alternating Leaves](../images/Unreal%20Engine/Shaders/12%20-%20Rustling%20Leaves%20Shader.png)
 
+## 13 - Rain Wetness Shader
+- What makes a surface look wet?
+    - **Roughness and Specularity**
+        - The **roughness** is low (a 0.007 is a good value)
+        - The **specular** is low-ish (0.3 is good)
+    - If the surface is **Porous**
+        - it absorbs water in it's surface which makes it saturated and darker
+- Rain covers a lot when it pours, therefore we should make this shader effect into a **Material Function** as follows:
+    1. Create `Inputs` and `Outputs` for Roughness, Specularity, and Base Color. As well as `Inputs` for the controller of our wetness effect, **WetMask** and **Porousness**.
+    2. If a material is wet it's **specularity** and **roughness** must `Lerp` towards wet values such as `[0.007, 0.3]` respectively. The interpolation is controlled by the `Input(WetMask)`
+    3. If a material is not only wet, but also **porous** then we have to make it's colors more vibrant by **saturating** the base color and **darkening** it. The lerp is controlled by multiplying both the `Input(WetMask)` & `Input(Porousness)` and making sure to clamp it to the range [0, 1] with the `Saturation` node.
+        - It's important to note `Saturation` is just a clamp function that has nothing to do with actually manipulating color saturation. The actual color saturation is done by feeding a negative to `Unsaturation` which is a node that converts colors to grayscales if positive.
+    ![Wetness Function](../images/Unreal%20Engine/Shaders/13%20-%20Wetness%20Function.png)
+- Finally, we make use of the Material Function by using it on a Material, where we feed it the appropriate inputs to define whether we want it to look wet or not
+    - In the following case, we use it on a brick wall material from the UE Starting Content:
+    ![Applied to a Material](../images/Unreal%20Engine/Shaders/13%20-%20Rain%20Wetness%20Shader.png)
+
 ## Node Glossary
 | Node | Description|
 |---|---|
@@ -411,3 +429,5 @@
 | ParallaxOcclusionMapping | Used for better normals (See 8) |
 | CustomReflectionVector | Takes in a normal and |
 | Sine | Given an ever increasing value. This alternates in the range [-1, 1] |
+| Unsaturation | If fed a positive it shifts colors towards grayscale, otherwise if negative then it saturates colors|
+| Saturation | Clamps values between [0, 1] |
