@@ -33,7 +33,7 @@
     - [133. Clone Graph](#133-clone-graph)
     - [1059. All Paths from Source Lead to Destination](#1059-all-paths-from-source-lead-to-destination)
 - Binary Search
-- Merge Sort`
+- Merge Sort
 - Quick Sort
 - Bit Manipulation
 - Recursion
@@ -67,7 +67,7 @@
 - 9/10/2022
     - [133. Clone Graph](#133-clone-graph)
 - 9/11/2022
-    - [1059. All Paths from Source Lead to Destination](#1059-all-paths-from-source-lead-to-destination) (FINISH)
+    - [1059. All Paths from Source Lead to Destination](#1059-all-paths-from-source-lead-to-destination)
 - 9/12/2022
 ## Linked List
 ### 234. Palindrome Linked List
@@ -809,12 +809,67 @@
 
 ### 1059. All Paths from Source Lead to Destination
 - [Problem](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/)
-    - 
+    -   Given the edges of a directed graph where edges[i] = [ai, bi] indicates there is an edge between nodes ai and bi, and two nodes source and destination of this graph, determine whether or not all paths starting from source eventually, end at destination, that is:
+
+        At least one path exists from the source node to the destination node
+        If a path exists from the source node to a node with no outgoing edges, then that node is equal to destination.  
+
+        The number of possible paths from source to destination is a finite number.
+
+        
 
 - My Solutions
-    - Approach -  (**C++**)
+    - Approach -  DFS (**C++**)
         - Explanation:
+            - We hace to check for two things:
+                1. If any leaf node is not the destination. **False**.
+                2. If the *finite* directed graph is not finite then it's **cyclic** so return **False**
+                    - This can be done by using the white, gray, black cycle finding algorithm, where white signifies unvisited, gray signifies currently being processed, and black is completely processed
         ```c++
+        #include <vector>
+        using namespace std;
+
+        class Solution {
+            
+            vector<vector<int>> graph;
+            static enum class StateOfNode { WHITE, GRAY, BLACK };
+
+        public:
+            bool leadsToDestination(int numberOfNodes, vector<vector<int>>& edges, int source, int destination) {
+                
+                vector<StateOfNode> stateOfNodes(numberOfNodes, StateOfNode::WHITE);
+                initializeGraph(edges, numberOfNodes);
+
+                return depthFirstSearch(stateOfNodes, source, destination);
+            }
+
+        private:
+            bool depthFirstSearch(vector<StateOfNode>& stateOfNodes, int node, int destination) {
+
+                if (graph[node].empty()) {
+                    return node == destination;
+                }
+                if (stateOfNodes[node] == StateOfNode::GRAY) {
+                    return false;
+                }
+
+                stateOfNodes[node] = StateOfNode::GRAY;
+                for (const auto& n : graph[node]) {
+                    if (!depthFirstSearch(stateOfNodes, n, destination)) {
+                        return false;
+                    }
+                }
+
+                stateOfNodes[node] = StateOfNode::BLACK;
+                return true;
+            }
+
+            void initializeGraph(const vector<vector<int>>& edges, int numberOfNodes) {
+                graph.assign(numberOfNodes, vector<int>());
+                for (const auto& edge : edges) {
+                    graph[edge[0]].push_back(edge[1]);
+                }
+            }
         ```
     - [Submissions](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/submissions/) - C++ &check;
     - Other Approaches :
