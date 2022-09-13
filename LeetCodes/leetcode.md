@@ -30,6 +30,8 @@
 - DFS
     - [1971. Find if Path Exists in Graph](#1971-find-if-path-exists-in-graph)
     - [797. All Paths From Source to Target](#797-all-paths-from-source-to-target)
+    - [133. Clone Graph](#133-clone-graph)
+    - [1059. All Paths from Source Lead to Destination](#1059-all-paths-from-source-lead-to-destination)
 - Binary Search
 - Merge Sort`
 - Quick Sort
@@ -63,7 +65,9 @@
     - [1971. Find if Path Exists in Graph](#1971-find-if-path-exists-in-graph)
     - [797. All Paths From Source to Target](#797-all-paths-from-source-to-target)
 - 9/10/2022
+    - [133. Clone Graph](#133-clone-graph)
 - 9/11/2022
+    - [1059. All Paths from Source Lead to Destination](#1059-all-paths-from-source-lead-to-destination) (FINISH)
 - 9/12/2022
 ## Linked List
 ### 234. Palindrome Linked List
@@ -764,9 +768,13 @@
     - Other Approaches :
         1. Top-Down Dynamic Programming
 
-### 797. All Paths From Source to Target
+### 133. Clone Graph
 - [Problem](https://leetcode.com/problems/clone-graph/)
-    - 
+    - Given a reference of a node in a connected undirected graph.
+
+        Return a deep copy (clone) of the graph.
+
+        Each node in the graph contains a value (int) and a list (List[Node]) of its neighbors.
 
 - My Solutions
     - Approach - DFS w/ HashMap (**C++**)
@@ -798,3 +806,15 @@
     - [Submissions](https://leetcode.com/problems/clone-graph/submissions/) - C++ &check; Python &check; JavaScript &check;
     - Other Approaches :
         1. BFS
+
+### 1059. All Paths from Source Lead to Destination
+- [Problem](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/)
+    - 
+
+- My Solutions
+    - Approach -  (**C++**)
+        - Explanation:
+        ```c++
+        ```
+    - [Submissions](https://leetcode.com/problems/all-paths-from-source-lead-to-destination/submissions/) - C++ &check;
+    - Other Approaches :
