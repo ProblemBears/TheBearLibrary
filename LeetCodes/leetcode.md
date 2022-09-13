@@ -29,8 +29,9 @@
 - BFS
 - DFS
     - [1971. Find if Path Exists in Graph](#1971-find-if-path-exists-in-graph)
+    - [797. All Paths From Source to Target](#797-all-paths-from-source-to-target)
 - Binary Search
-- Merge Sort
+- Merge Sort`
 - Quick Sort
 - Bit Manipulation
 - Recursion
@@ -58,7 +59,12 @@
 - 9/8/2022
     - [208. Implement Trie (Prefix Tree)](#208-implement-trie-prefix-tree)
     - [547. Number of Provinces](#547-number-of-provinces)
-
+- 9/9/2022
+    - [1971. Find if Path Exists in Graph](#1971-find-if-path-exists-in-graph)
+    - [797. All Paths From Source to Target](#797-all-paths-from-source-to-target)
+- 9/10/2022
+- 9/11/2022
+- 9/12/2022
 ## Linked List
 ### 234. Palindrome Linked List
 [Home](#table-of-contents)
@@ -718,3 +724,42 @@
             return False
         ```
     - [Submissions](https://leetcode.com/problems/find-if-path-exists-in-graph/submissions/) - C++ &cross;, Python &check;
+
+### 797. All Paths From Source to Target
+- [Problem](https://leetcode.com/problems/all-paths-from-source-to-target/)
+    - Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths from node 0 to node n - 1 and return them in any order.
+
+        The graph is given as follows: graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j]).
+
+- My Solutions
+    - Approach - Backtracking (**JavaScript**)
+        - Explanation:
+            1. Create the target (from the graph's size; the # of nodes it has) and a res array where you will store paths to the target
+            2. We create a backtrack function.
+                - **Base Case :** If we reached the target. Add the current path to the result
+                - **Recursive Step :** For every neighbor of the current node, add it to the current path and call the recursive function with this path. When the function returns be sure to remove the current neighbor from the path, so that we can construct another path with the next neighbor.
+            3. Call the recursive function with the initial node 0 and path [0]
+        ```js
+        var allPathsSourceTarget = function(graph) {
+            let target = graph.length - 1;
+            let res = [];
+            
+            function backtrack(node, path) {
+                if( node == target) {
+                    res.push(Array.from(path));
+                    return;
+                }
+                
+                for(let neighbor of graph[node]) {
+                    path.push(neighbor);
+                    backtrack(neighbor, path);
+                    path.pop();
+                }
+            }
+            backtrack(0, [0]);
+            return res;
+        };
+        ```
+    - [Submissions](https://leetcode.com/problems/all-paths-from-source-to-target/submissions/) - C++ &check;, Python &check; JavaScript &check;
+    - Other Approaches :
+        1. Top-Down Dynamic Programming
