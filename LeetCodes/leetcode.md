@@ -763,3 +763,38 @@
     - [Submissions](https://leetcode.com/problems/all-paths-from-source-to-target/submissions/) - C++ &check;, Python &check; JavaScript &check;
     - Other Approaches :
         1. Top-Down Dynamic Programming
+
+### 797. All Paths From Source to Target
+- [Problem](https://leetcode.com/problems/clone-graph/)
+    - 
+
+- My Solutions
+    - Approach - DFS w/ HashMap (**C++**)
+        - Explanation:
+            1. We traverse using the nodes that we have to copy, but since we'll be traversing recursively, we need to keep a reference to the clone node. This is why we make a map with key as the original node and the value as the cloned node.
+            2. Recursion:
+                - **Base Case** - if the node was visited before, then it has a clone node already (we shouln't be cloning multiple times) so we simply return the clone node
+                - **Intermediate Step** - Create the clone node with the value of the current node. Put it into the HashMap
+                - **Recursive Step** - We still need to add the children of the clone node. Therefore, we push to the children of our clone node, a call to the recursive function (since it) will yield a clone node.
+        ```c++
+        class Solution {
+            unordered_map<Node*, Node*> visited;
+        public:
+            Node* cloneGraph(Node* node) {
+                if(!node) return node;
+                if( visited.find(node) != visited.end() )
+                    return visited[node];
+                
+                Node* new_node = new Node(node->val);
+                visited[node] = new_node;
+                for(Node* neighbor : node->neighbors)
+                {
+                    new_node->neighbors.push_back(cloneGraph(neighbor));
+                }
+                return new_node;
+            }
+        };
+        ```
+    - [Submissions](https://leetcode.com/problems/clone-graph/submissions/) - C++ &check; Python &check; JavaScript &check;
+    - Other Approaches :
+        1. BFS
