@@ -27,6 +27,8 @@
 - Vectors
 - Hash Tables
 - BFS
+    - [1971. Find if Path Exists in Graph (#2)](#1971-find-if-path-exists-in-graph)
+    - [797. All Paths From Source to Target (#2)](#797-all-paths-from-source-to-target)
 - DFS
     - [1971. Find if Path Exists in Graph](#1971-find-if-path-exists-in-graph)
     - [797. All Paths From Source to Target](#797-all-paths-from-source-to-target)
@@ -69,6 +71,8 @@
 - 9/11/2022
     - [1059. All Paths from Source Lead to Destination](#1059-all-paths-from-source-lead-to-destination)
 - 9/12/2022
+    - [1971. Find if Path Exists in Graph (#2)](#1971-find-if-path-exists-in-graph)
+    - [797. All Paths From Source to Target (#2)](#797-all-paths-from-source-to-target)
 ## Linked List
 ### 234. Palindrome Linked List
 [Home](#table-of-contents)
@@ -693,7 +697,42 @@
         Given edges and the integers n, source, and destination, return true if there is a valid path from source to destination, or false otherwise.
 
 - My Solutions
-    - Approach - Iterative DFS (**Python**)
+    - **Approach #1 -** Iterative DFS (**C++**)
+        - Explanation:
+            1. Like BFS except we use a stack to simulate stack frames
+        ```C++
+        class Solution {
+        public:
+            bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+                vector<vector<int>> graph(n);
+                for(vector<int> edge : edges)
+                {
+                    graph[edge[0]].push_back(edge[1]);
+                    graph[edge[1]].push_back(edge[0]);
+                }
+                
+                stack<int> s;
+                s.push(source);
+                vector<bool> visited(n);
+                
+                while(!s.empty())
+                {
+                    int cur = s.top();
+                    s.pop();
+                    
+                    if( cur == destination ) return true;
+                    
+                    if (visited[cur]) continue;
+                    visited[cur] = true;
+                    
+                    for(int neighbor : graph[cur])
+                        s.push(neighbor);
+                }
+                return false;
+            }
+        };
+        ```
+    - **Approach #2 -** Iterative BFS (**Python**)
         - Explanation:
             1. Form a **graph representation** out of the given **edges**. Here we make an **adjacency list** to represent our graph
             2. Then we do our DFS to see if a path from **source to destination** exists :
