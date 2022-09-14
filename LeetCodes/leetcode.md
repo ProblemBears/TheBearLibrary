@@ -775,7 +775,7 @@
         The graph is given as follows: graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j]).
 
 - My Solutions
-    - Approach - Backtracking (**JavaScript**)
+    - Approach #1 - Backtracking DFS (**JavaScript**)
         - Explanation:
             1. Create the target (from the graph's size; the # of nodes it has) and a res array where you will store paths to the target
             2. We create a backtrack function.
@@ -801,6 +801,41 @@
             }
             backtrack(0, [0]);
             return res;
+        };
+        ```
+    - Approach #2 - Iterative BFS
+        - Explanation:
+            1. Use a queue and store the paths in it. We use the last node of those paths to traverse
+        ```C++
+        class Solution {
+        public:
+            vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+                vector<vector<int>> paths;
+                if(graph.size() == 0) return paths;
+                
+                vector<int> path;
+                path.push_back(0);
+                queue<vector<int>> q;
+                q.push(path);
+                
+                while(!q.empty())
+                {
+                    vector<int> currentPath = q.front();
+                    q.pop();
+                    int node = currentPath.back();
+                    
+                    for(int neighbor : graph[node])
+                    {
+                        vector<int> tmpPath(currentPath.begin(), currentPath.end());
+                        tmpPath.push_back(neighbor);
+                        if(neighbor == graph.size()-1)
+                            paths.push_back(tmpPath);
+                        else
+                            q.push(tmpPath);
+                    }
+                }
+                return paths;
+            }
         };
         ```
     - [Submissions](https://leetcode.com/problems/all-paths-from-source-to-target/submissions/) - C++ &check;, Python &check; JavaScript &check;
