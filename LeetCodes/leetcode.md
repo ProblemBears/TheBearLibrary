@@ -21,6 +21,12 @@
 - Graphs
     - Disjoint Set
         - [547. Number of Provinces](#547-number-of-provinces)
+    - Minimum Spanning Trees (MSTs)
+        - Kruskal's Algorithm
+            - [1584. Min Cost to Connect All Points](#1584-min-cost-to-connect-all-points)
+        - Primm's Algorithm
+            - [1584. Min Cost to Connect All Points (#2)](#1584-min-cost-to-connect-all-points)
+
 - Stacks
 - Queues
 - Heaps
@@ -73,6 +79,9 @@
 - 9/12/2022
     - [1971. Find if Path Exists in Graph (#2)](#1971-find-if-path-exists-in-graph)
     - [797. All Paths From Source to Target (#2)](#797-all-paths-from-source-to-target)
+- 9/13/2022
+    - [1584. Min Cost to Connect All Points]()
+    - [1584. Min Cost to Connect All Points (#2)]()
 ## Linked List
 ### 234. Palindrome Linked List
 [Home](#table-of-contents)
@@ -686,6 +695,139 @@
     - Other Approaches
         1. DFS &cross;
         2. BFS &cross;
+
+### 1584. Min Cost to Connect All Points
+- [Problem](https://leetcode.com/problems/min-cost-to-connect-all-points/)
+    - You are given an array points representing integer coordinates of some points on a 2D-plane, where points[i] = [xi, yi].
+
+        The cost of connecting two points [xi, yi] and [xj, yj] is the manhattan distance between them: |xi - xj| + |yi - yj|, where |val| denotes the absolute value of val.
+
+        Return the minimum cost to make all points connected. All points are connected if there is exactly one simple path between any two points.
+
+- My Solutions
+    - Approach #1 - Kruskal's Algorithm (**C++**)
+        - Explanation:
+            1. We'll need the following data structures
+                - **Edge** - to succinctly define the relationship between points and store their costs
+                - **UnionFind** - This helps detect if points are already connected, which we can use to avoid adding edges that would create cycles
+            2. The algorithm
+                1. If there's no points, the min cost is 0
+                2. For every point, make an edge with every other point, calculate the cost, and put it in the heap. **This simulates the ascending ordering of all edges in Kruskal's algorithm**
+                3. While there are still edges int the heap **AND** the MST still doesn't have n-1 edges
+                    - Pop from the heap. This is the edge we're currently deciding whether to put into the MST, and since it was popped from the min-heap it's the next best **greedy** choice.
+                    - If both vertices of that edge are already connected (UnionFind graph), we should skip to the next iteration since this current edge being added would cause a cycle
+                    - Make sure you update the number of edges added to break the while loop and update the value we'll return
+        ```c++
+        class Edge {
+        public:
+            int point1;
+            int point2;
+            int cost;
+            Edge(int point1, int point2, int cost)
+                : point1(point1), point2(point2), cost(cost) {}
+        };
+
+        bool operator<(const Edge& edge1, const Edge& edge2) 
+        {
+            return edge1.cost > edge2.cost;
+        }
+
+        class UnionFind {
+        private:
+            vector<int> root;
+            vector<int> rank;
+        public:
+            UnionFind(int n)
+            : root(n), rank(n)
+            {
+                for(int i = 0; i < n; i++)
+                {
+                    root[i] = i;
+                    rank[i] = 1;
+                }
+            }
+            
+            void unify(int x, int y)
+            {
+                int rootX = find(x);
+                int rootY = find(y);
+                
+                if(rootX != rootY)
+                {
+                    if( rank[rootX] > rank[rootY] )
+                        root[rootY] = rootX;
+                    else if( rank[rootX] < rank[rootY] )
+                        root[rootX] = rootY;
+                    else
+                    {
+                        rank[rootX] += 1;
+                        root[rootY] = rootX;
+                    }
+                }
+            }
+            
+            int find(int x)
+            {
+                if(root[x] == x) return x;
+                return root[x] = find(root[x]);
+            }
+            
+            bool connected(int x, int y)
+            {
+                return find(x) == find(y);
+            }
+        };
+
+        class Solution {
+        public:
+            int minCostConnectPoints(vector<vector<int>>& points) {
+                int n = points.size();
+                if (n == 0) return 0;
+                
+                priority_queue<Edge> pq;
+                UnionFind uf(n);
+                
+                /*
+                Form Edges - that contain x, y and the calculated manhattan distance from the coordinates of the points
+                Put the edges in a heap (priority queue)
+                */
+                for(int i = 0; i < n; i++)
+                {
+                    vector<int>& coord1 = points[i];
+                    for(int j = i+1; j < n; j++)
+                    {
+                        vector<int>& coord2 = points[j];
+                        int cost = abs(coord1[0] - coord2[0]) + abs(coord1[1] - coord2[1]);
+                        Edge edge(i, j, cost);
+                        pq.push(edge);
+                    }
+                }
+                
+                int res = 0;
+                int count = n-1;
+                while( !pq.empty() && count > 0)
+                {
+                    Edge edge = pq.top();
+                    pq.pop();
+                    
+                    if( !uf.connected(edge.point1, edge.point2) )
+                    {
+                        uf.unify(edge.point1, edge.point2);
+                        res += edge.cost;
+                        count--;
+                    }
+                }
+                return res;
+            }
+        };
+        ```
+    - Approach #2 - Primm's Algorithm (**C++**)
+        - Explanation:
+            1. 
+        ```c++
+        
+        ```
+    - [Submissions](https://leetcode.com/problems/min-cost-to-connect-all-points/submissions/) - C++ &check;
 
 ## DFS
 ### 1971. Find if Path Exists in Graph
