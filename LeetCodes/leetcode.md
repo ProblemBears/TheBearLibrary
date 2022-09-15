@@ -26,6 +26,9 @@
             - [1584. Min Cost to Connect All Points](#1584-min-cost-to-connect-all-points)
         - Primm's Algorithm
             - [1584. Min Cost to Connect All Points (#2)](#1584-min-cost-to-connect-all-points)
+    - Single Source Shortest Path Algorithm
+        - Dijktra's Algorithm
+            - [743. Network Delay Time](#743-network-delay-time)
 
 - Stacks
 - Queues
@@ -80,8 +83,10 @@
     - [1971. Find if Path Exists in Graph (#2)](#1971-find-if-path-exists-in-graph)
     - [797. All Paths From Source to Target (#2)](#797-all-paths-from-source-to-target)
 - 9/13/2022
-    - [1584. Min Cost to Connect All Points]()
-    - [1584. Min Cost to Connect All Points (#2)]()
+    - [1584. Min Cost to Connect All Points](#1584-min-cost-to-connect-all-points)
+    - [1584. Min Cost to Connect All Points (#2)](#1584-min-cost-to-connect-all-points)
+- 9/14/2022
+    - [743. Network Delay Time](#743-network-delay-time)
 ## Linked List
 ### 234. Palindrome Linked List
 [Home](#table-of-contents)
@@ -886,6 +891,87 @@
         };
         ```
     - [Submissions](https://leetcode.com/problems/min-cost-to-connect-all-points/submissions/) - C++ &check;
+
+### 743. Network Delay Time
+- [Problem](https://leetcode.com/problems/network-delay-time/)
+    - You are given a network of n nodes, labeled from 1 to n. You are also given times, a list of travel times as directed edges times[i] = (ui, vi, wi), where ui is the source node, vi is the target node, and wi is the time it takes for a signal to travel from source to target.
+
+        We will send a signal from a given node k. Return the minimum time it takes for all the n nodes to receive the signal. If it is impossible for all the n nodes to receive the signal, return -1
+
+- My Solutions
+    - **Approach #3 -** Dijkstra's Algorithm (**C++**)
+        - Explanation:
+            1. Create an adjacency list such that adj[source] contains all destination nodes (dest) that the signal can travel to from the source node (source). For each destination node, there will be a pair (time, dest). Here, time denotes the time required for the signal to travel from source to dest.
+
+            2. For all nodes, initialize signalReceivedAt as a large value to signify that, so far, no signal has been received.
+
+            3. Initialize priority queue with the pair of starting node kkk and its distance 0, store its distance in signalReceivedAt as 0. While the priority queue is not empty:
+                - Pop the top node currNode from the priority queue.
+                - Traverse all outgoing edges connected to currNode.
+                - Add the adjacent node neighborNode to the priority queue only if the current path takes less time than the value at signalReceivedAt[neighborNode]. Update the time at signalReceivedAt[neighborNode] to current path time.
+
+            4. Find the maximum value in the array signalReceivedAt. If any value in signalReceivedAt is still the large value we initialized the array with, then return -1 as that node is not reachable from k. Otherwise, return the maximum value in the array.
+
+        ```C++
+        class Solution {
+        private:
+            vector<pair<int, int>> adj[101];
+        public:
+            int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+                //Build the adjacency list
+                for(vector<int> time : times)
+                {
+                    int src = time[0];
+                    int dst = time[1];
+                    int weight = time[2];
+                    adj[src].push_back({weight, dst});
+                }
+                
+                vector<int> signalReceivedAt(n + 1, INT_MAX);
+                dijkstra(signalReceivedAt, k, n);
+                
+                int answer = INT_MIN;
+                for(int i = 1; i <= n; i++)
+                    answer = max(answer, signalReceivedAt[i]);
+                
+                return answer == INT_MAX ? -1 : answer;
+            }
+            
+            void dijkstra(vector<int>& signalReceivedAt, int source, int n)
+            {
+                priority_queue< pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>> > pq;
+                pq.push({0, source});
+                
+                //The time for the starting node is 0
+                signalReceivedAt[source] = 0;
+                
+                while(!pq.empty())
+                {
+                    int curNodeTime = pq.top().first;
+                    int curNode = pq.top().second;
+                    pq.pop();
+                    
+                    if(curNodeTime > signalReceivedAt[curNode]) continue;
+                    
+                    for(pair<int, int> edge: adj[curNode])
+                    {
+                        int time = edge.first;
+                        int neighborNode = edge.second;
+                        
+                        if(signalReceivedAt[neighborNode] > curNodeTime + time)
+                        {
+                            signalReceivedAt[neighborNode] = curNodeTime + time;
+                            pq.push({signalReceivedAt[neighborNode], neighborNode});
+                        }
+                    }
+                }
+            }
+        };
+        ```
+    - [Submissions](https://leetcode.com/problems/network-delay-time/submissions/) - C++ &check;
+    - Other Approaches
+        - DFS
+        - BFS
 
 ## DFS
 ### 1971. Find if Path Exists in Graph
