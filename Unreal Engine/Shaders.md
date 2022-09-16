@@ -15,7 +15,7 @@
 12. [Rustling Leaves Shader](#12---rustling-leaves-shader)
 13. [Rain Wetness Shader](#13---rain-wetness-shader)
 14. [Rain Drops Shader](#14---rain-drops-shader)
-15. [Rain Drip Shader]()
+15. [Rain Drip Shader](#15---rain-drip-shader)
 
 - [Node Glossary](#node-glossary)
 
@@ -429,7 +429,24 @@
         - We can also multiply by a control here that would effect whether it's raining or not.
     ![Rain Drops Shader](../images/Unreal%20Engine/Shaders/14%20-%20Rain%20Drops%20Shader.png)
 
-
+## 15 - Rain Drip Shader
+- We create a texture similarly packed as **#14**, for Rain Drips. In Photoshop we squiggle lines and add the following to each channel :
+    - RG Channels - the normal map for the squigles
+    - B - Mask for where the drips are gonna happen
+    - A - Temporal Offset Mask
+- The Rain Drip Shader will be created ad follows:
+    1. World Space Project the packed texture
+    2. Apply the animated mask by -
+        - Importing a gray scale texture that gradients from white to black. This will be the "line" we scroll through the previous texture.
+    3. A simple scrolling animation isn't what we want because it would simulate all rain drops dripping at the same time. Therefore, we need to apply our packed temporal offset.
+    4. If a surface is permeable, the water can soak in so it slows down (cloth, stone). Whereas, if it's impermeable, (like metal) then it goes fast.
+        - We want to append the B Channel (where the drips is happenign) with arbitrary `Float2` values for speed. Then we can `Lerp` between those values using the Alpha Channel (temporal offset) 
+    5. We can create normals from the RGB channel of our first texture
+        - Firstly convert it to a [-1, 1] range and append a 1 to make it a `Float3` (as normals should be)
+        - Don't forget to multiply by your animated mask, in order to animate these normals
+    6. Another thing to note, dripping should only happen on the side (not the tops) of objects, so we make a mask that only effects the sides and multiply it by our effect
+    7. We can also define the roughness of the droplets by adjusting the contrast of our effect with a `Power` and then doing `1-x` before plugging it in to the `Root[Roughness]`
+    ![Rain Drip Shader](../images/Unreal%20Engine/Shaders/15%20-%20Rain%20Drip%20Shader.png)
 
 ## Node Glossary
 | Node | Description|
@@ -453,3 +470,4 @@
 | Sine | Given an ever increasing value. This alternates in the range [-1, 1] |
 | Unsaturation | If fed a positive it shifts colors towards grayscale, otherwise if negative then it saturates colors|
 | Saturation | Clamps values between [0, 1] |
+| Absolute World Position | |
