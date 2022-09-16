@@ -14,6 +14,8 @@
 11. [Volumetric Ice Shader](#11---volumetric-ice-shader)
 12. [Rustling Leaves Shader](#12---rustling-leaves-shader)
 13. [Rain Wetness Shader](#13---rain-wetness-shader)
+14. [Rain Drops Shader](#14---rain-drops-shader)
+15. [Rain Drip Shader]()
 
 - [Node Glossary](#node-glossary)
 
@@ -408,6 +410,26 @@
 - Finally, we make use of the Material Function by using it on a Material, where we feed it the appropriate inputs to define whether we want it to look wet or not
     - In the following case, we use it on a brick wall material from the UE Starting Content:
     ![Applied to a Material](../images/Unreal%20Engine/Shaders/13%20-%20Rain%20Wetness%20Shader.png)
+
+## 14 - Rain Drops Shader
+- We need a RainDrop Texture
+    - RG Channels -  are used to create the normals of the drops
+    - B Channel - will be used as a **temporal offset**, where each drop will appear at slightly different times
+    - A Channel - Black signifies static drops, and White signifies dots that are animated in the surface
+- The Rain Drop Shader will be created by extracting each of the channels described above, and applying nodes that create their intended effect -
+    1. **RG Normals** -
+        - When we extract the normals with `Append` we want to convert the UV Normals from the range [0, 1] to the range [-1, 1]. We can do this by `Multiply`ing by 2 and then subtracting by 1.
+        - The last step should be appending a Z to make it a 3D Normal. We append 1 in this case.
+    2. **B Animated Mask** -
+        - We use a scaled `Time` and subtract it from the B channel. After which, we use `Frac` so that instead of being infinitely decreasing, our values is a decreasing and alternating decimal.
+    3. **A Static Rain Drop Mask** -
+        - We invert blackish colors to white, and also the reverse.
+    4. **Rain only effects the top** -
+        - It doesn't make sense for rain to drop from below, so we clamp the vertex normals using saturate, therefore, if some vector normal doesn't have a slight value in the positive-z direction, then it will not appear
+        - We can also multiply by a control here that would effect whether it's raining or not.
+    ![Rain Drops Shader](../images/Unreal%20Engine/Shaders/14%20-%20Rain%20Drops%20Shader.png)
+
+
 
 ## Node Glossary
 | Node | Description|
