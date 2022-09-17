@@ -16,6 +16,7 @@
 13. [Rain Wetness Shader](#13---rain-wetness-shader)
 14. [Rain Drops Shader](#14---rain-drops-shader)
 15. [Rain Drip Shader](#15---rain-drip-shader)
+16. [Rain Ripples Shader](#16---rain-ripples-shader)
 
 - [Node Glossary](#node-glossary)
 
@@ -447,6 +448,38 @@
     6. Another thing to note, dripping should only happen on the side (not the tops) of objects, so we make a mask that only effects the sides and multiply it by our effect
     7. We can also define the roughness of the droplets by adjusting the contrast of our effect with a `Power` and then doing `1-x` before plugging it in to the `Root[Roughness]`
     ![Rain Drip Shader](../images/Unreal%20Engine/Shaders/15%20-%20Rain%20Drip%20Shader.png)
+
+## 16 - Rain Ripples Shader
+- The following Shader effect will be distributed throughout 3 Material Functions, and can then be applied through one function call in the Material we want to apply it to
+- To create the Ripple Effect - 
+    1. Import a Texture of circles that will represent the ripples
+        - **R** - Is the grayscale we will use to create our rippling rings animation
+        - **GB** - The normals of the ripples
+        - **A** - A temporal offset for the ripples
+    2. Apply the Temporal offset to the animation
+        - We simply need to add `Time` by the Alpha Channel
+    3. Apply the animation to the R channel
+        - We need to only get the decimal portion of our Temporal Time, to simulate the alternating nature of ripples
+        - Subtract it by 1 to make it increasing, and then add it to the R channel to get the first effects of an alternating expanding circle.
+        - We can then manipulate the *contrast* of the circle by multiplying (by something like 20)
+        - `Clamp` it to a reasonable range (like [0, 4])
+        - The multiple ripple effect then comes from plugging in a `Sine`, which gives us an alternating value of multiple 0 to 1s.
+            - The period (unique to UE) should be set to 2*pi to simulate a real mathematical sine, and multiplied by pi beforehand to get more believable ripples
+    4. In order to make the ripples fade out when they reach the end. We need to subtract 1 minus the Red channel, which should decrease when we reach the end of our animation.Therefore, multiply our ripple effect with this "fade out"
+        - This math can be further expanded to work with "weights" as shown in the image
+    5. Extract the normals from the G & B channel, and convert them to a proper range for normals. Lastly, multiply it by the animated fading ripples effect, so that the normals "move" with the animation.
+        - Also don't forget to append another float to make this 2D normal into a 3D normal
+
+    ![Ripple Function](../images/Unreal%20Engine/Shaders/16%20-%20RippleFunction.png)
+- A regular Ripple Effect like above is fine, but, in order to add variety like overlapping ripples that collide with each other We should create a function called `Ripples` that use the above `Ripple` effect. `Ripples` should feed different values into four `Ripple` effects, and then do some sort of **Combine** on those four `Ripple`s.
+    1. **Ripples Function** -
+    ![Ripples Function](../images/Unreal%20Engine/Shaders/16%20-%20RipplesFunction.png)
+    2. **Combine Four Normals Helper Function** -
+    ![Combine Four Normals Function](../images/Unreal%20Engine/Shaders/16%20-%20Combine%20Four%20Normals%20Function.png)
+- **Conclusion** - Now we can call our **Ripples** function to return Normals of raining ripples. Here is an example of a basic material using it:
+![Rain Ripples Test](../images/Unreal%20Engine/Shaders/16%20-%20Rain%20Ripples%20Test.png)
+
+
 
 ## Node Glossary
 | Node | Description|
