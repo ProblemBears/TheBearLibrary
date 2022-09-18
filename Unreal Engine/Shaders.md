@@ -17,6 +17,7 @@
 14. [Rain Drops Shader](#14---rain-drops-shader)
 15. [Rain Drip Shader](#15---rain-drip-shader)
 16. [Rain Ripples Shader](#16---rain-ripples-shader)
+17. [Rain Puddles Shader](#17---rain-puddle-shader)
 
 - [Node Glossary](#node-glossary)
 
@@ -479,7 +480,18 @@
 - **Conclusion** - Now we can call our **Ripples** function to return Normals of raining ripples. Here is an example of a basic material using it:
 ![Rain Ripples Test](../images/Unreal%20Engine/Shaders/16%20-%20Rain%20Ripples%20Test.png)
 
-
+## 17 - Rain Puddle Shader
+- We want to make puddles that dynamically grow. Just as in real life where rain accumulates and eventually dissipates.
+- We want to encapsulate this shader into a Material Function, so that we could use it on any Material.
+- 1 - Puddle Shader
+    1. World Project UVs (from top to bottom) to the texture (and anything else that needs it)
+    2. Define an Input parameter that will be the controller for a `Lerp` that makes puddles biger or smaller
+    3. Multiply #2 by a "Top Mask" so the effect only appears at the top of surfaces (not the sides or bottom)
+    4. We can out put this mask itself, in order to be used as a helper for materials to define something like a roughness.
+- 2 - Add Previous Rain effects by using a `Lerp` that is controlled by the Puddle Mask, and interpolates between the Rain effects and the Normal Material normals
+![Rain Puddle Function](../images/Unreal%20Engine/Shaders/17%20-%20Wind%20Ripples%20Function.png)
+- **Conclusion** - We cam then use this function on any material. For example :
+![Rain Puddle Material](../images/Unreal%20Engine/Shaders/17%20-%20Raing%20Puddle%20MAterial.png)
 
 ## Node Glossary
 | Node | Description|
