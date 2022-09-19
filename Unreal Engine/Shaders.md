@@ -19,6 +19,7 @@
 16. [Rain Ripples Shader](#16---rain-ripples-shader)
 17. [Rain Puddles Shader](#17---rain-puddle-shader)
 18. [Complete Rain Shader](#18---complete-rain-shader)
+19. [Procedural Noise](#19---procedural-noise)
 
 - [Node Glossary](#node-glossary)
 
@@ -500,6 +501,15 @@
 - The function can be used in any Material to simulate Rain!
 ![Complete Rain Shader](../images/Unreal%20Engine/Shaders/18%20-%20Complete%20Rain%20Material.png)
 
+## 19 - Procedural Noise
+- One of the greatest creations in graphics was the Perlin Noise algorithm created by *Ken Perlin*
+- This algorithm is used for many effects today (mainly procedual generation)
+- Unreal Engine has a built-in node called `Noise` that produces these procedual textures
+    - The Perlin Noise algorithim is costly, so an optimization would be to bake multiple layers of noises into one texture. In UE, this can be done by going into `Noise`'s properties and changing the **Function** to **Fast Gradient - 3D Texture**
+    - There are other useful parameters you can tweak that makes the noise more efficient or more costly
+    - Another function of note is the **Voronoi** function
+
+
 ## Node Glossary
 | Node | Description|
 |---|---|
@@ -522,4 +532,5 @@
 | Sine | Given an ever increasing value. This alternates in the range [-1, 1] |
 | Unsaturation | If fed a positive it shifts colors towards grayscale, otherwise if negative then it saturates colors|
 | Saturation | Clamps values between [0, 1] |
-| Absolute World Position | |
+| Absolute World Position | Get the world position of the current object |
+| Noise | Creates a procedual texture |
