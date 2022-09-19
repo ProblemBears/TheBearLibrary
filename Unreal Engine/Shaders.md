@@ -18,6 +18,7 @@
 15. [Rain Drip Shader](#15---rain-drip-shader)
 16. [Rain Ripples Shader](#16---rain-ripples-shader)
 17. [Rain Puddles Shader](#17---rain-puddle-shader)
+18. [Complete Rain Shader](#18---complete-rain-shader)
 
 - [Node Glossary](#node-glossary)
 
@@ -492,6 +493,12 @@
 ![Rain Puddle Function](../images/Unreal%20Engine/Shaders/17%20-%20Wind%20Ripples%20Function.png)
 - **Conclusion** - We cam then use this function on any material. For example :
 ![Rain Puddle Material](../images/Unreal%20Engine/Shaders/17%20-%20Raing%20Puddle%20MAterial.png)
+
+## 18 - Complete Rain Shader
+- Finally, we can mix all of our Rain Material Functions into one Complete Rain function like so:
+![Complete Rain Function](../images/Unreal%20Engine/Shaders/18%20-%20Complete%20Rain%20Function.png)
+- The function can be used in any Material to simulate Rain!
+![Complete Rain Shader](../images/Unreal%20Engine/Shaders/18%20-%20Complete%20Rain%20Material.png)
 
 ## Node Glossary
 | Node | Description|
