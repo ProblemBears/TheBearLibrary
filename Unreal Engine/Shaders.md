@@ -20,6 +20,7 @@
 17. [Rain Puddles Shader](#17---rain-puddle-shader)
 18. [Complete Rain Shader](#18---complete-rain-shader)
 19. [Procedural Noise](#19---procedural-noise)
+20. [Snowy Tree Trunk Shader](#20---snowy-tree-trunk-shader)
 
 - [Node Glossary](#node-glossary)
 
@@ -509,6 +510,10 @@
     - There are other useful parameters you can tweak that makes the noise more efficient or more costly
     - Another function of note is the **Voronoi** function
 
+## 20 - Snowy Tree Trunk Shader
+- Using `Noise` we create a volumetric prodedural noise based on the World Position. What this means is that it creates a 3D-ish noise in world space, so when you move objects in UE the procedural noise seems to "shift", which creates variety based on where objects are positioned.
+- Then we simply use the Noise as a controller for a `Lerp` that interpolates between a tree trunk shader, and white for snow
+![Snowy Tree Tunk Shader](../images/Unreal%20Engine/Shaders/20%20-%20Snowy%20Tree%20Tunk%20Shader.png)
 
 ## Node Glossary
 | Node | Description|
@@ -532,5 +537,5 @@
 | Sine | Given an ever increasing value. This alternates in the range [-1, 1] |
 | Unsaturation | If fed a positive it shifts colors towards grayscale, otherwise if negative then it saturates colors|
 | Saturation | Clamps values between [0, 1] |
-| Absolute World Position | Get the world position of the current object |
+| Absolute World Position | Get the current pixel's position in world space |
 | Noise | Creates a procedual texture |
