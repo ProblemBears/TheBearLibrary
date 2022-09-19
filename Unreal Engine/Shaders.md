@@ -21,6 +21,7 @@
 18. [Complete Rain Shader](#18---complete-rain-shader)
 19. [Procedural Noise](#19---procedural-noise)
 20. [Snowy Tree Trunk Shader](#20---snowy-tree-trunk-shader)
+21. [Rock Layers Shader](#21---rock-layers-shader)
 
 - [Node Glossary](#node-glossary)
 
@@ -514,6 +515,21 @@
 - Using `Noise` we create a volumetric prodedural noise based on the World Position. What this means is that it creates a 3D-ish noise in world space, so when you move objects in UE the procedural noise seems to "shift", which creates variety based on where objects are positioned.
 - Then we simply use the Noise as a controller for a `Lerp` that interpolates between a tree trunk shader, and white for snow
 ![Snowy Tree Tunk Shader](../images/Unreal%20Engine/Shaders/20%20-%20Snowy%20Tree%20Tunk%20Shader.png)
+
+## 21 - Rock Layers Shader
+- Motivation
+    - Create just a few rocks assets
+    - Combine them to generate infinite variety
+- Problem
+    - Combined assets don't feel unified
+- Solution
+    - Use procedural noise!
+- To create the effect -
+    1. Import a Gradient Texture that has the "geographioc strata layers" of your rock
+    2. Extract the pixel's World Space Z so that we could use it to project the Stata Texture vertically
+    3. Before using the World Space Z, we can "messify" the horizons of the strata, by also adding noise to the Z
+    ![Rock Layers Shader](../images/Unreal%20Engine/Shaders/21%20-%20Rock%20Layers%20Shader.png)
+- The end result is that we have a material that we could add to rocky terrain, and since the texture is applied via a World Projection, the stratas stay perfectly aligned no matter how many objects we add.
 
 ## Node Glossary
 | Node | Description|
