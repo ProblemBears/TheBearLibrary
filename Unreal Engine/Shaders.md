@@ -22,6 +22,7 @@
 19. [Procedural Noise](#19---procedural-noise)
 20. [Snowy Tree Trunk Shader](#20---snowy-tree-trunk-shader)
 21. [Rock Layers Shader](#21---rock-layers-shader)
+22. [World-Aligned Textures](#22---world-aligned-textures)
 
 - [Node Glossary](#node-glossary)
 
@@ -530,6 +531,20 @@
     3. Before using the World Space Z, we can "messify" the horizons of the strata, by also adding noise to the Z
     ![Rock Layers Shader](../images/Unreal%20Engine/Shaders/21%20-%20Rock%20Layers%20Shader.png)
 - The end result is that we have a material that we could add to rocky terrain, and since the texture is applied via a World Projection, the stratas stay perfectly aligned no matter how many objects we add.
+
+## 22 - World-Aligned Textures
+- Motivation
+    - We have modular objects (ex: a cave), would we want to attempt to make perfect textures for each object that seem continuous when connected to other modular assets. **OR** is there a simpler option?
+    - The simpler option is `World-Aligned Textures` 
+    - In other software this UE Node is referred to as a **Triplanar Projection**
+- Problem
+    - Sampling from one texture with this technique would still cause visible tiling
+- Solution
+    - We do Triplanar Projection using two textures to make it look seamless
+- To create the effect -
+    1. We use `WorldAlignedTexture` and `WorldAlignedNormal`, by feeding them Texture color, normals, and sizes
+    2. Interpolate between them using a the `Noise` as controller
+![World Aligned Textures](../images/Unreal%20Engine/Shaders/22%20-%20World-Aligned%20Textures.png)
 
 ## Node Glossary
 | Node | Description|
