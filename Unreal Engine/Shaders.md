@@ -24,6 +24,10 @@
 21. [Rock Layers Shader](#21---rock-layers-shader)
 22. [World-Aligned Textures](#22---world-aligned-textures)
 
+- Techniques
+    - [Dot Product](#dot-product)
+    - [Vectors](#vectors)
+    - [View, World, Object, & Tangent Space](#view-world-object--tangent-space)
 - [Node Glossary](#node-glossary)
 
 ## 1 - What is a Shader?
@@ -545,6 +549,28 @@
     1. We use `WorldAlignedTexture` and `WorldAlignedNormal`, by feeding them Texture color, normals, and sizes
     2. Interpolate between them using a the `Noise` as controller
 ![World Aligned Textures](../images/Unreal%20Engine/Shaders/22%20-%20World-Aligned%20Textures.png)
+
+## Techniques
+### Dot Product
+- Desaturate
+    - `Float3(.213, .715, .0722)` multiplied by some Texture has the effect of desaturating that texture
+- Filter a Channel
+    - Dot Product a Texture's RGBA by an almost Zero Vector that has one value in one of it's channels
+- Compare two Vectors
+    - If the two vectors in the dot product are parellel it yeilds a positive 1. If they're perpendicular, it starts to yeild a negative, which at the largest case is two vectors pointing in the opposite direction (which is a -1)
+- Fresnel
+    - `Dot[ Camera Vector] [ Vertex Normal WS]` &rarr; `Power` &rarr; `1-x`
+
+### Vectors
+- Mask based on Distance
+    - `Subtract [Camera Position] [World Position]` &rarr; `VectorLength[Vector 3] (V3Length)` &rarr; `Subtract[prev][500]` &rarr; `Divide[prev][5000]` &rarr; `Saturate` &rarr; `Root[Base Color][Emissive Color]`
+    - This creates a vector from the World Position to the Camera. Then, we get the distance with a controller of where the fallout starts, and then how long the fallout lasts
+
+## View, World, Object, & Tangent Space
+- MatCap Texture aligned to Camera
+    - `VertexNormalWS` &rarr; `TransformVector{WS->TS}` &rarr; Scale the texture if needed &rarr; Filter it down to a UV
+    - The Matcap texture will then be fit to a Material that directs itself towards the camera
+
 
 ## Node Glossary
 | Node | Description|
