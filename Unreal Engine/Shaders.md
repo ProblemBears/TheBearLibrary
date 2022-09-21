@@ -24,6 +24,7 @@
 21. [Rock Layers Shader](#21---rock-layers-shader)
 22. [World-Aligned Textures](#22---world-aligned-textures)
 23. [Water Ripples Shader](#23---water-ripples-shader)
+24. [Water Depth Shader](#24---water-depth-shader)
 
 - Techniques
     - [Dot Product](#dot-product)
@@ -559,6 +560,26 @@
     3. Lastly, after combining all 3 Texture Samples (that we used for variety in our waves) and appending a Z to complete the valid normal by using `DeriveNormalZ_Function`, we can also add our previous effects by using `AngleCorrectedNormals`
     ![Water Ripples Shader](../images/Unreal%20Engine/Shaders/23%20-%20Water%20Ripples%20Shader.png)
 
+## 24 - Water Depth Shader
+- There are two things that control the opacity of water :
+    1. The angle you're looking at the surface of the water
+    2. How deep the water is (when water gets deeper it gets more opaque)
+        - Camera-angle-based Depth = `Scene Depth` - `Pixel Depth`
+        ![Camera Angle Depth](../images/Unreal%20Engine/Shaders/24%20-%20Camera%20Angle%20Depth.png)
+        - Real Depth is actually needed so that the depth of the objects inside our Translucent Object does not have a "shifting effect"
+        ![Real Depth](../images/Unreal%20Engine/Shaders/24%20-%20Real%20Depth.png)
+- Before we start creating the Material, it's important to tweak the Material Root Node's following settings
+    - **Material > Blend Mode > Translucent** - To activate the Opacity input
+    - **Translucency > Lighting Mode > Surface TranslucencyVolume** - To keep the Normal input active
+    - It's important to note that when using things such as Translucency, the material editor does not show the effect in it's Preview panel
+- To create the effect - 
+    1. Make controllers for the distance of our depth and the falloff
+    2. Caluclate the Real Depth and feed it to the controllers
+    3. We then add a `Fresnel` based on the Water Ripple Shader that we feed into our `Root[Normal]`, this is done by using the `PixelNormalWS` node. We want this so that the water seems more shallow when our camera is looking towards the horizon of the water
+    4. Before we attach the result, we can get rid of hard edges between horizons and objects by multiplying by `Depth Fade {Fade Distance Default : 30}`. Finally, we can feed the result to the `Root[Opacity]` and use this "Depth Mask" to `Lerp` between a light water color for shallowness and a dark water color for deepness
+    ![Water Depth Shader](../images/Unreal%20Engine/Shaders/24%20-%20Water%20Depth%20Shader.png)
+
+
 ## Techniques
 ### Dot Product
 - Desaturate
@@ -605,3 +626,7 @@
 | Saturation | Clamps values between [0, 1] |
 | Absolute World Position | Get the current pixel's position in world space |
 | Noise | Creates a procedual texture |
+| Pixel Depth | Distance from the Camera to a Pixel |
+| Scene Depth | Distance from the Camera to a Pixel behind the current object  |
+| Pixel Normal WS | Outputs the Input of the MAterial's Root Normal |
+| Depth Fade | Hides unslightly seams that take placew when Translucent objects intersect with opaque ones |
