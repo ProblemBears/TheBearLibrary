@@ -23,6 +23,7 @@
 20. [Snowy Tree Trunk Shader](#20---snowy-tree-trunk-shader)
 21. [Rock Layers Shader](#21---rock-layers-shader)
 22. [World-Aligned Textures](#22---world-aligned-textures)
+23. [Water Ripples Shader](#23---water-ripples-shader)
 
 - Techniques
     - [Dot Product](#dot-product)
@@ -549,6 +550,14 @@
     1. We use `WorldAlignedTexture` and `WorldAlignedNormal`, by feeding them Texture color, normals, and sizes
     2. Interpolate between them using a the `Noise` as controller
 ![World Aligned Textures](../images/Unreal%20Engine/Shaders/22%20-%20World-Aligned%20Textures.png)
+
+## 23 - Water Ripples Shader
+- This effect is similar to our Distortion Shader
+- To create the effect - 
+    1. We need to "World Project" the texture instead of using the standard UVs. We do this because if we have any plane later on, we won't have to worry about how their UVs are setup
+    2. We then create the scrolling effect using the `Panner` node (easier than our previous `Time` method) where we feed it a speed vector, and then manipulate the size of the texture with a `Multiply`
+    3. Lastly, after combining all 3 Texture Samples (that we used for variety in our waves) and appending a Z to complete the valid normal by using `DeriveNormalZ_Function`, we can also add our previous effects by using `AngleCorrectedNormals`
+    ![Water Ripples Shader](../images/Unreal%20Engine/Shaders/23%20-%20Water%20Ripples%20Shader.png)
 
 ## Techniques
 ### Dot Product
