@@ -25,6 +25,7 @@
 22. [World-Aligned Textures](#22---world-aligned-textures)
 23. [Water Ripples Shader](#23---water-ripples-shader)
 24. [Water Depth Shader](#24---water-depth-shader)
+25. [Water Reflection & Refraction Shader](#25---water-reflection--refraction-shader)
 
 - Techniques
     - [Dot Product](#dot-product)
@@ -578,6 +579,34 @@
     3. We then add a `Fresnel` based on the Water Ripple Shader that we feed into our `Root[Normal]`, this is done by using the `PixelNormalWS` node. We want this so that the water seems more shallow when our camera is looking towards the horizon of the water
     4. Before we attach the result, we can get rid of hard edges between horizons and objects by multiplying by `Depth Fade {Fade Distance Default : 30}`. Finally, we can feed the result to the `Root[Opacity]` and use this "Depth Mask" to `Lerp` between a light water color for shallowness and a dark water color for deepness
     ![Water Depth Shader](../images/Unreal%20Engine/Shaders/24%20-%20Water%20Depth%20Shader.png)
+
+## 25 - Water Reflection & Refraction Shader
+- If we simply place a **Roughness** of 0 in our Water Shaders Root Node, it would reflect the skybox, but not the objects placed in the water object
+- Unreal Engine has five different methods for creating reflections (its possible they work together)
+    1. Sky Box - simple reflects the skybox
+    2. Lightprobes - to reflect local objects
+        - In UE, this is an object called `SphereReflectionCapture`, which based on it's position, captures a cubemap to create reflections in the scene. They can be added via `Quick Add > Visual Effects > Sphere Reflection Capture`
+        - Be sure to tick it's *visibility* so the reflections occur
+        - This is cheap, but the downside is that the reflections are only accurate at the point where the lightprobe is, if you move your camera around the scene the reflections may not look accurate
+    3. Screen Space Reflections
+        - Toggled in your Material's `Translucency > Screen Space Reflection`
+        - It takes the image rendered in the screen, and if a picture needs a reflection, it's going to look and see if that reflection is available from any of the other pixels on the screen
+- To add the effect:
+    - Our Roughness should be 0, although we have to set the above sttings to see it have reflections
+    - For refraction we need the **index of refraction** , which is the ratio between the density of air and the density of the material you're passing into. A quick Google search shows that the index of refraction is **1.33** so simply plug it into the `Root[Refraction]` input
+    - IF THERE ARE VISUAL GLITCHES, be sure to set the `Root`'s following setting : `Refraction > Refraction Mode > Pixel Normal Offset`
+- **WARNING** - apparently the additon of Lumen for Unreal Engine 5 may not allow the previous settings to work
+
+## 26 - Water Gerstner Waves
+## 27 - Water Caustics
+- **To create decals**, we create a Material and tweak it's `Root` node's following settings
+    - `Material > Material Domain > Deferred Decal`
+    - `Material > Blend Mode > Translucent`
+    - Now we can simply drag the material onto any surface and it will be like adding a sticker
+    - You can tweak individual objects to not accept decal projections, and you can tweak the "Sort order" of decals
+- The reason we want to use decals for Water Caustics instead of putting it into object shaders is because, we want anything that goes into the water to have the effect, so it would be tedious to just put the effect in every possible shader that may interact with water
+## 28 - Water Foam
+## 29 - Water Flow Maps
 
 
 ## Techniques
