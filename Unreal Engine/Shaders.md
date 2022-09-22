@@ -26,6 +26,7 @@
 23. [Water Ripples Shader](#23---water-ripples-shader)
 24. [Water Depth Shader](#24---water-depth-shader)
 25. [Water Reflection & Refraction Shader](#25---water-reflection--refraction-shader)
+27. [ Water Caustics ](#27---water-caustics)
 
 - Techniques
     - [Dot Product](#dot-product)
@@ -597,7 +598,6 @@
     - IF THERE ARE VISUAL GLITCHES, be sure to set the `Root`'s following setting : `Refraction > Refraction Mode > Pixel Normal Offset`
 - **WARNING** - apparently the additon of Lumen for Unreal Engine 5 may not allow the previous settings to work
 
-## 26 - Water Gerstner Waves
 ## 27 - Water Caustics
 - **To create decals**, we create a Material and tweak it's `Root` node's following settings
     - `Material > Material Domain > Deferred Decal`
@@ -605,8 +605,6 @@
     - Now we can simply drag the material onto any surface and it will be like adding a sticker
     - You can tweak individual objects to not accept decal projections, and you can tweak the "Sort order" of decals
 - The reason we want to use decals for Water Caustics instead of putting it into object shaders is because, we want anything that goes into the water to have the effect, so it would be tedious to just put the effect in every possible shader that may interact with water
-## 28 - Water Foam
-## 29 - Water Flow Maps
 
 
 ## Techniques
