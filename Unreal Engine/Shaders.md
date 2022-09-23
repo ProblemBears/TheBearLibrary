@@ -27,6 +27,7 @@
 24. [Water Depth Shader](#24---water-depth-shader)
 25. [Water Reflection & Refraction Shader](#25---water-reflection--refraction-shader)
 27. [ Water Caustics ](#27---water-caustics)
+38. [What is Ray Tracing]()
 
 - Techniques
     - [Dot Product](#dot-product)
@@ -606,6 +607,58 @@
     - You can tweak individual objects to not accept decal projections, and you can tweak the "Sort order" of decals
 - The reason we want to use decals for Water Caustics instead of putting it into object shaders is because, we want anything that goes into the water to have the effect, so it would be tedious to just put the effect in every possible shader that may interact with water
 
+## 38 - What is Ray Tracing?
+- What is ray tracing?
+    - Tracing rays into the scene to see what they hit. If they hit something, we can use the hit location and surface properties of the object we hit to help us shade and light the scene
+    - For each pixel on the screen
+        - Trace a ray from the camera through that pixel, and see what it hits
+        - When it hits something, figure out what color that thing is
+        - That ray's pixel becomes that color
+        - The ray can "bounce" multiple times to simulate what really happens with light
+    ![Visualization](../images/Unreal%20Engine/Shaders/38%20-%20What%20is%20Ray%20Tracing.png)
+    ![Algorithm](../images/Unreal%20Engine/Shaders/38%20-%20BVH%20Algorithm.png)
+- What is Rasterization?
+    - It is the most common rendering technique for Game Engines
+    - It projects 3D space objects into the 2D space of the screen
+    - Converts vertices to pixels
+- Differences between Rasterization & Ray Tracing
+
+    |Rasterization| Ray Tracing|
+    |---|---|
+    | Begins w/ objects and triangles | Begins w/ pixels and rays |
+    | Very fast to render but less real| Slow to render, but VERY real|
+    | Uses hacks to imitate light behavior | Simulates real light behavior |
+    | Requires enormous developer effort to create realistic scenes | Looks realistic just by turning it on |
+- Hybrid Rendering
+    - Ray tracing is expensive so we only use it where it's really needed:
+        - Diffuse lighting is done with rasterization
+        - Blurry reflections are done with rasterication. Smooth reflections use Ray Tracing
+        - Ambient occlusion can be done in screen space or with ray tracing
+        - Shadows can be ray traced - but only for the most important lights
+        - Global illumination can be ray traced, but only if we turn off the ray traced effects
+    - Unreal Engine and other engines use a hybrid approach
+    ![Hybrid](../images/Unreal%20Engine/Shaders/38%20-%20Hybrid%20Rendering.png)
+    ![Hybrid Pipeline](../images/Unreal%20Engine/Shaders/38%20-%20Hybrid%20Pipeline.png)
+- Effects that can be achieved with Ray Tracing and how they work
+    - Ray Traced shadows
+        - We just cast a ray from the surface we're rendering towards the light source
+        - If the ray hits something before it hits the light, we know the location is in a shadow
+        ![Shadows](../images/Unreal%20Engine/Shaders/38%20-%20Shadows.png)
+    - Ray Traced Ambient Occlusion
+        - Kind of like computing shadows but the whole world is the light source
+        - We cast rays ina hemisphere around the point we're currently rendering
+        - If all the rays hit nothing, the surface is 0% occluded
+        - If all the rays hit something, the surface is 100% occluded
+        - If some of the rays hit something, then the surface is partially occluded
+        ![Ambient Occlusion](../images/Unreal%20Engine/Shaders/38%20-%20Ambient%20Occlusion.png)
+    - Ray Traced Reflections
+        - An **Eye Vector** ray hits an object. At the hit location we calculate a **Reflection Vector** and then cast a ray in that direction. If it hits something we capture the color at the hit location and that becomes the reflection color
+        - If the surface is rough, the **Reflection Vector** isn't just one vector, it becomes a reflection cone, which is expensive. This can be offset, where above a specific roughness, we switch to the Rasterized reflections instead of Ray Traced reflections
+        ![Reflections](../images/Unreal%20Engine/Shaders/38%20-%20Reflection.png)
+    - Ray Traced Global Illumination
+        - Calculates how light bounces through a scene. Areas that are not directly lit still recieve indirect lighting because of the bounces
+        - For every bounce the light loses energy, and takes on the color of the surface it hits
+        ![Global Illumination](../images/Unreal%20Engine/Shaders/38%20-%20Global%20Illumination.png)
 
 ## Techniques
 ### Dot Product
