@@ -671,6 +671,21 @@
     4. Lastly, reconvert the "layers range" back to a [0,1] range and multiply by any diffuse color you may want so that this gradient doesn't end up being grayscale
     5. **A COOL ALTERNATIVE**, is baking these "layers" into a Texture where the layers get lighter towards the positive 1 U-coordinate, and we can have multiple amounts of these layer gradients by putting each of them in individual rows. Finally, we can simply plug in our previous `Dot` product result (in a valid UV range) to control where each pixel is in the U-coordinate of the "Layers Gradient Texture", and for the V-coordinate we can specify a `Float1` to switch to another "Layer Row". (This texture's resolution could be as low as 64x64 which is another plus)
     ![Toon Paint](../images/Unreal%20Engine/Shaders/39%20-%20Toon%20Paint.png)
+- The Outline (3 ways)
+    1. The simplest and cheapest. Works for round objects only -
+        1. `Dot( PixelNormalWS, CameraVector)` >= 0.15 ? 1 : 0
+            - The >= can be achieved with the Material Editor's  `If` node
+        - It does not work on "hard surface" objects because imagine you have a whole quad looking away from the camera, that whole quad would be dark because all of it's pixel normals would be looking away from the camera 
+    2. Modeling outlines. In order to include outlines for hard surface objects -
+        1. Create a slightly larger duplicate of the model you want to outline.
+            - Extruding in the direction of surface  Normals helps do this
+        2. Flip the normals of the duplicate
+        3. Make sure backface culling is on
+        4. If you want to bring this into Unreal Engine from Blender, simply join the original mesh and the outline mesh into a single mesh with two different materials and export it to UE. Then in UE, assign your **Toon Paint Material** to the original mesh's material slot and a Black Material to the outline mesh's material slot.
+        - The drawback to this method is that it **doubles the polycount** of your model
+    3. A postprocess done to the screen
+        1. Run a "find edges" filter on the depth buffer
+        2. Shade those edges dark while everything else stays light
 
 
 ## Techniques
