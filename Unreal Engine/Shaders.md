@@ -27,7 +27,8 @@
 24. [Water Depth Shader](#24---water-depth-shader)
 25. [Water Reflection & Refraction Shader](#25---water-reflection--refraction-shader)
 27. [ Water Caustics ](#27---water-caustics)
-38. [What is Ray Tracing]()
+38. [What is Ray Tracing](#38---what-is-ray-tracing)
+39. [Toon Shader Paint](#39---toon-shader)
 
 - Techniques
     - [Dot Product](#dot-product)
@@ -659,6 +660,18 @@
         - Calculates how light bounces through a scene. Areas that are not directly lit still recieve indirect lighting because of the bounces
         - For every bounce the light loses energy, and takes on the color of the surface it hits
         ![Global Illumination](../images/Unreal%20Engine/Shaders/38%20-%20Global%20Illumination.png)
+
+## 39 - Toon Shader
+- There are three main elements to a Toon Shader - the paint, the specular highlights, and the dark outlines
+- The Paint
+    - Firstly, in your toon material, change the root node's `Material > Shading Mode` to `Unlit` since Toon Shaders try to simulate their own light and therefore, we wouldn't want the engine's lighting to interfere
+    1. We do the `Dot Product` of the Surface Normal Vector and the `Atmosphere Sun Light Vector` ( a vector from this object to the sun). This will let us determine which pixels of the object should be lit and unlit.
+    2. Convert the result to the range [0, 1] since a Dot product may yield a -1 but we need a valid color range
+    3. Create "gradient layers" by multiplying the range (and therefore each pixel's value in that range) by how many layers you want, and making sure that you use `Floor` to "clamp" any decimal number to a whole number which is what creates the layers.
+    4. Lastly, reconvert the "layers range" back to a [0,1] range and multiply by any diffuse color you may want so that this gradient doesn't end up being grayscale
+    5. **A COOL ALTERNATIVE**, is baking these "layers" into a Texture where the layers get lighter towards the positive 1 U-coordinate, and we can have multiple amounts of these layer gradients by putting each of them in individual rows. Finally, we can simply plug in our previous `Dot` product result (in a valid UV range) to control where each pixel is in the U-coordinate of the "Layers Gradient Texture", and for the V-coordinate we can specify a `Float1` to switch to another "Layer Row". (This texture's resolution could be as low as 64x64 which is another plus)
+    ![Toon Paint](../images/Unreal%20Engine/Shaders/39%20-%20Toon%20Paint.png)
+
 
 ## Techniques
 ### Dot Product
