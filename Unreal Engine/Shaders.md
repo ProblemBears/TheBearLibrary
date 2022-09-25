@@ -704,10 +704,17 @@
     - `Subtract [Camera Position] [World Position]` &rarr; `VectorLength[Vector 3] (V3Length)` &rarr; `Subtract[prev][500]` &rarr; `Divide[prev][5000]` &rarr; `Saturate` &rarr; `Root[Base Color][Emissive Color]`
     - This creates a vector from the World Position to the Camera. Then, we get the distance with a controller of where the fallout starts, and then how long the fallout lasts
 
-## View, World, Object, & Tangent Space
+### View, World, Object, & Tangent Space
 - MatCap Texture aligned to Camera
     - `VertexNormalWS` &rarr; `TransformVector{WS->TS}` &rarr; Scale the texture if needed &rarr; Filter it down to a UV
     - The Matcap texture will then be fit to a Material that directs itself towards the camera
+
+### Blending Normal Maps
+- **Simple Method** - Add the X & Y of two Normal Maps together, and then append a 1 for the Z
+    - A drawback is that it gets rid of Z vectors that may contribute to a certain look that may be needed
+- **UDN Method** - Almost identical to the simple method except we append the base Normal Texture's B Channel instead of 1. Also making sure to normalize the result in case
+- **Whiteout Method** - Multiply the Z-Normals of both Normal Textures and append it to the addition. Making sure you Normalize at the end
+- **RNM Method** - The most mathematically complex method. Unreal Engine can implement this node simply with the use of the `BlendAngleCorrectedNormals` node
 
 
 ## Node Glossary
@@ -738,3 +745,4 @@
 | Scene Depth | Distance from the Camera to a Pixel behind the current object  |
 | Pixel Normal WS | Outputs the Input of the MAterial's Root Normal |
 | Depth Fade | Hides unslightly seams that take placew when Translucent objects intersect with opaque ones |
+| BlendAngleCorrectedNormals | Uses the RNM method of blending two Normal Maps |
