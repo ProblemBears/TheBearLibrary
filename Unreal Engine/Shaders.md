@@ -721,6 +721,10 @@
 - We can shift the [-1, 1] range to [0, 1] by multiplying by 0.5, and then adding by 0.5 or simply an `Absolute`
 - There is a built-in node that uses Sine and Cosine to rotate the Texture Coordinates - `Rotator`
 
+### Reflection and Refractive Vectors
+- `Reflection` & `Refraction` can be used to sample from a Cube Map
+- `Refraction` needs refractive indices. The most common can be found in here - [Refractive Indices](https://en.wikipedia.org/wiki/List_of_refractive_indices)
+
 
 ## Node Glossary
 | Node | Description|
