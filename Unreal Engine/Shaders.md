@@ -746,3 +746,5 @@
 | Pixel Normal WS | Outputs the Input of the MAterial's Root Normal |
 | Depth Fade | Hides unslightly seams that take placew when Translucent objects intersect with opaque ones |
 | BlendAngleCorrectedNormals | Uses the RNM method of blending two Normal Maps |
+| Distance | Returns the distance between two vectors |
+| Length | Returns the length of a vector |
