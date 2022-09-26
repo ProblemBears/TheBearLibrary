@@ -716,6 +716,11 @@
 - **Whiteout Method** - Multiply the Z-Normals of both Normal Textures and append it to the addition. Making sure you Normalize at the end
 - **RNM Method** - The most mathematically complex method. Unreal Engine can implement this node simply with the use of the `BlendAngleCorrectedNormals` node
 
+### Sine and Cosine
+- Sine and Cosine can be imagined as vertical lines that alternate back and forth in the range of [-1, 1] as the provided angle argument increases
+- We can shift the [-1, 1] range to [0, 1] by multiplying by 0.5, and then adding by 0.5 or simply an `Absolute`
+- There is a built-in node that uses Sine and Cosine to rotate the Texture Coordinates - `Rotator`
+
 
 ## Node Glossary
 | Node | Description|
@@ -748,3 +753,4 @@
 | BlendAngleCorrectedNormals | Uses the RNM method of blending two Normal Maps |
 | Distance | Returns the distance between two vectors |
 | Length | Returns the length of a vector |
+| Rotator | Rotates the texture coordinate|
