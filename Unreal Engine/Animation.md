@@ -30,7 +30,7 @@
 
 ## Setting up a Third Person Character - Advanced Locomotion System
 
-### Setting Variables
+### Set Essential Variables
 1. In you Basic Third Person Character's Blueprint in order to **free the mesh, and only use Input Rotation to move the SpringArm Camera**, tweak the following settings -
     - Class Defaults > Details Panel > Pawn > Use Controller Rotatation > &cross;
     - Components > Character Movement Component > Details Panel > Character Movement (Rotation Settings)
@@ -50,6 +50,12 @@
             ![SetUpEssentialData](../images/Unreal%20Engine/Animation/SetupEssentialData.png)
             - Create/Plugin a Function called *FindMovementState*. This will be used to set the State of our LocomotionState (of the type LocomotionState which is the Enumeration we previously created) based on some of the previous variables we defined.
             ![FindMovementState](../images/Unreal%20Engine/Animation/FindMovementState.png)
+            - (Optional) At this stage you can then plug in a `Print String` where you input your `Locomotion State Veriable`, in order to see the Locomotion State changing when you move around in Play Mode
+
+### Set the Start Angle (for playing animations based on direction)
+- After the *FindMovementState* Function in our **Update Event**, if our current state is Walking or Running, then, only for the first change to either state do we set the following variables - **Start Rotation, Primary Rotation, Secondary Rotation, Start Angle**. Otherwise, the state is idle or was re-converted to idle so we reset the `Do Once`
+![Set the Start Angle](../images/Unreal%20Engine/Animation/SetTheStartAngle.png)
+- (Optional) In order to see the results in Play Mode while moving. You can put a `Sequencer` infront of the `Update Event` node, with it's first execution being everything we have so far, and the second execution being a `Print String` that takes in the `Start Angle Variable`
 
 
 
