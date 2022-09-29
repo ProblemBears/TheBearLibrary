@@ -28,6 +28,31 @@
     -  Now you can use the Input Bindings you defined in your Character Blueprint's **Event Graph**. Here is an example what nodes should be placed to add movement based on input -
     ![TPS Animation Basics](../images/Unreal%20Engine/Animation/Setting%20Up%20a%20Third%20Person%20Character%20-%20Basics.png)
 
+## Setting up a Third Person Character - Advanced Locomotion System
+
+### Setting Variables
+1. In you Basic Third Person Character's Blueprint in order to **free the mesh, and only use Input Rotation to move the SpringArm Camera**, tweak the following settings -
+    - Class Defaults > Details Panel > Pawn > Use Controller Rotatation > &cross;
+    - Components > Character Movement Component > Details Panel > Character Movement (Rotation Settings)
+        - Use Controller Desired Rotation > &cross;
+        - Orient Rotation to Movement > &cross;
+        - (Optional) Max Walk Speed > 175
+2. Create a **Blueprint Enumeration** called *LocomotionState* 
+    - Add New Enumerators for every state needed. Some basic ones are : Idle, Walk, Run
+3. Create an Animation Blueprint (using the appropriate Skeleton)
+    - In the Event Graph do the following
+        1. Initialization Event
+            - Use `Cast` to convert the Pawn output of `TryGetPawnOwner` to our Character Blueprint.
+            - Using this cast, we can store the following variables : **CharacterMovement** and the **Character**
+            ![Initialization](../images/Unreal%20Engine/Animation/ThirdPerson%20AnimBP%20Initialization.png)
+        2. Update Event
+            - Create/Plugin a Function called *SetupEssentialData*. This will be in charge of setting up the values of the following variables - **Velocity, Acceleration, Speed, Max Speed, Direction**
+            ![SetUpEssentialData](../images/Unreal%20Engine/Animation/SetupEssentialData.png)
+            - Create/Plugin a Function called *FindMovementState*. This will be used to set the State of our LocomotionState (of the type LocomotionState which is the Enumeration we previously created) based on some of the previous variables we defined.
+            ![FindMovementState](../images/Unreal%20Engine/Animation/FindMovementState.png)
+
+
+
 ## IK Rig Retargeting
 1. IK Rigs
     1. Create two `IK Rig` assets
