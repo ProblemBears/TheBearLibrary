@@ -57,7 +57,32 @@
 ![Set the Start Angle](../images/Unreal%20Engine/Animation/SetTheStartAngle.png)
 - (Optional) In order to see the results in Play Mode while moving. You can put a `Sequencer` infront of the `Update Event` node, with it's first execution being everything we have so far, and the second execution being a `Print String` that takes in the `Start Angle Variable`
 
+### Create and Configure a State Machine
+1. Navigate to your Animation Blueprint's **Animgraph** and create a **State Machine** called *Locomotion*
+    - You can create **States** and double-click them to be able to drag in the appropriate Animation Sequence asset
+2. Create the `Idle State`
+    - **Parent** - The Entry Point
+    - **Condition** - None
+    - **Animation** - *Idle*
+3. Create the `Walking State`
+    - **Parent** - Idle State
+    - **Condition** - If the LocomotionState Enum variable equals Walk (Make sure you place an arrow back to `IdleState` with a similar condition, except the Locomotion State equals Idle)
+    - **Animation** - It's a State Machine called *WalkingSM* within this State where we define the following states - 
+        - From the `Entry` we go to an `Empty State` that in turn goes to the following states depending on conditions based on the StartAngle variable that was previously defined -
+            - `WalkFwdStart180_L` - If StartAngle is `InRange[-180, -135)`
+            - `WalkFwdStart90_L` - If StartAngle is `InRange[-135, -45)`
+            - `WalkFwdStart` - Can Enter Transition is ticked to true also set this Priority Order to 2 as opposed to every other's 1
+            - `WalkFwdStart90_R` - If StartAngle is `InRange(45, 135]`
+            - `WalkFwdStart180_R` - If StartAngle is `InRange(135, 180]`
+        - Then from these 5 states we go to the `WalkFwdLoop` state
+            - Drag + LMB to select all conditions to this state and tick the radio button in `Transition > Automatic Rule Based on Sequence`
+    - **Note** - Make sure all of your Walking Animation Sequences (except for your Walking Forward Loop at the end) are set to 
+        - Settings > Loop Animation > &cross;
+        - Settings > Play Rate > Expose as Pin > and feed **a new variable called WalkStartPlayRate** into it with some arbitrary value like 1.3
+- At this stage, if you test it out in Play Mode, your character should play the correct Idle to Walking animation based on what direction you walk, but it still shouldn't have the correct rotation
 
+### Add Character Rotation
+1. In your Animation Blueprint create a new function called 
 
 ## IK Rig Retargeting
 1. IK Rigs
