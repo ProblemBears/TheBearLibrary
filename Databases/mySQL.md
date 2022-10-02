@@ -631,75 +631,90 @@
 	--Then we can do Insertions
 	```
 
-INSTAGRAM DATABASE CLONE
-	-Users Schema:			-Syntax:			$ CREATE TABLE users (
-        									id INTEGER AUTO_INCREMENT PRIMARY KEY,
-        									username VARCHAR(255) UNIQUE NOT NULL,
-        									created_at TIMESTAMP DEFAULT NOW()
-    								  );
+## Instagram Database Clone
+- Users Schema
+	```sql
+	CREATE TABLE users (
+		id INTEGER AUTO_INCREMENT PRIMARY KEY,
+		username VARCHAR(255) UNIQUE NOT NULL,
+		created_at TIMESTAMP DEFAULT NOW()
+	);
+	```
 
-	-Photos Schema:			-Syntax:			$ CREATE TABLE photos (
-        									id INTEGER AUTO_INCREMENT PRIMARY KEY,
-        									image_url VARCHAR(255) NOT NULL,
-        									user_id INTEGER NOT NULL,
-        									created_at TIMESTAMP DEFAULT NOW(),
-        									FOREIGN KEY(user_id) REFERENCES users(id)
-    								  );
+- Photos Schema
+	```sql
+	CREATE TABLE photos (
+		id INTEGER AUTO_INCREMENT PRIMARY KEY,
+		image_url VARCHAR(255) NOT NULL,
+		user_id INTEGER NOT NULL,
+		created_at TIMESTAMP DEFAULT NOW(),
+		FOREIGN KEY(user_id) REFERENCES users(id)
+	);
+	```
 
-	-Comments Schema:		-Syntax:			$ CREATE TABLE comments (
-        									id INTEGER AUTO_INCREMENT PRIMARY KEY,
-        									comment_text VARCHAR(255) NOT NULL,
-        									photo_id INTEGER NOT NULL,
-        									user_id INTEGER NOT NULL,
-        									created_at TIMESTAMP DEFAULT NOW(),
-        									FOREIGN KEY(photo_id) REFERENCES photos(id),
-        									FOREIGN KEY(user_id) REFERENCES users(id)
-    								  );
+- Comments Schema
+	```sql
+	CREATE TABLE comments (
+		id INTEGER AUTO_INCREMENT PRIMARY KEY,
+		comment_text VARCHAR(255) NOT NULL,
+		photo_id INTEGER NOT NULL,
+		user_id INTEGER NOT NULL,
+		created_at TIMESTAMP DEFAULT NOW(),
+		FOREIGN KEY(photo_id) REFERENCES photos(id),
+		FOREIGN KEY(user_id) REFERENCES users(id)
+	);
+	```
 
-	-Likes Schema:			-Syntax:			$ CREATE TABLE likes (
-        									user_id INTEGER NOT NULL,
-        									photo_id INTEGER NOT NULL,
-        									created_at TIMESTAMP DEFAULT NOW(),
-        									FOREIGN KEY(user_id) REFERENCES users(id),
-        									FOREIGN KEY(photo_id) REFERENCES photos(id),
-        									PRIMARY KEY(user_id, photo_id).
-    								  );
+- Likes Schema
+	```sql
+	CREATE TABLE likes (
+		user_id INTEGER NOT NULL,
+		photo_id INTEGER NOT NULL,
+		created_at TIMESTAMP DEFAULT NOW(),
+		FOREIGN KEY(user_id) REFERENCES users(id),
+		FOREIGN KEY(photo_id) REFERENCES photos(id),
+		PRIMARY KEY(user_id, photo_id).
+	);
+	```
+	- IMPORTANT		
+		- Here we store a pair in a PRIMARY KEY. It has the effect of "only one combination of those two parameters can exist. Therefore, in this case, we can't spam the Like button.
 
-					-IMPORTANT:		* NOTE: We store a pair in a PRIMARY KEY. It has the effect if "only one combination of those two parameters
-								        can exist. Therefore, in this case, we can't spam the Like button.
+- Followers Schema
+	```sql
+	CREATE TABLE follows (
+		follower_id INTEGER NOT NULL,
+		followee_id INTEGER NOT NULL,
+		created_at TIMESTAMP DEFAULT NOW(),
+		FOREIGN KEY(follower_id) REFERENCES users(id),
+		FOREIGN KEY(followee_id) REFERENCES users(id),
+		PRIMARY KEY(follower_id, followee_id)			--Similar to Likes Schema so we can't spam follow someone
+	);
+	```
 
-	-Followers Schema:		-Syntax:			$ CREATE TABLE follows (
-        									follower_id INTEGER NOT NULL,
-        									followee_id INTEGER NOT NULL,
-        									created_at TIMESTAMP DEFAULT NOW(),
-        									FOREIGN KEY(follower_id) REFERENCES users(id),
-        									FOREIGN KEY(followee_id) REFERENCES users(id),
-        									PRIMARY KEY(follower_id, followee_id)			//Like Likes Schema so we can't spam follow someone
-    								  );
-
-	-Hashtag Schema:			-Three popular		1) A new column that stores entries that contain strings in the form of "tag1#tag2#tag3#etc..." 
-					 solutions:			* Easy to implement, but is limited to the string cap
-	
-								2) A Tags TABLE that contains REFERENCES to photos where it is used
-									* Unlimited number of Tags available, but slower.
-
-								3) Two TABLEs one that contains the tags name and id and another that looks up that tag_id and links it to a photo_id
-									* No repeated tag string +
-									* Harder to work with because of dependencies
-
-					-We choose (3)		
-					 so its Syntax:		$ CREATE TABLE tags (
-      									id INTEGER AUTO_INCREMENT PRIMARY KEY,
-      									tag_name VARCHAR(255) UNIQUE,
-      									created_at TIMESTAMP DEFAULT NOW()
-    								  );
-    								  CREATE TABLE photo_tags (
-        									photo_id INTEGER NOT NULL,
-        									tag_id INTEGER NOT NULL,
-        									FOREIGN KEY(photo_id) REFERENCES photos(id),
-        									FOREIGN KEY(tag_id) REFERENCES tags(id),
-        									PRIMARY KEY(photo_id, tag_id)
-    								  );
+- Hashtag Schema			-
+	 - Three popular ways -		
+	 	1. A new column that stores entries that contain strings in the form of "tag1#tag2#tag3#etc..." 
+			- Easy to implement, but is limited to the string cap
+		2. A Tags TABLE that contains REFERENCES to photos where it is used
+			- Unlimited number of Tags available, but slower.
+		3. Two TABLEs one that contains the tags name and id and another that looks up that tag_id and links it to a photo_id
+			- No repeated tag string +
+			- Harder to work with because of dependencies
+	- We choose method **c** which is implemented as follows -
+		```sql
+		CREATE TABLE tags (
+			id INTEGER AUTO_INCREMENT PRIMARY KEY,
+			tag_name VARCHAR(255) UNIQUE,
+			created_at TIMESTAMP DEFAULT NOW()
+		);
+		CREATE TABLE photo_tags (
+			photo_id INTEGER NOT NULL,
+			tag_id INTEGER NOT NULL,
+			FOREIGN KEY(photo_id) REFERENCES photos(id),
+			FOREIGN KEY(tag_id) REFERENCES tags(id),
+			PRIMARY KEY(photo_id, tag_id)
+		);
+		```
 
 INTRODUCING NODE:
 	-Connecting Node to		Three Steps:		1) We need an adapter that our language of choice uses to speak to the MySQL server.
