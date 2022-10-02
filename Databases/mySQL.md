@@ -716,98 +716,106 @@
 		);
 		```
 
-INTRODUCING NODE:
-	-Connecting Node to		Three Steps:		1) We need an adapter that our language of choice uses to speak to the MySQL server.
-	 MySQL:							   in the case of Node we use NPM to install the MySQL package:
-										$ npm install mysql
+ ## Introducing Node
+- Connecting Node to MySQL		
+	- Three Steps		
+		1. We need an adapter that our language of choice uses to speak to the MySQL server. In the case of Node we use NPM to install the MySQL package:  
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `npm install mysql`
+		2. We have to attempt connecting to the MySQL server with the correct credentials, and picking a certain database:
+			```js
+			var mysql = require('mysql');
 
-								2) We have to attempt connecting to the MySQL server with the correct credentials,
-								   and picking a certain database:
-										$ var mysql = require('mysql');
-     
-    										  var connection = mysql.createConnection({
-      											host     : 'localhost',
-      											user     : 'root',     // your root username
-      											database : 'join_us'   // the name of your db
-    										  });
+			var connection = mysql.createConnection({
+				host     : 'localhost',
+				user     : 'root',     // your root username
+				database : 'join_us'   // the name of your db
+			});
+			```
+		3. We make our queries (here is one example of a query using Node):
+			```js
+			var q = 'SELECT CURTIME() as time, CURDATE() as date, NOW() as now';
 
-								3) We make our queries (here is one form of a query using Node):
-										$ var q = 'SELECT CURTIME() as time, CURDATE() as date, NOW() as now';
+			connection.query(q, function (error, results, fields) {
+				if (error) throw error;
+				console.log(results[0].time);
+				console.log(results[0].date);
+				console.log(results[0].now);
+			});
+			```
+- Create our Users Table		
+	- Note: We create the table inside of mySQL (not Node):
+	```sql
+	CREATE TABLE users (
+		email VARCHAR(255) PRIMARY KEY,
+		created_at TIMESåTAMP DEFAULT NOW()
+	);
+	```
 
-    										  connection.query(q, function (error, results, fields) {
-      											if (error) throw error;
-      											console.log(results[0].time);
-      											console.log(results[0].date);
-      											console.log(results[0].now);
-    										  });
+- Selecting Using Node			
+	- Given that we added users using MySQL we can do the following in Node
+		- Select all users from a database
+			```js
+			var q = 'SELECT * FROM users ';
+			connection.query(q, function (error, results, fields) {
+				if (error) throw error;
+				console.log(results);
+			});
+			```
 
-	-Create our Users		Note: We create the table inside of mySQL (not Node):
-	 Table:						$ CREATE TABLE users (
-        								email VARCHAR(255) PRIMARY KEY,
-        								created_at TIMESåTAMP DEFAULT NOW()
-    							  );
+		- Count the number of users in the database
+			```js
+			var q = 'SELECT COUNT(*) AS total FROM users ';
+			connection.query(q, function (error, results, fields) {
+				if (error) throw error;
+				console.log(results[0].total);
+			});
+			```
 
-	-Selecting Using			Syntax:		* Given that we added users using MySQL we:
-	 Node:
-								* To select all Users from a database:
+- Insert Using Node			
+	- We could do it with a hardcoded string query (q) just like everything else we've done. BUT, to do it dynamically we can do it like so:
+		```js
+		var person = {
+			email: faker.internet.email(),
+			created_at: faker.date.past()
+		};
 
-	 							  	$ var q = 'SELECT * FROM users ';
-    									  connection.query(q, function (error, results, fields) {
-      										if (error) throw error;
-      										console.log(results);
-    									  });
+		var end_result = connection.query('INSERT INTO users SET ?', person, function(err, result) {
+			if (err) throw err;
+			console.log(result);
+		});
+		```
+		- Here if we pass the object, depending on the order, the "?" Reads the object properties, and allows the object to be passed properly
 
-								* To count the number of users in the database:
-									$ var q = 'SELECT COUNT(*) AS total FROM users ';
-    									  connection.query(q, function (error, results, fields) {
-      										if (error) throw error;
-      										console.log(results[0].total);
-    									  });
+- Bulk inserting 500 Users using Node
+	```js
+	var mysql = require('mysql');
+	var faker = require('faker');
 
-	-Insert Using 			Syntax:		* We could do it with a hardcoded string query (q) just like everything else we've done.
-	 Node:						  BUT, to do it dynamically we can do it like so:
- 
-    								$ var person = {
-        									email: faker.internet.email(),
-        									created_at: faker.date.past()
-    								  };
-     
-    								  var end_result = connection.query('INSERT INTO users SET ?', person, function(err, result) {
-      									if (err) throw err;
-      									console.log(result);
-    								  });
 
-							** Here if we pass the object, depending on the order, the "?" Reads the object property orders, and 
-							   allows the object to be passed properly
+	var connection = mysql.createConnection({
+		host     : 'localhost',
+		user     : 'root',
+		database : 'join_us'
+	});
 
-	-Bulk inserting 500
-	 Users using Node:		Syntax:		$ var mysql = require('mysql');
-    							  var faker = require('faker');
-     
-     
-    							  var connection = mysql.createConnection({
-      								host     : 'localhost',
-      								user     : 'root',
-      								database : 'join_us'
-    							  });
-     
-     
-    							  var data = [];
-    							  for(var i = 0; i < 500; i++){
-        								data.push([
-            								faker.internet.email(),
-            								faker.date.past()
-        								]);
-    							  }
-     
-     
-    							  var q = 'INSERT INTO users (email, created_at) VALUES ?';
-     
-    							  connection.query(q, [data], function(err, result) {
-      								console.log(err);
-      								console.log(result);
-    							  });
-     
-    							  connection.end();
+
+	var data = [];
+	for(var i = 0; i < 500; i++){
+		data.push([
+			faker.internet.email(),
+			faker.date.past()
+		]);
+	}
+
+
+	var q = 'INSERT INTO users (email, created_at) VALUES ?';
+
+	connection.query(q, [data], function(err, result) {
+		console.log(err);
+		console.log(result);
+	});
+
+	connection.end();
+	```
 
 	
