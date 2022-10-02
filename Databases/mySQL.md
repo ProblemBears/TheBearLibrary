@@ -365,82 +365,115 @@
 		- "Calculate the average released_year across all books
 		- "Calculate the average stock quantity for books released in the same year"
 
-The Power of Logical Operators:
-	-Not Equal:			-Scenario:		* "Select all books NOT published in 2017"
-					-Syntax:		$ SELECT title FROM books WHERE year != 2017;
+## The Power of Logical Operators
+- Not Equal
+	```sql
+	SELECT title FROM books WHERE year != 2017;
+	```			
+	- Scenario		
+		- "*Select all books NOT published in 2017*"
 
-	-Not Like:			-Scenario:		* "Select all books that do not start with a W"
-					-Syntax:		$ SELECT title FROM books WHERE title NOT LIKE 'W%';
+- Not Like
+	```sql
+	SELECT title FROM books WHERE title NOT LIKE 'W%';
+	```
+	- Scenario		
+		- "*Select all books that do not start with a W*"
 
-	-Greater Than:			-Scenario:		* "Select all books that were released after the year 2000"
-					-Syntax:		$ SELECT * FROM books WHERE released_year > 2000 ORDER BY released_year;
-					-Notes:			* There is >= "Greater than or Equal to"
-								* "SELECT 99 > 1" yields 1 for TRUE (0 would be false)
+- Greater Than
+	```sql
+	SELECT * FROM books WHERE released_year > 2000 ORDER BY released_year;
+	```			
+	- Scenario		
+		- "*Select all books that were released after the year 2000*"
+	- Notes			
+		- There is `>=` "Greater than or Equal to"
+		- `SELECT 99 > 1` yields 1 for TRUE (0 would be false)
 
-	-Less Than:			-Scenario: 		* Works the same as Greater Than but with Less than <
+- Less Than
+	- Works the same as Greater Than but with `<`
 
-	-Logical AND (&&):		-Scenario:		* "SELECT books written by Dave Eggers, published after the year 2010"
-					-Syntax:		$ SELECT * FROM books WHERE author_fname="Eggers"; and SELECT * FROM books WHERE released_year > 2010;
-												TURNS INTO
-								  SELECT * FROM books WHERE author_lname="Eggers" AND released_year > 2010;
-					-Notes:			* You can do more than 1 AND.
-								* You can use AND or &&
+- Logical AND (&&)
+	```sql
+	SELECT * FROM books WHERE author_fname="Eggers";
+	SELECT * FROM books WHERE released_year > 2010;
+		-- TURNS INTO
+	SELECT * FROM books WHERE author_lname="Eggers" AND released_year > 2010;
+	```
+	- Scenario		
+		- "*SELECT books written by Dave Eggers, published after the year 2010*"
+	- Notes
+		- You can do more than 1 AND.
+		- You can use AND or &&
 
-	-Logical OR (||):		-Scenario:		* Similar to AND
+- Logical OR (||)		
+	- Similar to AND
 
-	-Between:			-Scenario:		* Select thing based off of an upper and lower range
-								* "Select all books published BETWEEN 2004 and 2015"
-					-Using What		* We can do ^ with the logical AND as follows
-					 We Know			$ SELECT title, released_year FROM
-									  books WHERE released_year >= 2004 &&
-									  released_year <= 2015;
-
-					-Using Between		$ SELECT title, released_year FROM book
-					 Syntax:		  WHERE released_year BETWEEN 2004 AND 2015;
-
-					-Using Not		* Simply replace the above BETWEEN with
-					 Between:		  NOT BETWEEN to get things that aren't in that range
-
-					-Notes:			* Use CAST() when trying to use BETWEEN with DATE values.
-								  convert them to DATETIME
-									** Ex:	SELECT CAST('2017-05-02' AS DATETIME);
+- Between			
+	- Scenarios		
+		- Select thing based off of an upper and lower range
+		- "Select all books published BETWEEN 2004 and 2015"
+	- Without `BETWEEN` we can do the scenario with `AND` as follows -			
+		```sql
+		SELECT title, released_year 
+		FROM books 
+		WHERE released_year >= 2004 && released_year <= 2015;
+		```
+	- Using `BETWEEN`
+		```sql		
+		SELECT title, released_year FROM book
+		WHERE released_year BETWEEN 2004 AND 2015;
+		```
+	- Notes:
+		- You can use `NOT BETWEEN` to get things that aren't in the specified range			
+		- Use `CAST()` when trying to use `BETWEEN` with `DATE` values. Convert them to `DATETIME`
+			- Ex:	`SELECT CAST('2017-05-02' AS DATETIME);`
 		
-	-IN and NOT IN:			-Scenario:		* "Select all books written by Carver or Lahiri or Smith"
-								  We may do many OR queries but IN provides a sleeker query
+- IN and NOT IN
+	```sql
+	SELECT title, author_lname FROM books
+	WHERE author_lname IN ('Carver'. 'Lahiri', 'Smith');
 
-					-Syntax:		$ SELECT title, author_lname FROM books
-								  WHERE author_lname IN ('Carver'. 'Lahiri', 'Smith');
-
-								$ SELECT title, author_lname FROM books
-								  WHERE released_year >= 2000 AND
-								  author_lname NOT IN ('Carver'. 'Lahiri', 'Smith');
-
-					-Notes:			* NOT IN does the opposite of IN
-								* Use Modulus to check for even-ness:
-									$ SELECT title, released_year FROM books
-									  WHERE released_year >= 2000 AND
-									  released_year % 2 != 0;
+	SELECT title, author_lname FROM books
+	WHERE 	released_year >= 2000 AND
+			author_lname NOT IN ('Carver'. 'Lahiri', 'Smith');
+	```
+	- Scenario		
+		- "Select all books written by Carver or Lahiri or Smith"
+		- We may do many `OR` queries but `IN` provides a sleeker query
+	- Notes			
+		- `NOT IN` does the opposite of `IN`
+		- Use Modulus to check for even-ness
+			```sql
+			SELECT title, released_year FROM books
+			WHERE released_year >= 2000 AND
+			released_year % 2 != 0;
+			```
 								
-	-Case Statements:		-Scenario:		* Conditional Statements
+- Case Statements
+	```sql
+	SELECT title, released_year
+	CASE
+		WHEN released_year >= 2000 THEN 'Modern Lit'
+		ELSE '20th Century Lit'
+	END AS GENRE
+	FROM books;
 
-					-Syntax:		$ SELECT title, released_year
-									CASE
-										WHEN released_year >= 2000 THEN 'Modern Lit'
-										ELSE '20th Century Lit'
-									END AS GENRE
-								  FROM books;
-
-								$ SELECT title, stock_quantity,
-									CASE
-										WHEN stock_quantity BETWEEN 0 AND 50 THEN '*'
-										WHEN stock_quantity BETWEEN 51 AND 100 THEN '**'
-										ELSE '***'
-									END AS stock
-								  FROM books;
-
-					-IMPORTANT:		* Above: We use "AS GENRE" because otherwise the HEADER would be the entire CASE to END, therefore it's neater to name it something like GENRE
-								* Open and close CASES with CASE/END pairs
-					-Notes:			* Can be more succient with <= and realizing the order of execution.
+	SELECT title, stock_quantity,
+	CASE
+		WHEN stock_quantity BETWEEN 0 AND 50 THEN '*'
+		WHEN stock_quantity BETWEEN 51 AND 100 THEN '**'
+		ELSE '***'
+	END AS stock
+	FROM books;
+	```
+	- Scenario		
+		- Conditional Statements
+	- IMPORTANT		
+		- Above: We use `AS GENRE` because otherwise the HEADER would be the entire CASE to END, therefore it's neater to name it something like GENRE
+		- Open and close CASES with CASE/END pairs
+	- Notes			
+		- Can be more succient with <= and realizing the order of execution
 
 One To Many:
 	-Real World Data		-Notes:			* So far we've been working with one table (simple data)
