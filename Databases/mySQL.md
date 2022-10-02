@@ -475,97 +475,125 @@
 	- Notes			
 		- Can be more succient with <= and realizing the order of execution
 
-One To Many:
-	-Real World Data		-Notes:			* So far we've been working with one table (simple data)
-	 is Messy:						* Real world data is Messy and Interrelated
+## One To Many
+- Real World Data is Messy		
+	- Notes			
+		- So far we've been working with one table (simple data)
+		- Real world data is Messy and Interrelated
 
-	-Types of Data			-Relationships:		1) One to One Relationship - (Not common) - A Users detail belongs to one User, and a User only uses those details
-	 Relationships:						2) One to Many Relationship (Most Common) - Books can have many Reviews, but a Review Belongs to One book
-								3) Many to Many Relationship - "Books can have many authors, and those authors can have many books"
+- Types of Data Relationships			
+	- Relationships		
+		1.  **One to One Relationship** - (Not common) - *"A Users details belongs to one User, and a User only uses those details"*
+	 	2. **One to Many Relationship** - (Most Common) - *"Books can have many Reviews, but a Review Belongs to One book"*
+		3. **Many to Many Relationship** - *"Books can have many authors, and those authors can have many books"*
 
-	-One to Many			-Scenario:		* Customers and Orders: One customer can have multiple orders
-	 The Basics:							** We may want to store a customer's first & last name, email, purchase date, order price.
-								* We could store this info with:
-									1) One Table:
-										-but it has the drawback of repeatedly storing orders with the same customer
-										 so we do...
-									2) One Table to Many Tables:
-										-so orders would have an id (seperate from their primary key) that links them to ONE customer
-										-For One Table if a customer hadn't placed an order. We would have had to store NULLs, but this way we simply don't store
-										 any order that links to the customer
-					-IMPORTANT:		* The id used aside from PRIMARY KEYs, are the references to other tables within a given table
-								  which are called FOREIGN KEYs
+- One to Many			
+	- Scenario		
+		- Customers and Orders: One customer can have multiple orders
+	- The Basics							
+		- We may want to store a customer's first & last name, email, purchase date, order price.
+		- We could store this info with -
+			1. One Table
+				- but it has the drawback of repeatedly storing orders with the same customer so we do...
+			2. One Table to Many Tables
+				- so orders would have an id (seperate from their primary key) that links them to ONE customer
+				- for the **One Table** approach, if a customer hadn't placed an order, we would have had to store NULLs, **but this way we simply don't store any order that links to the customer**
+	- IMPORTANT		
+		- The id used aside from `PRIMARY KEY`s, are the references to other tables within a given table which are called `FOREIGN KEY`s
 
-	-Working with			-Syntax:		$ CREATE TABLE orders(
-	 Foreign Keys:							// Column specifications here
-									customer_id INT,										//Naming convention for Foreign Key name for this table:	The name of the Table and the name of the Primary Keys column
-									FOREIGN KEY(customer_id) REFERENCES nameOfSomeOtherTable(nameOfSomeOtherTablesPrimaryKey)
-								);
+- Working with Foreign Keys			
+	```sql
+	CREATE TABLE orders(
+		-- Column specifications here
+				customer_id INT,	--Naming convention for Foreign Key name for this table:	The name of the Table and the name of the Primary Keys column
+				FOREIGN KEY(customer_id) REFERENCES nameOfSomeOtherTable(nameOfSomeOtherTablesPrimaryKey)
+			);
+	```
+	- Notes
+		- When we define a `FOREIGN KEY`, if we try to `INSERT` something that isn't a proper REFERENCE then MySQL gives an error
+		- The naming convention for Foreign Key is	**The name of the Foreign Table** and the **name of the Foreign Table's Primary Key column**
 
-					-Notes:			* When we define a FOREIGN KEY, if we try to INSERT something that isn't a proper REFERENCE then MySQL gives an error
+- Cross Join			
+	- Scenario		
+		- "Find all orders placed by Boy George"
+		- We can do this in three ways
+			1. Look up Boy George's ID with one query, and then Look up all entries that match that id in orders with another query.
+			2. Do (1) in a query using subqueries
+				```sql
+				SELECT * FROM orders WHERE customer_id = 
+					(SELECT id FROM customers WHERE last_name="George")		--This is a subquery
+				```
+			- Though *a* and *b* are not ideal because we can't really join the headers of one table with another. This is where JOINS come in.
+			3. `JOINS` 
+				```sql
+				SELECT * FROM customers, orders
+				```
+				- A basic type of join is called a "Cross Join"
+				- It's rarely used because it yields duplicated data amongst two tables.
 
-	-Cross Join:			-Scenario:		* "Find all orders placed by Boy George"
-								  We can do this in three ways:
-									1) Look up Boy George's ID with one query, and then Look up all entries that match that id in orders with another query.
-									2) Do (1) in query using subqueries
-									* Though none of these are ideal because we can't really join the headers of one table with another. This is where JOINs come in.
-									3) JOINS (a basic type of join is called a "Cross Join". It's rarely used because it yields duplicated data amongst two tables.)
+- Inner Join			
+	- Scenario		
+		- In order to widdle down the useless Cross Join which yields multiples we have to filter using WHERE
+			- There are two ways to do the same thing: IMPLICIT and EXPLICIT
+		```sql
+		--IMPLICIT INNER JOIN:	
+		SELECT * FROM customers, orders
+		WHERE customers.id = orders.customer_id;
 
-					-Syntax:		$ SELECT * FROM orders WHERE customer_id = 
-									(SELECT id FROM customers WHERE last_name="George")		//This is a subquery
+		--EXPLICIT INNER JOIN (used by most devs):
+		SELECT * FROM customers
+			JOIN orders
+			ON customers.id = orders.customer_id;
+		```
+	- Problems		
+		- In order to safeguard from similarly named columns in two tables, we can use the dot (.) syntax prepended by each table's name
 
-								* Cross Join (rarely used):
-									$ SELECT * FROM customers, orders;
+	- Visualization		
+		- Think of Venn Diagrams -
+			- A Cross Join yeilds multiples because it's two circle overlapping
+			- An Inner Join just gets the inner circle where they overlap
+	- Notes			
+		- Order of how you comma seperate the tables matters in the sense of how your data is presented to you
+		- You can treat these JOINs as regular graphs that you can GROUP BY, use AS, etc...
+		- JOIN can be INNER JOIN
 
-	-Inner Join:			-Scenario:		* In order to widdle down the useless Cross Join which yields multiples we have to filter using WHERE
-								* There are two ways to the same thing: IMPLICIT and EXPLICIT
+- Left Join
+	- Scenario		
+		- There are other types of join besider 'inner join'. We have left and right joins (here we cover left)
+		- Thinking in terms of the Venn Diagram we'll get the Left Circle from the Left join
+			- "Select everything from A, along with any matching records in B"
+			- "For every user how much have they spent? Even if they haven't ordered anything"
+			```sql
+			SELECT * FROM customers
+			LEFT JOIN orders
+				ON customers.id = orders.customer_id;
+			```
+	- Notes			
+		- So it includes everything from table A along with corresponding things for table B, but for anything else in B it comes in as NULL by default which can be modified by using -
+			```sql
+			SELECT first_name, last_name, IFNULL(SUM(amount), 0) FROM customers LEFT JOIN orders --etc...
+			```
 
-					-Syntax:		* IMPLICIT INNER JOIN:	
-									$ SELECT * FROM customers, orders
-								  	WHERE customers.id = orders.customer_id;
+- Right Join
+	```sql
+	SELECT * FROM customers 
+	RIGHT JOIN orders
+		ON customers.id = orders.customer_id;
+	```
+	- Scenario		
+		- "Right side of Venn Diagram"
+	- IMPORTANT		
+		- Works the same as left join. THE IMPORTANT THING HERE IS WE NOTE THINGS WHEN WE ATTEMPT TO BREAK OUR DATA.
+			- When we try to delete data that FOREIGN KEYS are DEPENDENT to, it raises an error. (Even DROP table doesn't work)
+		- THE FIX - DROP tables in order
 
-								* EXPLICIT INNER JOIN (used by most devs):
-									$SELECT * FROM customers
-									 JOIN orders
-										ON customers.id = orders.customer_id;
-
-					-Problems:		* In order to safeguard from similarly named columns in two tables, we can use the dot (.) syntax prepended by each
-								  table's name
-
-					-Visualization:		* Think of Venn Diagrams:
-									** A Cross Join yeilds multiples because it's two circle overlapping
-									** An Inner Join just gets the inner circle where they overlap
-								
-					-Notes:			* Order of how you comma seperate the tables matters in the sense of how your data is presented to you
-								* You can treat these JOINs as regular graphs that you can GROUP BY, use AS, etc...
-								* JOIN can be INNER JOIN
-
-	-Left Join:			-Scenario:		* There are other types of join besider 'inner join'. We have left and right joins (here we cover left)
-								* Thinking in terms of the Venn Diagram we'll get the Left Circle from the Left join
-								* "Select everything from A, along with any matching records in B"
-								* "For every user how much have they spent? Even if they haven't ordered anything"
-
-					-Syntax:		$SELECT * FROM customers
-								 LEFT JOIN orders
-									ON customers.id = orders.customer_id;
-
-					-Notes:			* So it includes everything from table A along with corresponding things for table B, but for anything else in B it comes in as NULL by default 
-								  which can be modified by using:
-									$SELECT first_name, last_name, IFNULL(SUM(amount), 0) FROM customers LEFT JOIN orders //etc...
-
-	-Right Join:			-Scenario:		* "Right side of Venn Diagram"
-
-					-Syntax:		$SELECT * FROM customers 
-								 RIGHT JOIN orders
-									ON customers.id = orders.customer_id;
-					-IMPORTANT:		*Works the same as left join. THE IMPORTANT THING HERE IS WE NOTE THINGS WHEN WE ATTEMPT TO BREAK OUR DATA.
-									** When we try to delete data that FOREIGN KEYS are DEPENDENT to, it raises an error. (Even DROP table doesn't work)
-									   FIX: *** DROP tables in order
-
-	-How to DELETE			-Syntax:		* YOU MUST DO THIS WHEN DEFINING YOUR FOREIGN KEY:
-	 when tied down							$ FOREIGN KEY(customer_id) REFERENCES customers(id) ON DELETE CASCADE;
-	 by a FOREIGN KEY:						"When a customer is deleted that has a corresponding order, delete the order as well"
-								* NOW REGULAR DELETE SHOULD WORK
+- How to DELETE	when tied down by a FOREIGN KEY
+	```sql
+	-- YOU MUST DO THIS WHEN DEFINING YOUR FOREIGN KEY
+	FOREIGN KEY(customer_id) REFERENCES customers(id) ON DELETE CASCADE;
+	```
+	- Scenario - *"When a customer is deleted that has a corresponding order, delete the order as well"*
+	- NOW REGULAR DELETE SHOULD WORK
 
 Many To Many:
 	-Many to Many Basics:		-IMPORTANT:		* In order to make a Many to Many Relationship, WE HAVE TO MAKE A NEW TABLE that has FOREIGN KEY references to the tables that are apart of this Many to Many 
@@ -610,7 +638,7 @@ Many To Many:
 								7) Put together all three tables
 									*You can chain together multiple JOINs
 
-INSTAGRMA DATABASE CLONE
+INSTAGRAM DATABASE CLONE
 	-Users Schema:			-Syntax:			$ CREATE TABLE users (
         									id INTEGER AUTO_INCREMENT PRIMARY KEY,
         									username VARCHAR(255) UNIQUE NOT NULL,
