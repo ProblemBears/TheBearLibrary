@@ -269,7 +269,7 @@
 - Better Searches with LIKE
 	```sql
 	WHERE author_fname LIKE '%da%' -- here the % are wildcards. Anything comes before and after
-	$WHERE stock_quantity LIKE '____'	
+	WHERE stock_quantity LIKE '____'	
 	-- 4 UNDERSCORES. So a stock_quantity where there are FOUR CHARACTERS (any four)
 	-- So it may be a digit 1000 and this query would get it, but nothing that has more or less digits
 	```
@@ -279,63 +279,91 @@
 		- To actually use % or _ we can use the escape character \ before them
 
 
-The Magic of Aggregate Functions:
-	-The Count Function:		-Situation		* "How many books are in the database?
-					-Syntax:		$ SELECT COUNT(*) FROM someTable;
-								$ SELECT COUNT(DISTINCT author_fname, author_lname) FROM books;	//To only count unique values
-								$ SELECT COUNT(*) FROM books WHERE title LIKE '%the%';
+## The Magic of Aggregate Functions
+- The Count Function:
+	```sql
+	SELECT COUNT(*) FROM someTable;
+	SELECT COUNT(DISTINCT author_fname, author_lname) FROM books;	--To only count unique values
+	SELECT COUNT(*) FROM books WHERE title LIKE '%the%';
+	```
+	- Situation		
+		- "How many books are in the database?
 
-	-The Joys of Group By:		-Explanation:		* Harder to use because you have to use it with other functions.
-								* It's how we can do things like finding the min, max, average, etc.
-								* "GROUP BY summarizes or aggregates identical data into single rows"
+- The Joys of Group By:
+	```sql
+	SELECT author_lname, COUNT(*) FROM books GROUP BY author_lname;  --Yields a table with COUNTS for each GROUP
+	SELECT CONCAT('In ', released_year, COUNT(*), ' book(s) released' FROM books GROUP BY released_year; --"How many books released each year?"
+	```
+	- Explanation:		
+		- Harder to use because you have to use it with other functions.
+		- It's how we can do things like finding the min, max, average, etc.
+		- "`GROUP BY` summarizes or aggregates identical data into single rows"
+	- Situation:		
+		- "*Group movies by genre and tell me how many movies each genre has*"
 
-					-Situation:		* "Group movies by genre and tell me how many movies each genre has"
+- Min and Max Basics
+	```sql
+	SELECT MIN(released_year) FROM books; --Replace MIN w/ MAX to do the same thing
+	```
+	- Situation
+		- Identify Min/Max value in a table (can be used on its own OR combined with GROUP BY)
+	- WARNING!!!!!		
+		- You can't do "SELECT MIN(released_year), title FROM books" and expect title to be the title that corresponds to the minimum value
+		- The solution is.... SUBQUERIES....
+- SUBQUERIES - A problem with Min and Max
+	```sql
+	SELECT * FROM books
+	WHERE pages = (SELECT Min(pages) FROM books);
+	```			
+	- Situation		
+		- ABOVE 
+	- Explanation		
+		- Where the SUBQUERY is the SQL statement in parenthesis
+	- Alternative Method		
+		```sql
+		SELECT * FROM books
+		ORDER BY pages ASC LIMIT 1;		-- or DESC
+		```
 
-					-Syntax:		$ SELECT author_lname, COUNT(*) FROM books GROUP BY author_lname;  //Yields a table with COUNTS for each GROUP
-								$ SELECT CONCAT('In ', released_year, COUNT(*), ' book(s) released' FROM books GROUP BY released_year; //"How many books released each year?"
+- Using Min and Max w/ Group By	
+	```sql
+	SELECT 	author_fname,
+			author_lname,
+			Min(released_year)
+	FROM	books
+	GROUP BY 	author_lname,
+				author_fname;
 
+			--OR
+	SELECT
+		CONCAT(author_fname, ' ', author_lname) AS author,
+		MAX(pages) AS 'longest book'
+	FROM books
+	GROUP BY 	author_lname,
+				author_fname;
+	```
+	- Scenarios		
+		- "Find the year each author published their first book"			
 
-	-Min and Max Basics:		-Situation:		* Identify Min/Max value in a table (can be used on its own OR combined with GROUP BY)
-					-Syntax:		* WITHOUT GROUP BY
-									$ SELECT MIN(released_year) FROM books;			//Replace MIN w/ MAX to do the same thing
+- The Sum Function
+	```sql
+	SELECT Sum(pages) FROM books;
+	SELECT author_fname, author_lname, Sum(pages)
+		FROM books
+		GROUP BY author_lname, author_fname;
+	```
+	- Scenario		
+		- "*Sum all pages in the entire database*"
+		- "*Sum all pages each author has written*"
 
-					-WARNING!!!!!:		* You can't do "SELECT MIN(released_year), title FROM books" and expect title to be the title that corresponds to the minimum value
-								* The solution is.... SUBQUERIES....
-
-	-SUBQUERIES - A			-Situation:		* ABOVE 
-	 problem with Min and		-SYNTAX:		$ SELECT * FROM books
-	 Max:							  WHERE pages = (SELECT Min(pages) FROM books);
-					-Explanation:		* Where the SUBQUERY is the SQL statement in parenthesis
-					-OR Syntax:		$ SELECT * FROM books
-								  ORDER BY pages ASC LIMIT 1;		// or DESC
-
-	-Using Min and Max w/		-Scenario:		* "Find the year each author published their first book"
-	 Group By:			-Syntax:		$ SELECT author_fname,
-									 author_lname,
-									 Min(released_year)
-								  FROM	 books
-								  GROUP BY author_lname,
-									   author_fname;
-
-										OR
-								$ SELECT
-  									CONCAT(author_fname, ' ', author_lname) AS author,
-  									MAX(pages) AS 'longest book'
-								  FROM books
-								  GROUP BY author_lname,
-         								   author_fname;
-
-	-The Sum Function:		-Scenario:		* "Sum all pages in the entire database"
-								* "Sum all pages each author has written"
-					-Syntax:		$ SELECT Sum(pages) FROM books;
-								$ SELECT author_fname, author_lname, Sum(pages)
-								  FROM books
-								  GROUP BY author_lname, author_fname;
-
-	-The Avg Function:		-Scenario:		* "Calculate the average released_year across all books
-								* "Calculate the average stock quantity for books released in the same year"
-					-Syntax:		$ SELECT AVG(released_year) FROM books;
-								$ SELECT AVG(stock) FROM books GROUP BY released_year;
+- The Avg Function
+	```sql
+	SELECT AVG(released_year) FROM books;
+	SELECT AVG(stock) FROM books GROUP BY released_year;
+	```
+	- Scenarios		
+		- "Calculate the average released_year across all books
+		- "Calculate the average stock quantity for books released in the same year"
 
 The Power of Logical Operators:
 	-Not Equal:			-Scenario:		* "Select all books NOT published in 2017"
