@@ -595,48 +595,41 @@
 	- Scenario - *"When a customer is deleted that has a corresponding order, delete the order as well"*
 	- NOW REGULAR DELETE SHOULD WORK
 
-Many To Many:
-	-Many to Many Basics:		-IMPORTANT:		* In order to make a Many to Many Relationship, WE HAVE TO MAKE A NEW TABLE that has FOREIGN KEY references to the tables that are apart of this Many to Many 
-								  relationship
-					-Scenario:		* "Series can have many Reviewers. Reviewers can have many Series reviewd. We make a NEW TABLE called REVIEWS that has ID pointers to  the Reviewers Table and
-								  Series Table"
+## Many To Many
+- Many to Many Basics		
+	- IMPORTANT		
+		- In order to make a Many to Many Relationship, WE HAVE TO MAKE A NEW TABLE that has FOREIGN KEY references to the tables that are apart of this Many to Many relationship
+	- Scenario		
+		- *"Series can have many Reviewers. Reviewers can have many Series they have reviewed. We make a NEW TABLE called REVIEWS that has ID pointers to  the Reviewers Table and Series Table"*
 
-	-Creating Our Tables:		-Syntax:		*Creating the Reviewers Table:
-									CREATE TABLE reviewers (
-        									id INT AUTO_INCREMENT PRIMARY KEY,
-        									first_name VARCHAR(100),
-        									last_name VARCHAR(100)
-    									);
+- Creating Our Tables
+	```sql
+	--Creating the Reviewers Table:
+	CREATE TABLE reviewers (
+			id INT AUTO_INCREMENT PRIMARY KEY,
+			first_name VARCHAR(100),
+			last_name VARCHAR(100)
+		);
 
-								*Creating the Series Table:
-    									CREATE TABLE series(
-       										id INT AUTO_INCREMENT PRIMARY KEY,
-        									title VARCHAR(100),
-        									released_year YEAR(4),
-        									genre VARCHAR(100)
-    									);
+	--Creating the Series Table:
+			CREATE TABLE series(
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				title VARCHAR(100),
+				released_year YEAR(4),
+				genre VARCHAR(100)
+			);
 
-								*Creating the Reviews Table:
-    									CREATE TABLE reviews (
-        									id INT AUTO_INCREMENT PRIMARY KEY,
-        									rating DECIMAL(2,1),
-        									series_id INT,
-        									reviewer_id INT,
-        									FOREIGN KEY(series_id) REFERENCES series(id),
-        									FOREIGN KEY(reviewer_id) REFERENCES reviewers(id)
-    									);
-								*Then we can do Insertions
-
-	-Challenges:			-Problems:		1) Inner Join
-								2) Average
-								3) Simple Inner Join for more info
-								4) Finding Non reviews with LEFT JOIN:
-									* SELECT * FROM someTable LEFT JOIN reviews ON something WHERE rating IS NULL;
-								5) Average Reviews by Genre
-									*ROUND(toRound, 2) toRound by 2 decimal places
-								6) Put it all together
-								7) Put together all three tables
-									*You can chain together multiple JOINs
+	--Creating the Reviews Table:
+			CREATE TABLE reviews (
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				rating DECIMAL(2,1),
+				series_id INT,
+				reviewer_id INT,
+				FOREIGN KEY(series_id) REFERENCES series(id),
+				FOREIGN KEY(reviewer_id) REFERENCES reviewers(id)
+			);
+	--Then we can do Insertions
+	```
 
 INSTAGRAM DATABASE CLONE
 	-Users Schema:			-Syntax:			$ CREATE TABLE users (
