@@ -234,35 +234,49 @@
 	```
 
 
-Refining Our Selections:
-	-Using DISTINCT:		-Syntax:		$SELECT DISTINCT some_col_name FROM some_table;
-					-IMPORTANT:		* It gets non-dupicate entries
-								* When you specify more than one column. It runs distinct on those columns as a row (every entry must be distinct to another)
+## Refining Our Selections
+- Using DISTINCT		
+	```sql
+	SELECT DISTINCT some_col_name FROM some_table;
+	```
+	- Important		
+		- It gets non-dupicate entries
+		- When you specify more than one column. It runs distinct on those columns as a row (every entry must be distinct to another)
 
-	-Sorting Data w/		-Syntax:		$SELECT some_col_name FROM some_table ORDER BY some_col_name;
-	 ORDER BY:						$SELECT some_col_name_1, some_col_name_2, some_col_name_3 FROM some_table ORDER BY 2; 
-									//Where 2 refers to some_col_name_2 the order of what we selected
+- Sorting Data w/ ORDER BY
+	```sql
+	SELECT some_col_name FROM some_table ORDER BY some_col_name;
+	SELECT some_col_name_1, some_col_name_2, some_col_name_3 FROM some_table ORDER BY 2; 
+		-- Where 2 refers to some_col_name_2 the order of what we selected
+	```		
+	- Important		
+		- For alphabetical (ascending) - just specify the some-col-name
+		- For alphabetical (descending) - add DESC to ascending
+		- Also works for Numbers
+		- You can ORDER BY more than 1 column. Ex: `ORDER BY lname, fname;` This means after we do our initial sorting we can sort by fname if there are any conflicts such as people having the same last name so we have to sort their first names
 
-					-IMPORTANT:		*For alphabetical (ascending) - just specify the some-col-name
-								*For alphabetical (descending) - add DESC to ascending
-								*Also works for Numbers
-								*You can ORDER BY more than 1 column. Ex: ORDER BY lname, fname; This means after we do our initial sorting
-								 We can sort by fname if there are any conflicts such as people having the same last name so we have to sort
-								 their first names
+- Using LIMIT:
+	```sql
+	SELECT some_col_name FROM some_table LIMIT 10;
+	SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 5 --Described in "Situation"
+	```	
+	- Situation		
+		- Specify a number of entries you want to limit a query to 
+		- Usually used with `ORDER BY` to do a query such as "5 most recently released books"
+	- Important		
+		- You can have the notation `LIMIT 5, 10` where the first number (5) means we start at the 5th row and the second number ,10, is the actual limit after the 5th row. **THIS MAY BE GOOD FOR PAGINATION**
 
-	-Using LIMIT:			-Situation:		* Specify a number of entries you want to limit a query to. Usually used with ORDER BY to do a query such as "5 most
-								  recently released books"
-					-Syntax:		$SELECT some_col_name FROM some_table LIMIT 10;
-								$SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 5 //The situation described above
-					-IMPORTANT:		* You can have the notation LIMIT 5, 10 where the first number (5) means we start at the 5th row and the second number
-								  (10) is the actual limit after the 5th row. THIS MAY BE GOOD FOR PAGINATION
-
-	-Better Searches		-Situation:		* "There's this book I'm looking for. But I can't rememeber the title! I think the author's name is Dave or Dan or David..."
-	 with LIKE:						  (This is similar to WHERE except WHERE wants exact matches)
-					-Syntax:		$WHERE author_fname LIKE '%da%'		// here the % are wildcards. Anything comes before and after
-								$WHERE stock_quantity LIKE '____'	//4 UNDERSCORES. So a stock_quantity where there are FOUR CHARACTERS (any four)
-													//So it may be a digit 1000 and this query would get it, but nothing that has more or less digits
-					-IMPORTANT:		* To actually use % or _ we can use the escape character \ before them
+- Better Searches with LIKE
+	```sql
+	WHERE author_fname LIKE '%da%' -- here the % are wildcards. Anything comes before and after
+	$WHERE stock_quantity LIKE '____'	
+	-- 4 UNDERSCORES. So a stock_quantity where there are FOUR CHARACTERS (any four)
+	-- So it may be a digit 1000 and this query would get it, but nothing that has more or less digits
+	```
+	- Situation		
+		- "*There's this book I'm looking for. But I can't rememeber the title! I think the author's name is Dave or Dan or David...*" (This is similar to WHERE except WHERE wants exact matches)
+	- Important		
+		- To actually use % or _ we can use the escape character \ before them
 
 
 The Magic of Aggregate Functions:
