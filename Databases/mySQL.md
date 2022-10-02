@@ -155,50 +155,83 @@
             SQL will jus keep incrementing it after every insertion, which ensures it'll be unique.
         - **PRIMARY KEY** can also be placed beside **AUTO INCREMENT**.
 
-CRUD commands (CreateReadUpdateDelete):
-	-READ(SELECT):			-Syntax:		$SELECT * FROM cats; 		//The (*) means "Give me all columns"
-								$SELECT colName FROM cats; 	//To show a specific column
-								$SELECT col1, col2 FROM cats;	//To show more than 1 column
+## CRUD commands (Create Read Update Delete)
+- READ(SELECT):
+	``` sql
+	SELECT * FROM cats; 			--The (*) means "Give me all columns"
+	SELECT colName FROM cats; 		--To show a specific column
+	SELECT col1, col2 FROM cats;	--To show more than 1 column
+	```
+- WHERE (to get speciific):	
+	```sql
+	SELECT * FROM cats WHERE age=4	--for strings quality is case insensitive	
+									--can be something like colName = colName to compare
+	```
+- ALIASES:			
+	```sql
+	SELECT cat_id AS id FROM cats	--Gives the column name an alias (useful for joining tables)
+	```
+- UPDATE(alter existing data):
+	```sql
+	UPDATE cats SET breed='Shorthair'
+	WHERE breed='Tabby';			--IT'S A GOOD IDEA TO TEST A WHERE BEFORE YOU ACTUALLY UPDATE!NO UNDOS!!!!!
+	```
+- DELETE:	
+	```sql
+	DELETE FROM cats WHERE name='Egg' 	--Very similar to select
+	DELETE FROM <table-name>			--Deletes everything from the table not the table itself
+	```				
 
-	-WHERE (to get speciific):	-Syntax:		$SELECT * FROM cats WHERE age=4	//for strings quality is case insensitive	
-												//can be something like colName = colName to compare
+## The World of String Functions
+- **CONCAT()** (Combine Data For Cleaner Output)
+	```sql
+	CONCAT( col, anotherCol, etcCol...)
+	```	
+	- Situation
+		- You separate a full name into first & last names, but then you want to CONCAT it to a full name.
+	- Notes		
+		- Has to be called within a SELECT	(Ex: `SELECT CONCAT('Hello', ' ', 'World')` )
+		- Use FROM to reference tables		(Ex: `SELECT CONCAT(col1, col2) FROM someTable;`)
+		- `CONCAT_WS (separator, col1, col2, ...)`	adds a separator between each concatanation.
 
-	-ALIASES:			-Syntax:		$SELECT cat_id AS id FROM cats	//Gives the column name an alias (useful for joining tables)
+- **SUBSTRING()** (Work w/ parts of strings)
+	```sql
+	SELECT SUBSTRING(someString, 1, 4);	--MYSQL INDICES START AT ONE!!!!!!!!!!!!!
+	```		
+	- Notes
+		- If you only specify one index then it goes from that index to the end of the string.
+		- Negative numbers are possible. They start from the end of the string.
+	- Important		
+		- Used with tables maybe like so: `SELECT SUBSTRING(colName, 1, 10) AS 'short title' FROM tableName;`
+		- You can mix SUBSTRING w/ CONCAT
 
-	-UPDATE(alter existing data):	-Syntax:		$UPDATE cats SET breed='Shorthair'
-								 WHERE breed='Tabby';		//IT'S A GOOD IDEA TO TEST A WHERE BEFORE YOU ACTUALLY UPDATE!NO UNDOS!!!!!
+- REPLACE() (replace parts of a string)	
+	```sql
+	SELECT REPLACE('Hello World', 'Hell', '****')
+	```
+	- Syntax Notes
+		- *Argument 1:* string in question	 
+		- *Argument 2:* what we ant to replace 
+		- *Argument 3:* the thing we'll use to replace
+	- Important		
+		- It's case sensitive (ex: o doesn't replace O)
+		- Again, for tables you can do FROM
+		- Also mixable w/ other string functions
 
-	-DELETE:			-Syntax:		$DELETE FROM cats WHERE name='Egg' //Very similar to select
-								$DELETE FROM <table-name>	//Deletes everything from the table not the table itself
+- REVERSE() (reverses a string)
+	```sql
+	SELECT REVERSE('HELLO WORLD')	--FROM to reference table
+	```
 
-The World of String Functions:
-	-CONCAT() (Combine Data		-Situation:		You separate a full name into first & last names, but then you want to CONCAT it to a full name.
-	 For Cleaner Output) :		-Syntax:		$CONCAT( col, anotherCol, etcCol...)
-					-IMPORTANT		* Has to be called within a SELECT	(Ex: SELECT CONCAT('Hello', ' ', 'World') )
-								* Use FROM to reference tables		(EX: SELECT CONCAT(col1, col2) FROM someTable;
-								* $CONCAT_WS (separator, col1, col2, ...)	adds a separator between each concatanation.
+- CHAR_LENGTH() (counts chars in string)
+	```sql
+	SELECT CHAR_LENGTH('HELLO WORLD') --FROM to reference table
+	```
 
-	-SUBSTRING() (Work w/		-Syntax:		$SELECT SUBSTRING(someString, 1, 4);	//MYSQL INDICES START AT ONE!!!!!!!!!!!!!
-	 parts of strings) :					*If you only specify one index then it goes from that index to the end of the string.
-								*Negative numbers are possible. They start from the end of the string.
-					-IMPORTANT:		* Used with tables maybe like so:
-								$SELECT SUBSTRING(colName, 1, 10) AS 'short title' FROM tableName;
-								* You can mix SUBSTRING w/ CONCAT
-
-	-REPLACE() (replace		-Syntax:		$SELECT REPLACE('Hello World', 'Hell', '****')
-	 parts of a string):					*arg)1: string in question	 arg2): what we ant to replace arg3): the thing we'll use to replace
-					-IMPORTANT:		* It's case sensitive (ex: o doesn't replace O)
-								* Again, for tables you can do FROM
-								* Also mixable w/ other string functions
-
-	-REVERSE()			-Syntax:		$SELECT REVERSE('HELLO WORLD')	// FROM to reference table
-	 (reverses a string):
-
-	-CHAR_LENGTH()			-Syntax:		$SELECT CHAR_LENGTH('HELLO WORLD') //FROM to reference table
-	 (counts chars in string):
-
-	-UPPER() & LOWER()		-Syntax:		$SELECT UPPER('Hello World')	//FROM; LOWER is used used the exact way
-	(change a strings case)
+- UPPER() & LOWER() (change a strings case)
+	```sql
+	SELECT UPPER('Hello World')	--FROM; LOWER is used used the exact way
+	```
 
 
 Refining Our Selections:
