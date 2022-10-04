@@ -98,102 +98,113 @@ font-family: sans-serif 	//Changes the font family
 			- Notation: \<whitespace\>
 			- Ex:	`div p` =    "Any paragraph that's a descendant of a div should get a style" (Direct not needed)
 
-DIVING DEEPER INTO CSS:
-	-CSS Box Model:			-In the webpage, HTML interprets elements as boxes (Check inspector below properties for visuals)
-					-Every element has content, padding, border, and margins
-					-CSS properties: 
-							* padding: 20px; 
-							* border: 5px black solid; (this is shorthand)
+## DIVING DEEPER INTO CSS
+### CSS Box Model			
+- In the webpage, HTML interprets elements as boxes (Check inspector below properties for visuals)
+- Every element box has content, padding, border, and margins
+- CSS properties: 
+	- `padding: 20px;` 
+	- `border: 5px black solid;` (this is shorthand)
 
-	-Default Margins:		-By default, the <body> element has a default margin of 8px. We can remove this with margin: 0px;
+### Default Margins		
+- By default, the \<body\> element has a default margin of 8px. We can remove this with margin: 0px;
 
-	-Margin Collapsing:		-The bigger margin of two adjacent box elements is the things that separates both from each other,
-					 therefore the margins don't add up, they "collapse" onto each other.
+### Margin Collapsing		
+- The bigger margin of two adjacent box elements is the things that separates both from each other, therefore the margins don't add up, they "collapse" onto each other.
 
-	-Shorthand properties:		-Combine values of multiple other properties, into a single property.
-						* EX:
-							** Separate properties:
-										border-width: 2px;
-										border-style: dashed (or solid);
-										border-color: orange;
-							** Shorthand property:
-										border: 2px solid orange;
-					-The order doesn't matter as long as each property uses a different value.
-					-margin has a shorthand for its margin-top , right, bottom, left properties like so:
-						* margin: 5px, 10px, 5px, 10px; (in the order above) (there's a 2 side version using only two Vals for top/down)
+### Shorthand Properties		
+- Combine values of multiple other properties, into a single property. For example -
+	```css
+	/* Separate properties: */
+				border-width: 2px;
+				border-style: dashed (or solid);
+				border-color: orange;
+	/* Shorthand property: */
+				border: 2px solid orange;
+	```
+	- The order doesn't matter as long as each property uses a different value.
+	- margin has a shorthand for its margin-top , right, bottom, left properties like so:
+		```css
+		margin: 5px, 10px, 5px, 10px; /* (in the order above) (there's a 2 side version using only two Vals for top/down) */
+		```
 
-	-Height & Width properties:	-Can have relative values (%) or absolute values (px)
-					-Width can take up the full width of the page. 
-					-Height can not take up the full height of a page. 100% refers to the available height given by the parent's container.
-						*Quirky. 100% needs to be chained down from <html> in order to get it to work like width's 100%
-						*Better to use absolute values.
-					-The width and height by default manipulates only the content section our CSS box. Therefore if you add padding, borders
-					 and margins. IT maybe glitchy at 100%. THIS IS BECAUSE THE PROPERTY box-sizing IS SET TO content-box by default.
-					 You could set for everything before the margin section to be included in width and height calculations by setting
-					 the value border-box . THIS VALUE IS SO COMMON BECAUSE THAT IS THE EFFECT WE WANT TO KEEP EVERYTHING BALANCED. ILL' REPEAT:
-						
-						*IMPORTANT PROPERTY (from above) - box-sizing: border-box;
-						**This is something you should wrap in a universal selector for all elements to use.
+### Height & Width properties	
+- Can have relative values (%) or absolute values (px)
+- Width can take up the full width of the page. 
+- Height can not take up the full height of a page. 100% refers to the available height given by the parent's container.
+	- Quirky. 100% needs to be chained down from <html> in order to get it to work like width's 100%
+	- Better to use absolute values.
+- The width and height by default manipulates only the content section our CSS box. Therefore if you add padding, borders and margins. IT maybe glitchy at 100%. THIS IS BECAUSE THE PROPERTY box-sizing IS SET TO content-box by default. You could set for everything before the margin section to be included in width and height calculations by setting the value `border-box`. **THIS VALUE IS SO COMMON BECAUSE THAT IS THE EFFECT WE WANT TO KEEP EVERYTHING BALANCED. ILL' REPEAT** -						
+	- **IMPORTANT PROPERTY** (from above) - `box-sizing: border-box;`
+	- This is something you should wrap in a universal selector for all elements to use.
 
-	-Display Property:		-Allows us to change the behavior of an element from block to inline (bidirectional) and even remove the element from the DOM
-						*Inline elements don't take the full width of the screen, and don't have margin top/bottom. Blocks do.
-					-The property is display: and has the values -
-						* block 	(makes an element into a block)
-						* inline
-						* none	(makes an element invisible in the DOM but doesn't remove it from the DOM) 
-							(visibility: hidden; is similar but it blocks content from taking its place)
-						* inline-block (keep the behavior of blocks, but they can go next to each other now)
-							**WEIRD QUIRK: HTML reads whitespace as a node, so if you try to make two inline-blocks stay in the same
-								       line using 100% and minus, you have to take into account that whitespace node's size
-						* THE DIFFERENCE BETWEEN INLINE AND BOX:
-							** Box take up the whole width of a document
-							** Inline takes up the space that is needed for its content
-								*** So we'd have to be careful in cases like:
-									1) Using width 100% would make a new line away from another inline. We would have to
-									   do width: 100% - someOtherInlinesWidth; to make it stay in the same line
-					-Later on we see flex box which is better.
+### Display Property		
+- Allows us to change the behavior of an element from block to inline (bidirectional) and even remove the element from the DOM
+	- Inline elements don't take the full width of the screen, and don't have margin top/bottom. Blocks do.
+- The property is `display:` and has the values -
+	- block 
+		- makes an element into a block
+	* inline
+	* none	
+		- makes an element invisible in the DOM but doesn't remove it from the DOM
+		- `visibility: hidden;` is similar but it blocks content from taking its place
+	- inline-block (keep the behavior of blocks, but they can go next to each other now)
+		- WEIRD QUIRK: HTML reads whitespace as a node, so if you try to make two inline-blocks stay in the same line using 100% and minus, you have to take into account that whitespace node's size
+- THE DIFFERENCE BETWEEN INLINE AND BOX:
+	- Box take up the whole width of a document
+	- Inline takes up the space that is needed for its content
+		- So we'd have to be careful in cases like:
+			1. Using width 100% would make a new line away from another inline. We would have to do width: 100% - someOtherInlinesWidth; to make it stay in the same line
+- Later on we see flex box which is better.
 					
+### Calc()				
+- To yield a calculate value do something like:
+	```css
+	width: calc(100% - 53px) /*Here whitespace between each operand matters*/
+	```
+### text-decoration and vertical-align		
+- For things with default styling like anchor tags. We can do `text-decoration: none;` to get rid of its default styling
+- The font size of one thing in the "line" can effect the alignment of the others. (Ex: our logo is big and our Nav links align to "touch the floor" with the big logo). We can feed the value `vertical-align: middle;` to remedy quirky alignment
 
-	-Calc():				-To yield a calculate value do something like:
-						width: calc(100% - 53px) //Here whitespace between each operand matters
+### Pseudo Classes			
+```css
+someSelector:pseudoclass {//rules}
+```
+- **DEFINITION** - Defines the style of a special state of an element
+- **EXAMPLE** -
+	- `someSelector:hover{}` - when your mouse hovers over the selected element then a rule is applied while it stays there.
 
-	-text-decoration and		-For things with default styling like anchor tags. We can do text-decoration: none; to get rid of its default styling
-	 vertical-align:			-The fontSize of one thing in the "line" can effect the alignment of the others. (Ex: our logo is big and our Nav links align
-					 to "touch the floor" with the big logo). We can feed the value vertical-align: middle; to remedy quirky alignment
+### Pseudo Elements		
+```css
+someSelector::pseudoclass {/rules}
+```
+- DEFINITION - Define the style of a specific part of an element
+- EXAMPLE -
+	- `someSelector::after{content: "(Link)"}` - Puts the text in content after the selected element
 
-	-Pseudo Classes			-SYNTAX:
-	 (for animations?):			someSelector:pseudoclass {//rules}
-					-DEFINITION:
-						Defines the style of a special state of an element
-					-EX:
-						someSelector:hover{} //when your mouse hovers over the selected element then a rule is applied while it stays there.
+### Grouping Rules			
+- Simply comma separate selectors. And the rules will be applied to all
 
-	-Pseurdo Elements:		-SYNTAX
-						someSelector::pseudoclass {/rules}
-					-DEFINITION:
-						Define the style of a specific part of an enemy
-					-EX:
-						someSelector::after{content: "(Link)"} //Puts the text in content after the selected element
-
-	-Grouping Rules:			-Simply comma separate selectors. And the rules will be applied to all
-
-	-border-bottom:			-Value: 5px solid white; //to add a white line below a link
+### border-bottom			
+- Value -  `5px solid white;` - to add a white line below a link
 	
-	-Tags with multiple		-This can be done by adding another className to the attribute after a space
-	 class="":
+### Tags with multiple class=""		
+- This can be done by adding another className to the attribute after a space
 
-	-Adding an image:		-SYNTAX:
-						background: url("freedom.jpg");
+### Adding an image
+```css
+background: url("freedom.jpg");
+```
 
-	-PROPERTIES WORTH 
-	 REMEMBERING:			-color
-					-background-color
-					-display
-					-padding
-					-border
-					-margin
-					-width
-					-height
+### Properties worth remembering
+- color
+- background-color
+- display
+- padding
+- border
+- margin
+- width
+- height
 
 
 MORE ON SELECTORS & CSS FEATURES:
