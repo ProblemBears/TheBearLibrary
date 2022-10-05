@@ -1,3 +1,7 @@
+<h1 align="center">
+CSS Guide
+</h1>
+
 ## CSS Getting Started
 - CSS3 - is currently in development (In Development)
 - THERE WILL NEVER BE CSS 4 - because 3 is being split into modules: (colors, animation)
