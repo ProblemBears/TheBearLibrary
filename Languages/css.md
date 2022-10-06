@@ -281,58 +281,63 @@ margin: auto;	/*which centers on all directions (mostly horizontally)*/
 - **Definition** - Overwrite default positioning and tell the browser that an element should go to the left or right (isn't used much now because we have flexbox now)
 	- **Warning** -	It takes the element out of the document flow. (other elements can overlap under it). To prevent this we define an empty div behind this element that has the rule `clear: both;`
 
-POSITIONING ELEMENTS WITH CSS:
-	-Positioning Theory:		* The position property is applied by default with the value static
-					* position can hold the values:	static, absolute, relative, fixed, sticky		//"move to another position."
-					* But it must also define where it should be placed so we have properties:		//"ok, but where should I move to?"
-						** left, right, bottom, left (or combos of these)
-						** When top is defined with a value of say 20 px It can have two meanings:  //positioning context is always the viewport
-							1) "Move the current element 20px above where it currently is."
-							2) "Move the current element 20px from the top of some element"
-					*top, left, etc takes effect on when position is anything but static
+<h2 align="center"> POSITIONING ELEMENTS WITH CSS </h2>
 
-	-Working with "fixed":		*When you first define "position: fixed;" you'll see that elements below the "fixed" overtake it and it's width act like an inline-block.
-					 This happens because we took it out of the "document flow" (this element doesn't exist to the others)
-					*When you define "top: 0px" (and make sure your margin is 0): WE SEE THAT IT IS FIXED RELATIVE TO THE BROWSER VIEWPORT.
-					*So if you define a property left & top with 0 values, then it is "fixed" starting at the top left!
+### Positioning Theory		
+- The position property is applied by default with the value static
+- position can hold the values:	`static`, `absolute`, `relative`, `fixed`, `sticky`		//"move to another position."
+- But it must also define where it should be placed so we have the properties -		//"ok, but where should I move to?"
+	- `left`, `right`, `bottom`, `left` (or combos of these)
+	- When top is defined with a value of say 20 px It can have two meanings:  //positioning context is always the viewport
+		1. "Move the current element 20px above where it currently is."
+		2. "Move the current element 20px from the top of some element"
+- top, left, etc takes effect on when position is anything but static
 
-	-"position" to add a		* Properties:
-	 background image:			** background: url("somePathToImage");
-						** position: fixed;
-						** width & height: 100%;
+### Working with "fixed"		
+- When you first define `position: fixed;` you'll see that elements below the "fixed" overtake it and it's width acts like an inline-block. This happens because we took it out of the "document flow" (this element doesn't exist to the others)
+	- When you define "top: 0px" (and make sure your margin is 0): WE SEE THAT IT IS FIXED RELATIVE TO THE BROWSER VIEWPORT.
+	- So if you define a property left & top with 0 values, then it is "fixed" starting at the top left!
 
-	-Understanding the		* By default every element has a z-property with the value auto (which is equal to 0)
-	 "z-axis" property:		* So to stack things above. Choose any number greater than what you want to stack above. And below, less than (can be negative)
-						** two values w/ same Z rely on the order of the HTML to appear
-					* IMPORTANT: z-index only works with elements that have the position property with any value except for static.
+### "position" to add a background image		
+- Properties:
+	- background: url("somePathToImage");
+	- position: fixed;
+	- width & height: 100%;
 
-	-Adding a badge to our		* The absolute property. The positioning context is defined by TWO CASES:
-	 Package (absolute):			1) If none of the ancestors of the element has a position property define. Then the positioning context of our element is the <html>
-						   element
-						2) If not (1) then the closest ancestor w/ a position is the positioning context for this element
-					* absolute also breaks the "flow"
+### Understanding the "z-axis" property		
+- By default every element has a z-property with the value auto (which is equal to 0)
+	- So to stack things above. Choose any number greater than what you want to stack above. And below, less than (can be negative)
+		- two values w/ same Z rely on the order of the HTML to appear
+	- **IMPORTANT** - z-index only works with elements that have the position property with any value except for static.
 
-	-Styling & Positioning		* Use relative to not "break" the flow and in order to let an absolute have it's position relative to that relative.
-	 w/ absolute & relative:		* We could have our top, left, right, bottom to be equal to 0 and let margins define the distance away.
+### Adding a badge to our Package (absolute)		
+- The `absolute` property. The positioning context is defined by TWO CASES:
+	1. If none of the ancestors of the element has a position property define. Then the positioning context of our element is the \<html\> element
+	2) If not (1) then the closest ancestor w/ a position is the positioning context for this element
+- absolute also breaks the "flow"
 
-	-Diving Deeper into relative:	*DOESN'T BREAK FLOW
-					*IDEAL TO SETUP POSITIONING CONTEXT's FOR OTHER ELEMENT's that use absolute.
-					*When top, left, right, bottom are used on elements that have the property RELATIVE. Then it move's offset to it's "flow" position.
-					 AND WHEN YOU DO THIS IT STILL ISN'T TAKEN OUT OF ITS FLOW!!!
+### Styling & Positioning w/ absolute & relative 
+- Use relative to not "break" the flow and in order to let an absolute have it's position relative to that relative.
+	 		* We could have our top, left, right, bottom to be equal to 0 and let margins define the distance away.
 
-	-Working w/ "overflow" &		* On the rule w/ the parent selected add:		overflow: hidden;
-	 relative positioning (to		* A WEIRD QUIRK OF HTML: if overflow: hidden; is passed to a <body>, it erases it and passes it to the <html>
-	 prevent offsets to a child		** FIX: Add the overflow TO BOTH <body> & <html>
-	 from leaving a parent)
+### Diving Deeper into relative	
+- DOESN'T BREAK FLOW
+- IDEAL TO SETUP POSITIONING CONTEXT's FOR OTHER ELEMENT's that use absolute.
+- When top, left, right, bottom are used on elements that have the property RELATIVE. Then it move's offset to it's "flow" position. AND WHEN YOU DO THIS IT STILL ISN'T TAKEN OUT OF ITS FLOW!!!
 
-	-position: sticky;		* Does nothing alone. If something like top: 20px is defined, then once the viewport top reaches the element w/
-					  sticky by 20px, it will follow it until it reaches the end of the parent
+### Working w/ "overflow" & relative positioning (to from leaving a parent)		
+- On the rule w/ the parent selected add:		overflow: hidden;
+- A WEIRD QUIRK OF HTML: if `overflow: hidden;` is passed to a \<body>, it erases it and passes it to the \<html> to prevent offsets to a child		
+	- **FIX** - Add the overflow TO BOTH \<body> & \<html>
+	 
+### position: sticky;		
+* Does nothing alone. If something like `top: 20px` is defined, then once the viewport top reaches the element w/ sticky by 20px, it will follow it until it reaches the end of the parent
 
-	-Understanding the 		* If all elements are fixed and are in the same Z. Then, the html code dictates how they stack (in order seen)
-	 Stacking Context:		* Children can not go behind the parent's Z-index AND it can't go above elements that are not related to it. This is because
-					  elements that have fixed on them define their own STACKING CONTEXT
+### Understanding the Stacking Context: 		
+- If all elements are fixed and are in the same Z. Then, the html code dictates how they stack (in order seen)
+- Children can not go behind the parent's Z-index AND it can't go above elements that are not related to it. This is because elements that have fixed on them define their own STACKING CONTEXT
 
-UNDERSTANDING BACKGROUND IMAGES & IMAGES:
+<h2 align="center"> UNDERSTANDING BACKGROUND IMAGES & IMAGES </h2>
 	-There's more to background that we've seen. When we define an image, we actually set the background-image.
 	 With color it's background-color.
 	-There can be multiple images in a background property. Simply comma seperate them in the short hand with as many other properties as you want. This works with transparency
