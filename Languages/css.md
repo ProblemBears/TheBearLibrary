@@ -2,7 +2,8 @@
 CSS Guide
 </h1>
 
-## CSS Getting Started
+<h2 align="center"> CSS Getting Started </h2>
+
 - CSS3 - is currently in development (In Development)
 - THERE WILL NEVER BE CSS 4 - because 3 is being split into modules: (colors, animation)
 - SCHEDULE:	
@@ -10,7 +11,8 @@ CSS Guide
 	- Advanced: 	Sec 7:Backrounds and images - Sec 12:Text and Fonts
 	- Expert:		Sec 13:Flexbox - Sec 18:Sass
 
-## Diving into the Basics of CSS
+<h2 align="center"> Diving into the Basics of CSS </h2>
+
 ### Inline Styles
 ```html		
 <someTag style="property: value;">
@@ -102,7 +104,8 @@ font-family: sans-serif 	//Changes the font family
 			- Notation: \<whitespace\>
 			- Ex:	`div p` =    "Any paragraph that's a descendant of a div should get a style" (Direct not needed)
 
-## DIVING DEEPER INTO CSS
+<h2 align="center"> DIVING DEEPER INTO CSS </h2>
+
 ### CSS Box Model			
 - In the webpage, HTML interprets elements as boxes (Check inspector below properties for visuals)
 - Every element box has content, padding, border, and margins
@@ -211,48 +214,72 @@ background: url("freedom.jpg");
 - height
 
 
-MORE ON SELECTORS & CSS FEATURES:
-	-Tags can have more than one class in the class attribute (separated by white space)
-		*We can make separate rules for each class. Though if they manipulate the same thing order matters (down most in CSS file)
+<h2 align="center"> MORE ON SELECTORS & CSS FEATURES </h2>
+### Tags can have more than one class in the class attribute (separated by white space)
+ - We can make separate rules for each class. Though if they manipulate the same thing order matters (bottom-most in CSS file)
 
-	-Select by Class:		Syntax:	tagType.className {}  //Targets an element which is of tagType and has the className CSS class
+### Select by Class		
+```css
+tagType.className {}  /*Targets an element which is of tagType and has the className CSS class*/
+```
 
-	-Overwrite specificity		Syntax:
-	 using !important:			div { color: red !important;}	//You SHOUL NOT USE this. Leads to bad code
+### Overwrite specificity using !important
+```css
+div { color: red !important;}	/*You SHOULD NOT USE this. Leads to bad code*/
+```
 
-	-Selecting the opposite		Syntax:
-	 with :not() pseudo class:		a:not(someSelector) {}	//Select any anchor tag that does not have class="someSelector"
+### Selecting the opposite with :not() pseudo class
+```css
+a:not(someSelector) {}	/*Select any anchor tag that does not have class="someSelector"*/
+```
 
+<h2 align="center"> PRACTICING THE BASICS </h2>
 
-PRACTICING THE BASICS:
-	-text-align property:		*To align the text to the center (width-wise) the value should be: center
+### text-align property		
+- To align the text to the center (width-wise) the value should be: center
 	
-	-box-shadow property:		Syntax:		box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);		//Yield a "box shadow" on your selection, NOTICE the COLOR FUNCTION rgba()
+### box-shadow property
+```css		
+box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);	/*Yields a "box shadow" on your selection, NOTICE the COLOR FUNCTION rgba()
+```
 
-	-border-radius property:	Syntax:		border-radius: 8px; //for all corners		border-radius: 4px 4px 4px 4px //To define every corner
+### border-radius property
+```css	
+border-radius: 8px; /*for all corners*/		
+border-radius: 4px 4px 4px 4px /*To define every corner*/
+```
 
-	-Cursor when we hover		Syntax:		cursor: pointer;
-	 over buttons:		
+### Cursor when we hover over buttons
+```css
+cursor: pointer;
+```		
 	
-	-For buttons use			*:hover and :active can change the color to make it more pleasant
-	 Pseudoclasses:
+### For buttons use Pseudoclasses			
+- `:hover` and `:active` can change the color to make it more pleasant
 
-	-When you focus on a 		*Syntax:	.button:focus{ outline: none;}
-	 button there's a
-	 default annoying blue
-	 outline. Solve w/:
+### Getting rid of the default blue outline when focusing on buttons
+```css
+.button:focus{ outline: none;}
+```
 
-	-Vertical align thing:		*Use it on the parent of things you want to vertically align
+### Vertical align		
+- Use it on the parent of things you want to vertically align
 
-	-Turning a block into		*Syntax:	border-radius: 50%;
-	 a perfect circle:				width: 128px; height: 128px;	//Where both w/h need to be the same
+- Turning a block into a perfect circle			
+```css
+border-radius: 50%;
+width: 128px; 
+height: 128px;	/*Where both w/h need to be the same*/
+```
 
-	-To center things		*Syntax:	margin: auto;	//which centers on all directions (mostly horizontally)
-	 horizontally:
+### To center things horizontally		
+```css
+margin: auto;	/*which centers on all directions (mostly horizontally)*/
+```
 
-	-"floats":			*Definition:	Overwrite default positioning and tell the broswer to an element should go to the left or right (isn't used much now because we have flexbox now)
-					*Warning:	It takes the element out of the document flow. (other elements can overlap under it). To prevent this we define an empty div behind this element that has
-							the rule clear: both;
+### "floats"			
+- **Definition** - Overwrite default positioning and tell the browser that an element should go to the left or right (isn't used much now because we have flexbox now)
+	- **Warning** -	It takes the element out of the document flow. (other elements can overlap under it). To prevent this we define an empty div behind this element that has the rule `clear: both;`
 
 POSITIONING ELEMENTS WITH CSS:
 	-Positioning Theory:		* The position property is applied by default with the value static
