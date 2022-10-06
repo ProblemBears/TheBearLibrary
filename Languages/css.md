@@ -415,42 +415,45 @@ background: image position/size repeat (origin clip) attachment;
 
 <h2 align="center"> SIZES & UNITS </h2>
 
-	-Units: 				* root em (rem): 				a unit that refers to font size
-							* em (em): 						also refers to the font size
-							* viewport height (vh):
-							* viewport width (vw):
+### Units 				
+- root em (`rem`): 				a unit that refers to font size
+- em (`em`): 						also refers to the font size
+- viewport height (`vh`):
+- viewport width (`vw`):
 
-	-Categories of			* Absolute Length:
-	 Units:							** Avoid using  any absolute length other than pixel (so don't use things like cm or mm because it actually dependes on the pixel count of a screen)
-	 						* Viewport Lenths:
-									** Adjust sizes of elements according to viewport
-									** Units: vh, vw, vmin, vmax
-							* Font-Relative Lengths:
-									** Adjust to the default font size.
-									** Units: rem, em, etc...
-							* Fixed Lengths:
-									** Units: %
-									** 3 Rules To Remember:
-											1) When an element is fixed, the container of the element is the viewport, so % are relative to that.
-											2) A % with an element that has position:absolute; is relative to the ancestor's content+padding. (The ancestor is anything that doesn't have position:static)
-											3) A % with an element that is relative or static is relative to it's ancestor's content. (The closest ancestor which is a block level element)
-	-Using min-width/h		* To complement a width. We can limit how it resizes when the browser itself resizes by
-	 & max-width/height		  placing these limiter properties.
+### Categories of Units			
+- Absolute Length -
+	- Avoid using  any absolute length other than pixel (so don't use things like cm or mm because it actually dependes on the pixel count of a screen)
+- Viewport Lengths
+	* Adjust sizes of elements according to viewport
+	* Units: `vh`, `vw`, `vmin`, `vmax`
+- Font-Relative Lengths:
+	* Adjust to the default font size.
+	* Units: `rem`, `em`, etc...
+* Fixed Lengths:
+	* Units: `%`
+	* 3 Rules To Remember -
+		1. When an element is fixed, the container of the element is the viewport, so % are relative to that.
+		2. A % with an element that has position:absolute; is relative to the ancestor's content+padding. (The ancestor is anything that doesn't have position:static)
+		3. A % with an element that is relative or static is relative to it's ancestor's content. (The closest ancestor which is a block level element)
+### Using min-width/h & max-width/height		
+- To complement a width. We can limit how it resizes when the browser itself resizes by placing these limiter properties.
 
-	-Working with "rem"		* Units which are calculated based on the "font" size.
-	 and "em"				* Note: Users can change their default font size to make the website font bigger, unless
-	 						  we overwrite it with CSS.
-							* Syntax: 		font-size: 1.2em;
-								** em is multiplied by the default font-size we can change on the browser
-							* THE ALARMING THING ABOUT EM is that it multiplies the value we give it with other
-							  values it inherits from. WE USE REM when we just want to multiply by the default
-							  browser font. (That's why the r in rem stands for ROOT)
-							* rem units can also be added to values of margins
-							* Default unit is usually 1 rem = 16px
+### Working with "rem" and "em"		
+- Units which are calculated based on the "font" size.
+- Note: Users can change their default font size to make the website font bigger, unless we overwrite it with CSS.
+```css
+font-size: 1.2em;
+```
+- em is multiplied by the default font-size we can change on the browser
+- THE ALARMING THING ABOUT EM is that it multiplies the value we give it with other values it inherits from. WE USE REM when we just want to multiply by the default browser font. (That's why the r in rem stands for ROOT)
+- rem units can also be added to values of margins
+- Default unit is usually **1 rem = 16px**
 
-	-Viewport Units "vw"	*These units let us always refer our sizes to the actual viewport
-	 & "vh":				*There's also vmin & vmax
-	 						*using vw may give you a default scrollbar. You could get rid of it w/ CSS
+### Viewport Units "vw" & "vh"	
+- These units let us always refer our sizes to the actual viewport
+- There's also vmin & vmax
+	- using vw may give you a default scrollbar. You could get rid of it w/ CSS
 
 
 JAVASCRIPT & CSS:
