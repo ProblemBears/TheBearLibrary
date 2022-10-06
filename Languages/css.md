@@ -338,80 +338,83 @@ margin: auto;	/*which centers on all directions (mostly horizontally)*/
 - Children can not go behind the parent's Z-index AND it can't go above elements that are not related to it. This is because elements that have fixed on them define their own STACKING CONTEXT
 
 <h2 align="center"> UNDERSTANDING BACKGROUND IMAGES & IMAGES </h2>
-	-There's more to background that we've seen. When we define an image, we actually set the background-image.
-	 With color it's background-color.
-	-There can be multiple images in a background property. Simply comma seperate them in the short hand with as many other properties as you want. This works with transparency
 
-	-background-size:		* If you set 100px  you set the w&h, two args means width then height.
-							* You can do ^ with percentages
-							* To keep the aspect ratio: you can define one arg w/ a value and then
-							  use auto for the other.
-							* Can also have the value: cover; which basically is similar to 100% except it would
-							  even zoom in if the image is smaller than the container
-							* The value: contain; ensure that the full image is visible in the container
-							  it doesn't care that whitespace appears
+- There's more to background that we've seen. When we define an image, we actually set the background-image. With color it's background-color.
+- There can be multiple images in a background property. Simply comma seperate them in the short hand with as many other properties as you want. This works with transparency
 
-	-background-repeat:		* no-repeat; //so the image isn't repeated
-							* repeat-x;  //to only repeat on the x-axis (there's a y version too)
+### background-size		
+* If you set `100px`  you set the w&h, two args means width then height.
+* You can do ^ with percentages
+* To keep the aspect ratio: you can define one arg w/ a value and then
+	use auto for the other.
+* Can also have the value: `cover`; which basically is similar to 100% except it would
+	even zoom in if the image is smaller than the container
+* The value: `contain;` ensures that the full image is visible in the container
+	it doesn't care that whitespace appears
 
-	-background-position:	*pixel or percent values;
-							*left most arg pushes the left side of the background
-							 ,next arg pushes from the top
-							*IMPORTANT: When you use percentages it actually defines shifting of 
-							 "the hidden parts of the image" not the whole image itself
-							 *EX: So if we do:
-							 			background-position: 0px 100%;
-									*We are saying "All the content that has to be cropped at the top
-									 will be cropped at the top, meaning all of the bottom since nothing
-									 is cropped there.
-							*EASY VALUES:
-									** center; //50% is cropped out from all directions
-									** left top; //left edge of the image is positioned on the left edge of container
-												 //same for top, SO NO CROPPING HAPPENS ON LEFT & TOP
-									** THESE KEY WORDS CAN STILL BE COMBINED W/ PERCENTS
+### background-repeat		
+- `no-repeat;` so the image isn't repeated
+* `repeat-x;` to only repeat on the x-axis (there's a y version too)
 
-	-background shorthand:	*Properties that affect images:
-									-image : set one or more background images
-									-position: set init position, relative to background position layer
-									-size: 
-									-repeat: 
-									-origin: set bg positioning area
-									-attachment: set the scrolling behaviour of bg image
-							*Properties that don't:
-									-color
-									-clip: defines whether backgrounds extends underneath borders
+### background-position	
+- pixel or percent values
+- left most arg pushes the left side of the background, next arg pushes from the top
+- **IMPORTANT** - When you use percentages it actually defines shifting of "the hidden parts of the image" not the whole image itself
+- **EX** - So if we do `background-position: 0px 100%;`. We are saying "All the content that has to be cropped at the top will be cropped at the top, meaning all of the bottom since nothing is cropped there.
+- **EASY VALUES** -
+	- `center;` //50% is cropped out from all directions
+	- `left top;` 
+		- left edge of the image is positioned on the left edge of container
+		- same for top, SO NO CROPPING HAPPENS ON LEFT & TOP
+	- THESE KEY WORDS CAN STILL BE COMBINED W/ PERCENTS
 
-	-background clip,		*WORK EXACTLY LIKE BOX-SIZING
-	 origin, attachment:	*origin & clip CAN WORK TOGETHER:
-	 							** They take values:
-										border-box, padding-box, content-box;
-								** origin may use border-box to have the image go through the border
-								** origin's padding-box value would not get rid of excess image that isn't
-								   cropper, therefore for background-clip we define padding-box to get rid the image
-								   up to the padding section. THIS YIELDS AN IMAGE THAT IS PERFECTLY INSIDE 
-								   THE BOX W/ BORDERS BUT NOT UNDERNEATH THE BORDER ITSELF
-							*attachment: rarely used but is used w/ scrolling effects
+### background shorthand	
+- Properties that affect images
+	- image : set one or more background images
+	- position : set init position, relative to background position layer
+	- size : 
+	- repeat : 
+	- origin : set bg positioning area
+	- attachment : set the scrolling behaviour of bg image
+- Properties that don't
+	- color
+	- clip : defines whether backgrounds extend underneath borders
 
-	-background shorthand	*Syntax:		background: image position/size repeat (origin clip) attachment;
-	 for image, pos, size:													    1 for same ^ 2 for diff
+### background clip, origin, attachment		
+- WORK EXACTLY LIKE BOX-SIZING
+- origin & clip CAN WORK TOGETHER:
+	- They take values: `border-box`, `padding-box`, `content-box`
+	- origin may use border-box to have the image go through the border
+	- origin's padding-box value would not get rid of excess image that isn't cropper, therefore for background-clip we define padding-box to get rid the image up to the padding section. **THIS YIELDS AN IMAGE THAT IS PERFECTLY INSIDE THE BOX W/ BORDERS BUT NOT UNDERNEATH THE BORDER ITSELF**
+- attachment: rarely used but is used w/ scrolling effects
 
-	-Styling images:		*When setting sizes, your selector should directly reference the <img>, else, 
-	 (not backgrounds)		 the  <img> will use it's default size
-	 						*height: some% is relative to the <img>'s default size. Not the parent node.
-							*The parent element of the <img> should be inline-block to respect sizing
+### background shorthand for image, pos, size	
+```css
+background: image position/size repeat (origin clip) attachment;
+									/*1 for same ^ 2 for diff*/
+```
 
-	-Linear & Radial		*Gradients are treated as images so it's property is background-image
-	 Gradients:				*Value Examples:
-	 								** linear-gradient( to left bottom, red, blue); //First arg is the direction. Can be word syntax or degrees
-																					//You can also define as many colors as needed. Useful color is transparent
-																					// Put percents at the right of colors to define where the gradient starts
-									** radial-gradient( circle at top (or 20% 50%), red, blue);
+### Styling images (not backgrounds)		
+- When setting sizes, your selector should directly reference the \<img>, else, the  \<img> will use it's default size
+- height: some% is relative to the \<img>'s default size. Not the parent node.
+- The parent element of the \<img> should be inline-block to respect sizing
 
-	-filter:				*Values:
-								** blur(px);
-								** grayscale(%);
+### Linear & Radial Gradients		
+- Gradients are treated as images so it's property is background-image
+- Value Examples -
+	- `linear-gradient( to left bottom, red, blue);` 
+		- First arg is the direction. Can be word syntax or degrees
+		- You can also define as many colors as needed. Useful color is transparent
+		- Put percents at the right of colors to define where the gradient starts
+	- `radial-gradient`( circle at top (or 20% 50%), red, blue);
 
-SIZES & UNITS:
+### filter				
+- Values -
+	- `blur(px);`
+	- `grayscale(%);`
+
+<h2 align="center"> SIZES & UNITS </h2>
+
 	-Units: 				* root em (rem): 				a unit that refers to font size
 							* em (em): 						also refers to the font size
 							* viewport height (vh):
