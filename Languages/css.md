@@ -456,11 +456,13 @@ font-size: 1.2em;
 	- using vw may give you a default scrollbar. You could get rid of it w/ CSS
 
 
-JAVASCRIPT & CSS:
-	-Manipulate CSS with JS by doing:
-				1) element.style.someProperty = "someValue";
-				2) element.classList.add("someClassName"); //remove()
-	-In JS the property names don't have dashes, instead they are in camel case.
+<h2 align="center"> JAVASCRIPT & CSS </h2>
+
+### Manipulate CSS with JS with two methods
+1. `element.style.someProperty = "someValue";`
+2. `element.classList.add("someClassName");`
+	- `classList` Has a remove()
+- In JS the property names don't have dashes, instead they are in camel case.
 
 
 MAKING OUR WEBSITE RESPONSIVE:
