@@ -465,38 +465,48 @@ font-size: 1.2em;
 - In JS the property names don't have dashes, instead they are in camel case.
 
 
-MAKING OUR WEBSITE RESPONSIVE:
-	-Website Should be made mobile-first (not desktop-first)
-	-How can we tell the browser that it should apply a pixel ratio to make sure it translates hardware pixels to the Software pixels.
-		* ANSWER: <meta name="viewport" content="width=device-width, inital-scale=1.0">
-				  This means that the CSS doesn't consider hardware pixels, but instead software pixels that fit the device
+<h2 align="center"> MAKING OUR WEBSITE RESPONSIVE </h2>
 
-	-Understanding the		*content="width=Device-width, initial-scale=1.0" -  * Tells our browser it's a small device & applies a pixel ratio conversion so the site isn't squeezed in
-	"viewport" metatag															* initial-scale applies an initial zoom 
-	<meta name=viewport":														* user-scalable=no can be added to prevent zooming in.
-																				* maximum/minimum-scale = 2.0 sets the max or minimum zoom
+- Website Should be made mobile-first (not desktop-first)
+- How can we tell the browser that it should apply a pixel ratio to make sure it translates hardware pixels to the Software pixels.
+	* ANSWER - `<meta name="viewport" content="width=device-width, inital-scale=1.0">`  
+	This means that the CSS doesn't consider hardware pixels, but instead software pixels that fit the device
 
-	-Media Queries: 		* Allow us to change the design depending on the actual size (specific properties change depending on the size. Ex: colors, fonts, etc)
-							* Design Changes are defined by us
-							* Order matters when you use min-width or max-width (ascending or descending values)
-							* Media Queries should go at the end of a CSS file
+### Understanding the "viewport" metatag <meta name=viewport">			
+- content="width=Device-width, initial-scale=1.0" -  
+	* Tells our browser it's a small device & applies a pixel ratio conversion so the site isn't squeezed in
+	* initial-scale applies an initial zoom 
+	* user-scalable=no can be added to prevent zooming in.
+	* maximum/minimum-scale = 2.0 sets the max or minimum zoom
 
-	-Adding our First		* Syntax Example:		@media(min-width: 40rem) {		//(condition): In this case a CSS rule for font-size is executed once the browser has a 40rem width(640px) 
-	 Media Query:										#product-overview h1 {
-															font-size: 3rem;
-														}
-													}
-							*THINK OF MEDIA QUERY'S AS IFS
+### Media Queries 		
+- Allow us to change the design depending on the actual size (specific properties change depending on the size. Ex: colors, fonts, etc)
+- Design Changes are defined by us
+- Order matters when you use min-width or max-width (ascending or descending values)
+-  Media Queries should go at the end of a CSS file
 
-	-Logical operators:		* Syntax Examples:
-									** "and"						@media (min-width: 40rem) and (min-height: 60rem) {}
-																					**SPECIAL THING YOU CAN TARGET IS: orientation: landscape or portrait (not ideal if you want to target desktop)
+### Adding our First Media Query
+```css		
+ @media(min-width: 40rem) {	/*(condition)*/
+	#product-overview h1 {
+		font-size: 3rem;
+	}
+}
+```
+- THINK OF MEDIA QUERY'S AS IF statements
 
-									** "or"							Same as ^ but seperated by commas instea of and.
+### Logical operators
+- "and"						
+	- @media (min-width: 40rem) and (min-height: 60rem) {}
+	- SPECIAL THING YOU CAN TARGET IS: orientation: landscape or portrait (not ideal if you want to target desktop)
+
+- "or"
+	- Same as above , but, seperated by commas instead of `and` 
 
 
-Styling Forms:
-	-For form inputs you NEED TO specify width: 100%; because otherwise id the display = block; the width would only be taken up by a MARGIN NOT THE BORDER-CONTENT.
+<h2 align="center" > Styling Forms </h2>
+
+- For form inputs you NEED TO specify `width: 100%;` because otherwise id the display = block; the width would only be taken up by a MARGIN NOT THE BORDER-CONTENT.
 
 	-Advanced Attribute		* Element with Attribute: 							[type] 				
 	 Selector:				* Element w/ Specific Attribute Value: 				[type="email"] 		
