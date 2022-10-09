@@ -506,26 +506,36 @@ font-size: 1.2em;
 
 <h2 align="center" > Styling Forms </h2>
 
-- For form inputs you NEED TO specify `width: 100%;` because otherwise id the display = block; the width would only be taken up by a MARGIN NOT THE BORDER-CONTENT.
+- For form inputs you NEED TO specify `width: 100%;` because otherwise in the display = block; the width would only be taken up by a MARGIN NOT THE BORDER-CONTENT.
 
-	-Advanced Attribute		* Element with Attribute: 							[type] 				
-	 Selector:				* Element w/ Specific Attribute Value: 				[type="email"] 		
-	 						* Element w/ Specific Atrribute Value in List:		[lang~="en-us"] 	 		//So if there's more whitespace seperated values in this attribute. 
-																														It checks if the specified value is in that list
-							* Element w/ Specific Attribute Value/Value-:		[lang|="en"]		 		//Checks if the attribute values has the prefix en
-							* Element w/ Specific Attribute Value Prefix:		[lang^="#"]			 		//More flexible than the one above because you can have any character
-							* Element w/ Specific Attribute Value Suffix:		[href$=".de"]				//For suffixes
-							* Element w/ At Least One Attribute Value:			[href$=".de"]				//The ".de" should be somewhere in the value of the attribute href
-							* adding i at the end (before ]) would allow case insensitivity
+### Advanced Attribute Selector
+- Element with Attribute - `[type]` 				
+- Element w/ Specific Attribute Value - `[type="email"]` 		
+* Element w/ Specific Atrribute Value in List -		`[lang~="en-us"]`
+	- So if there's more whitespace seperated values in this attribute. It checks if the specified value is in that list
+* Element w/ Specific Attribute Value/Value- - `[lang|="en"]`		 		
+	- Checks if the attribute values has the prefix en
+* Element w/ Specific Attribute Value Prefix - `[lang^="#"]`	
+	- More flexible than the one above because you can have any character
+* Element w/ Specific Attribute Value Suffix - `[href$=".de"]`
+	- For suffixes
+* Element w/ At Least One Attribute Value - `[href$=".de"]`			
+	- The ".de" should be somewhere in the value of the attribute href
+* adding i at the end (before ]) would allow case insensitivity
 
-	-Styling the			* New pseduoclass: 							 someSelector:not(anotherSelector)					//This means it excludes anotherSelector from the current rule
-	 checkbox:				* Psuedoclasses can go one after another:	.signup-form input:not([type="checkbox"]):focus
-	 						* <input> type like checkboxes and lists have a property:	-webkit-appearance:	none:			//WE USE NONE SO THAT WE OVERRIDE IT AND ARE ABLE TO STYLE IT
-									** -webkit-appearance is actuallyu specific to chrome so for mozilla we use -moz-appearance: and for others just appearance:
-							*When we do override -apearance then we CAN NOT CHECK THE CHECKBOX. Inorder to "reinstall" this capability we USE THE :checked PSEUDO CLASS
+### Styling the checkbox			
+* New pseduoclass 							 
+	- `someSelector:not(anotherSelector)`				
+	- This means it excludes anotherSelector from the current rule
+* Psuedoclasses can go one after another:	.signup-form input:not([type="checkbox"]):focus
+* \<input> type like checkboxes and lists have a property :	`-webkit-appearance:	none:`			
+	- WE USE NONE SO THAT WE OVERRIDE IT AND ARE ABLE TO STYLE IT
+	- `-webkit-appearance` is actually specific to chrome so for mozilla we use `-moz-appearance:` and for others just `appearance:`
+* When we do override -apearance then we CAN NOT CHECK THE CHECKBOX. Inorder to "reinstall" this capability we USE THE `:checked` PSEUDO CLASS
 
-	-Validation				*HTML AND JS GIVE US A INVALID PSEUDOCLASS. Syntax:		someSelctor :invalid {}
-	 Feedback:						** So it detects things like invalid emails. It can detect this based on the type attribute in tags
+### Validation Feedback:				
+- HTML AND JS GIVE US A INVALID PSEUDOCLASS `someSelctor :invalid {}`
+	* So it detects things like invalid emails. It can detect this based on the type attribute in tags
 
 WORKING WITH TEXT AND FONTS:
 	-Comparing Generic		* Generic Family (parent): serif, sans-serif, cursive, monospace, fantasy
