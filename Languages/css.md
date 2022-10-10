@@ -537,40 +537,46 @@ font-size: 1.2em;
 - HTML AND JS GIVE US A INVALID PSEUDOCLASS `someSelctor :invalid {}`
 	* So it detects things like invalid emails. It can detect this based on the type attribute in tags
 
-WORKING WITH TEXT AND FONTS:
-	-Comparing Generic		* Generic Family (parent): serif, sans-serif, cursive, monospace, fantasy
-	 Families & Font		* Font Family (child): 		**serif 			- Times New Roman, Georgia
-	 Families:											**sans-serif 		- Helvetica, Verdana
-	 													**cursive			- Brush Script, Mishal
-														**etc..
-							* By default the browser fonts Generic Family & Font Family are chosen. Otherwise, We can define a Generic Famiy which allows the broswer to only choose the Font Family.
-							  OR FINALLY, we can define a Font Family which can be obtained from:
-							  					1) The user's computer
-												2) Web fonts
-												3) From a server (our own possibly)
+<h2 align="center"> WORKING WITH TEXT AND FONTS </h2>
 
-	-Understanding			* Syntax:			** "fontFamily1", "fontFamily2", genericFamily; //The font familys apply left to right until one is found otherwise it fallsback to the generic family allowing 
-	 font-family:																				  the browser to set the font
+### Comparing Generic Families & Font Families		
+- Generic Family (parent) : `serif`, `sans-serif`, `cursive`, `monospace`, `fantasy`
+- Font Family (child) : 		
+	* serif - Times New Roman, Georgia
+	* sans-serif - Helvetica, Verdana
+	* cursive - Brush Script, Mishal
+	* etc..
+* By default the browser fonts Generic Family & Font Family are chosen. Otherwise, We can define a Generic Famiy which allows the broswer to only choose the Font Family. OR FINALLY, we can define a Font Family which can be obtained from :
+	1. The user's computer
+	2. Web fonts
+	3. From a server (our own possibly)
 
-	-Google Fonts:			*Go to fonts.google.com
-							*You can filter by Generic Families > Then pick a Font Family > And pick a Font Faces > Click "Select This Style" and copy the code into your HTML files where you need it
-							*IF YOU WANT THE WEB FONT TO BE AVAILABLE ON ALL PAGES: Use the @import method in that Google Font and paste it to your shared.css (don't copy the style tags)
-							*Font faces can not be used in CSS unless your google code defines it. Usually this is comma seperated values of the faces after the link. Same for any other property
+### Understanding font-family			
+- ```"fontFamily1", "fontFamily2", genericFamily;```. The font familys apply left to right until one is found otherwise it fallsback to the generic family allowing the browser to set the font
 
-	-Font Properties:		* font-variant: small-caps;						** Small characters become capitals
-							* font-stretch: ultra-condensed;
-							* letter-spacing: 5px;							** Spacing between letters increases
-							* white-space: nowrap;							** The entire text will stay as one line and window resizing doesn't affect it (alot more for browser resizing)
-							* line-height: 2;								** Increases the height of the content by using the value as a multiple against the font-size (can be px for more absolute)
-							* text-decoration: underline;					** Stuff like overline, underline, line-through. And add stuff like dotted, or wavy beside these values and color at the end.
-							* text-shadow: 5px 5px 7px rgb(185,180,180);	** The values are offsets to the x and y-axis respectively third arg is a blur and then a color if you want
+### Google Fonts			
+- Go to [fonts.google.com](https://fonts.google.com/)
+- You can filter by `Generic Families > Then pick a Font Family > And pick a Font Faces > Click "Select This Style"` and copy the code into your HTML files where you need it
+- IF YOU WANT THE WEB FONT TO BE AVAILABLE ON ALL PAGES: Use the @import method in that Google Font and paste it to your shared.css (don't copy the style tags)
+- Font faces can not be used in CSS unless your google code defines it. Usually this is comma seperated values of the faces after the link. Same for any other property
 
-	-Font shorthand:		* font:  italic		  small-caps	700		   1.2rem/2				"Anonymous Prp", sans-serif
-							* font: font-style font-variant font-weight font-size(/line-height) font-family generic-family 
-							* or give default system values like: menu or status-bar
+### Font Properties	
+* `font-variant: small-caps;` - Small characters become capitals
+* `font-stretch: ultra-condensed;`
+* `letter-spacing: 5px;` - Spacing between letters increases
+* `white-space: nowrap;` - The entire text will stay as one line and window resizing doesn't affect it (alot more for browser resizing)
+* `line-height: 2;` - Increases the height of the content by using the value as a multiple against the font-size (can be px for more absolute)
+* `text-decoration: underline;` - Stuff like overline, underline, line-through. And add stuff like dotted, or wavy beside these values and color at the end.
+* `text-shadow: 5px 5px 7px rgb(185,180,180);` -The values are offsets to the x and y-axis respectively third arg is a blur and then a color if you want
 
-	-font-display &			* Values: swap, block, fallback, optional, auto
-	 Loading Performance:	* Two different phases block-period and then swap-period 
+### Font shorthand		
+* `font:  italic		  small-caps	700		   1.2rem/2				"Anonymous Prp", sans-serif`
+* `font: font-style font-variant font-weight font-size(/line-height) font-family generic-family` 
+* or give default system values like: menu or status-bar
+
+### font-display & Loading Performance			
+* Values : `swap`, `block`, `fallback`, `optional`, `auto`
+* Two different phases block-period and then swap-period 
 
 FLEXBOX:
 	-Introduction:			* The modern way to change the way our elements are displayed (another value of the display property)
