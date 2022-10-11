@@ -885,48 +885,54 @@ transition: opacity 0.2s ease-in 1s, transform 0.5s
 	2. 'animationend'
 	3. 'animationiteration'
 
-WRITING FUTURE-PROOF CSS CODE
-	-Usign CSS 				* For situations where we have a value that is repeated a lot.
-	 Variables:				* For a color value we would define:
-	 										:root {						(:root refers to the entire doc)
-												--some-var-name: #ffff;
-											}
-							  and then be able to use it as a value anywhere else with:
-							  				var(--some-var-name);
-							  a second argument in var() can be used as a fallbcack value
+<h2 align="center"> WRITING FUTURE-PROOF CSS CODE </h2>
 
-	-Which prefixes			* Every browser has its own prefix. To support independent module implementation.
-	 should you use?:		* You can use the prefix /w a property, by repeatedly defining the property
-	 						  and defining the standard property at the end which should use that final 
-							  property if the browser has support for it, otherwise it uses its prefix.
-							* GITHUB ATUOPREFIXER is a tool to do this automatically. There are also online 
-							 versions where you can paste your code and it generates the prefixed version.
+### Usign CSS Variables 				
+- For situations where we have a value that is repeated a lot.
+- For a color value we would define :
+	```css
+	:root {								/* :root refers to the entire doc */
+		--some-var-name: #ffff;
+	}
+	```
+- Then we'd be able to use it as a value anywhere else with:
+	```css
+	var(--some-var-name);
+	```
+	* A second argument in `var()` can be used as a fallbcack value
 
-	-Detecting browser		* Syntax:		@supports (property: value)
-	 support w/ @supports:					{
-												//Insert Rules to execute here.
-	 										}
-							 This checks if the propert: value pair is supported and if it is, it executes
-							 the rules within the {}
-							 * You can use and, or, not keywords after the parenthesis to append more conditions.
+### Which prefixes should you use?			
+- Every browser has its own prefix. To support independent module implementation.
+- You can use the prefix /w a property, by repeatedly defining the property and defining the standard property at the end which should use that final property if the browser has support for it, otherwise it uses its prefix.
+- **GITHUB AUTOPREFIXER** is a tool to do this automatically. There are also online versions where you can paste your code and it generates the prefixed version
 
-	-Pollyfills:			* Definition: A polyfill is a JS Package which enables certain CSS Features
-										  in Browsers which would not support it otherwise.
-							* Polyfills are computationally expensive because they have to be loaded & parsed.
+### Detecting browser support w/ @supports
+```css		
+@supports (property: value)
+{
+	/* Insert Rules to execute here */
+}
+```
+- This checks if the property/value pair is supported and if it is, it executes the rules within the {}
+- You can use `and`, `or`, `not` keywords after the parenthesis to append more conditions.
 
-	-Eliminate Cross		* Different browsers have different defaults (font sizes, paddings, box sizes, etc...)
-	 Browser 				* Therefore, you can implement some "reset libraries" like Normalize.css which 
-	 Inconsistencies:		  should be the first import in your html files (like our * {} where we set 
-	 						  box-sizing: border-box;)
+### Pollyfills			
+- **Definition :** A polyfill is a JS Package which enables certain CSS Features in Browsers which would not support it otherwise
+	* Polyfills are computationally expensive because they have to be loaded & parsed
 
-	-CSS Classes			* Use kebab case (dashes) since CSS is case insensitive
-	 naming conventions:	* Name by feature not style. The styling could be read from the properties we use.
-	 						* Block Element Modifier Style (BEM):
-										.BLOCK__ELEMENT--MODIFIER
-								** Ex: .menu-main__item--size-big
+### Eliminate Cross Browser Inconsistencies		
+- Different browsers have different defaults (font sizes, paddings, box sizes, etc...)
+- Therefore, you can implement some "reset libraries" like Normalize.css which should be the first import in your html files (like our * {} where we set box-sizing: border-box;)
 
-	-Vanilla CSS vs			* Component Frameworks: Bootstrap
-	 Frameworks:			* Fast components but they may look the same to other websites
+### CSS Classes naming conventions		
+- Use kebab case (dashes) since CSS is case insensitive
+- Name by feature not style. The styling could be read from the properties we use.
+- Block Element Modifier Style (BEM) : `.BLOCK__ELEMENT--MODIFIER`
+	* **EX :** .menu-main__item--size-big
+
+### Vanilla CSS vs Frameworks			
+- Component Frameworks: Bootstrap
+	* Fast components but they may look the same to other websites
 
 INTRODUCING SASS (Synctactically Awesome Style Sheets)
 	-What is SASS &			* SASS does not run on the browser
