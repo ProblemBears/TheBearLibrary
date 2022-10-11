@@ -794,33 +794,42 @@ font-size: 1.2em;
 	* `dense` overwrites elements not positioning themselves to fill up gaps because of their size and their respect of the DOM. So now there shouldn't be gaps!
 	* Though this may not be optimal. Because screen readers still respect the DOM
 
-TRANSFORMING ELEMENTS WITH CSS TRANSFORMS:
-	-Transforms are hardware accelerated
+<h2 align ="center"> TRANSFORMING ELEMENTS WITH CSS TRANSFORMS </h2>
 
-	-Rotating Elements		* Syntax(Rotate):				transform: rotateZ(45deg);
-	 and setting			* To define
-	 'transform-origin':      rotation origin:				transform-origin: left top;		//by default it's just center. Can also be values of px or % or rem
+- Transforms are hardware accelerated
 
+### Rotating Elements and setting 'transform-origin'		
+```css
+transform: rotateZ(45deg);
+```
+- To define rotation origin : `transform-origin: left top;` 
+	* By default it's just center. Can also be values of px or % or rem
 
-	-Using Rotate and		* Syntax(+Translate):			transform: rotateZ(45deg) translateX(1rem) tranlsateY(1rem); //So it moves our previous translation to the right/down by 1rem
-	 Translate:			 	* TRANSLATIONS ARE LOCAL TO THE CENTER OF THE "BOX" OF THE ELEMENT
-	 						* overflow: hidden on the parent of the translated element would be good to hid things that are transformed beyond it.
+### Using Rotate and Translate
+```css		
+transform: rotateZ(45deg) translateX(1rem) tranlsateY(1rem);
+```
+- The code above moves our previous translation to the right/down by 1rem
+- TRANSLATIONS ARE LOCAL TO THE CENTER OF THE "BOX" OF THE ELEMENT
+	* `overflow: hidden` on the parent of the translated element would be good to hid things that are transformed beyond it.
 
-	-Working w/ "skew"		* "skew" and "scale" are function values of 'transform'
-	 and "scale"					** skew(xVal, yVal)
-	 										** If you also do a skew on the child. You can revert the child to it's original skew all the while keeping the skew of the parent
-									** scale(2)
-											** the 2 here would mean double the size of the original size on both the x and y axis
+### Working w/ "skew" and "scale"		
+- "skew" and "scale" are function values of 'transform'
+	* `skew(xVal, yVal)`
+		* If you also do a skew on the child. You can revert the child to it's original skew all the while keeping the skew of the parent
+	* `scale(2)`
+		* the 2 here would mean double the size of the original size on both the x and y axis
 
-	-Rotating Elements		* Rotation along the X and Y axis is 3D (it's hard to see because we are in "far perspective" by default)
-	 in 3D(and using		* using perspective(500px) we say "the smaller the perspective is, the closer you are to the element". This only affects the element where the function is used.
-	 'perspective'):				** PERSPECTIVE CAN BE A PROPERTY WHICH SHOULD BE APPLIED TO THE PARENT. +it gets applied to all children 
-	 						* Change the angle of the perspective by using: 		perspective-origin: right (can be %, rem, px)
-							* 'transform-style' has the default flat value which is bad if we rotate the parent
-											** We use the 'preserve-3d' value to not make children invisible depending on a transformation 
-							* 'backface-visibilty' erases elements that are showing their "backface"
-	 
-TRANSITIONS AND ANIMATIONS IN CSS:
+### Rotating Elements in 3D(and using 'perspective')		
+- Rotation along the X and Y axis is 3D (it's hard to see because we are in "far perspective" by default)
+- using `perspective(500px)` we say "the smaller the perspective is, the closer you are to the element". This only affects the element where the function is used.
+	* PERSPECTIVE CAN BE A PROPERTY WHICH SHOULD BE APPLIED TO THE PARENT. +it gets applied to all children 
+- Change the angle of the perspective by using : `perspective-origin: right` (can be %, rem, px)
+- `transform-style` has the default `flat` value which is bad if we rotate the parent
+	* We use the `preserve-3d` value to not make children invisible depending on a transformation 
+- `backface-visibilty` erases elements that are showing their "backface"
+
+TRANSITIONS AND ANIMATIONS IN CSS
 	-'transition' is a property that lets you "watch other properties" and set timing functions/animations.
 
 	-'transition'			* transition: opacity 0.2s ease-in 1s, transform 0.5s
