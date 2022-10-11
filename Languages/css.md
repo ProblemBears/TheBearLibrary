@@ -578,91 +578,100 @@ font-size: 1.2em;
 * Values : `swap`, `block`, `fallback`, `optional`, `auto`
 * Two different phases block-period and then swap-period 
 
-FLEXBOX:
-	-Introduction:			* The modern way to change the way our elements are displayed (another value of the display property)
-							* Main aspects:		1) The Flex-container
-												2) Main Axis vs. Cross Axis
-												3) The Flex Items
+<h2 align="center"> FLEXBOX </h2>
 
-	-How we could			* We could get rid of the "hacky" width: calc(100% - 44px)
-	 improve our			* It would also help get rid of all of our display: inline-box;'s
-	 project using
-	 flexbox:
+### Introduction			
+- The modern way to change the way our elements are displayed (another value of the display property)
+- Main aspects :		
+	1. The Flex-container
+	2. Main Axis vs. Cross Axis
+	3. The Flex Items
 
-	-Understanding			* When you apply display: flex; to an element it becomes a Flex Container(parent) therefore anything inside it becomes a
-	 Flexbox:				  Flex Item (child)	
-	 						* Then we can apply properties to the Flex Container and Flex Items:
-									** Flex Container Properties+ :
-													1) flex-flow:
-													2) justify-content:
-													3) align-content: 
-													4) align-items:
-									** Flex Items Properties+:
-													1) order:
-													2) flex:
-													3) align-self:
+### How we could improve our project using flexbox			
+- We could get rid of the "hacky" width: calc(100% - 44px)
+- It would also help get rid of all of our `display: inline-box;`'s
+	
+### Understanding Flexbox		
+- When you apply `display: flex;` to an element it becomes a **Flex Container(parent)** therefore anything inside it becomes a **Flex Item (child)**	
+- Then we can apply properties to the Flex Container and Flex Items:
+	* Flex Container Properties+ :
+		1. flex-flow:
+		2. justify-content:
+		3. align-content: 
+		4. align-items:
+	* Flex Items Properties+:
+		1. order:
+		2. flex:
+		3. align-self:
 
-	-Creating a Flex		* display: flex:
-	 Container:					** The child elements align like inline-blocks where they have equal heights (if not defined) according to the element with the biggest height
-	 							** The width of the child elements decreases if we decrease the width of the page; ONLY UP TO THE POINT WHERE THE CONTENT OF A CHILD MAY NEED THE SPACE
+### Creating a Flex Container		
+- `display: flex:`
+	- The child elements align like inline-blocks where they have equal heights (if not defined) according to the element with the biggest height
+	- The width of the child elements decreases if we decrease the width of the page; ONLY UP TO THE POINT WHERE THE CONTENT OF A CHILD MAY NEED THE SPACE
+- `display: inline-flex`
+	- Similar to flex but the size stay static. If we move the width of the browser the element's don't change. Although, the tallest height thing still happens
 
-							* display: inline-flex
-								** Similar to flex but the size stay static. If we move the width of the browser the element's don't change. Although, the tallest height thing still happens
-
-	-"flex-direction"		* For display: flex; the automatic values are:		* flex-directiion: row;
-	 & "flex-wrap":																* flex-wrap: nowrap;
-	 						*We could give them these values:
-									*flex-wrap:			**wrap - When we decrease the width of the page, instead of shifting the width of the blocks until they reach their limit. 
-																 The blocks start shifting down to the next "row" one at a time. That next row is also the start of a new "leading height"
-													
-														**wrap-reverse - The same as wrap except it reverse the way things go down to the next "row" and the height is no longer top-down but
-																		 instead bottom-up
-
-									*flex-direction:	**column - The elements now behave the way block elements would. Except when you decrease the page width. It shifts up to the content
-														**column-reverse - the reverse of column
-														**row-reverse - the reverse of row
-
-							* SHORTCUT PROPERTY:		*flex-flow: row wrap;
+### "flex-direction" & "flex-wrap"		
+- For display: flex; the automatic values are :		
+	* flex-directiion: row;
+	* flex-wrap: nowrap;
+- We could give them these values:
+	* flex-wrap :
+		* `wrap` - When we decrease the width of the page, instead of shifting the width of the blocks until they reach their limit. The blocks start shifting down to the next "row" one at a time. That next row is also the start of a new "leading height"			
+		* `wrap-reverse` - The same as wrap except it reverse the way things go down to the next "row" and the height is no longer top-down but instead bottom-up
+	* flex-direction:	
+		* `column` - The elements now behave the way block elements would. Except when you decrease the page width. It shifts up to the content
+		* column-reverse - the reverse of column
+		* row-reverse - the reverse of row
+- SHORTCUT PROPERTY : `flex-flow: row wrap;`
 							
+### Main Axis & Cross Axis			
+- Main axis goes from the top-left to the top-right
+- Cross axis goes from the top-left to the bottom-left
+- Applying reverse to something makes it go from top-right to top-left (main axis) and top-right to bottom-right (cross axis)
+- So we start minimizing using a normal "wrap", then the elements start shifting from the main axis to the cross axis
+- For columns (the prior 4 *'s were for rows) the same things apply but we reverse the main axis with the cross axis for every case
+- Summary -
+ 	| Values |					Main Axis |				Cross Axis |
+	|---|---|---|
+	| row | 					TL -> TR |				TL -> BL |
+	| row-reverse |				TR -> TL |				TR -> BR |
+	| column |					TL -> BL |				TL -> TR |
+	| column-reverse |			BL -> TL | 				BL -> BR |
 
-	-Main Axis & 			*Main axis goes from the top-left to the top-right
-	 Cross Axis:			*Cross axis goes from the top-left to the bottom-left
-	 						*Applying reverse to something makes it go from top-right to top-left (main axis) and top-right to bottom-right (cross axis)
-							*So we start minimizing using a normal "wrap", then the elements start shifting from the main axis to the cross axis
-							*For columns (the prior 4 *'s were for rows) the same things apply but we reverse the main axis with the cross axis for every case
-							* Summary:							Main Axis				Cross Axis
-									** row: 					TL -> TR				TL -> BL
-									** row-reverse:				TR -> TL				TR -> BR
-									** column:					TL -> BL				TL -> TR
-									** column-reverse:			BL -> TL 				BL -> BR
+### "align-items" & "justify-content"		
+- The default property that allows all heights to follow the max height is : `align-items: stretch;`
+	* Other Values:	
+		* `center` - no more equal heights, but they're aligned to the center
+		* `flex-start` - aligns to the cross axis
+		* `flex-end` - alings to the cross axis(but at the end of it) (affects height)
+- `justify-content` has the same values except they relate to the main axis (instead of the cross axis)
 
-	-"align-items" &		* The default property that allows all heights to follow the max height is:		align-items: stretch;
-	 "justify-content":				** Other Values:	**center - no more equal heights, but they're aligned to the center
-	 													**flex-start - aligns to the cross axis
-														**flex-end - alings to the cross axis(but at the end of it) (affects height)
+### "align-content"		
+- `align-content: center;` - Allows us to align our items along the cross axis
+	* `space-between`  - Leaves a space between the beginning and end of the cross axis when condensing the width
 
-							* "justify-content" has the same values except they relate to the main axis (instead of the cross axis)
+### Flexbox Items Properties			
+- `order`					
+	* Explanation : Changes the order of an element
+	* Values : 1 (someNumber that describes the order. All start at 0 by default. Anything higher puts it at the end of the list, lower puts it at the front)
 
-	-"align-content":		* align-content: center; - Allows us to align our items along the cross axis
-									**space-between  - Leaves a space between the beginning and end of the cross axis when condensing the width
+- `align-self`				
+	* Explanation : Positions the element in relation to the Cross Axis as align-items would. Except the alignment only applies to this single Flex Item
+	* Values : Everything 'align-items' has
 
-	-Flexbox Items			* order:					** Explanation: 	Changes the order of an element
-	 Properties:										** Values: 			1 (someNumber that describes the order. All start at 0 by default. Anything higher puts it at the end of the list, lower puts it at the front)
+- `flex-grow` 				
+	* Explanation : INTs where all of the children of the parent flexbox that have this. Declare it's own fraction of what it has. So 4 grows 4 times as faster
+	* Values:	INTs
 
-	 						* align-self:				** Explanation: 	Positions the element in relation to the Cross Axis as align-items would. Except the alignment only applies to this single Flex Item
-														** Values:			Everything 'align-items' has
+- `flex-shrink`				
+	* Explanation : Default value is 1. 0 doesn't shrink elements. If one element has value 1, and another 4. Then the fraction of both decides the speed of the shrink.
+	* Values : INTs
 
-							* flex-grow: 				** Explanation: INT's where all of the children of the parent flexbox that have this. Declare it's own fraction of what it has. So 4 grows 4 times as faster
-														** values:	INT's
-
-							* flex-shrink:				** Explanation: Default value is 1. 0 doesn't shrink elements. If one element has value 1, and another 4. Then the fraction of both decides the speed of the shrink.
-														** Values: INT's
-
-							* flex-basis:				** Explanation: Defines the size of an element depending on the main axis (it overrides the width property if set to row. And the height if set to column)
-																		It fallsback to the standard width/height property if thr value of flex-basis is auto (because it follows the main axis)
-																		% is dependent of the size of the flex container
-														** Values: px, %
-														** Shorthand:		flex: grow shrink basis;  //These are property names not values. Replace with values.
+- `flex-basis`				
+	* Explanation : Defines the size of an element depending on the main axis (it overrides the width property if set to row. And the height if set to column) It fallsback to the standard width/height property if thr value of flex-basis is auto (because it follows the main axis) % is dependent of the size of the flex container
+	* Values: px, %
+	* Shorthand:		`flex: grow shrink basis;`  //These are property names not values. Replace with values.
 
 
 CSS GRID:
