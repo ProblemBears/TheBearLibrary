@@ -829,59 +829,63 @@ transform: rotateZ(45deg) translateX(1rem) tranlsateY(1rem);
 	* We use the `preserve-3d` value to not make children invisible depending on a transformation 
 - `backface-visibilty` erases elements that are showing their "backface"
 
-TRANSITIONS AND ANIMATIONS IN CSS
-	-'transition' is a property that lets you "watch other properties" and set timing functions/animations.
+<h2 align ="center"> TRANSITIONS AND ANIMATIONS IN CSS </h2>
 
-	-'transition'			* transition: opacity 0.2s ease-in 1s, transform 0.5s
-	  Syntax:							 ** Each property we watch (as in watch for JS to change the property) has an animation time for the transition to finish and you can specify ease-in (or out)
-	  										to start the animation slow and end fast. The time after ease-in means nothing happens for 1 second and then it plays the animation
+- `transition` is a property that lets you "watch other properties" and set timing functions/animations.
 
-	-CSS Timing 			* Google CSS Timing Functions for a helpful cheat sheet
-	 Functions:
+### 'transition' Syntax
+```css			
+transition: opacity 0.2s ease-in 1s, transform 0.5s
+```
+- Each property we watch (as in watch for JS to change the property) has an animation time for the transition to finish and you can specify ease-in (or out) to start the animation slow and end fast. The time after ease-in means nothing happens for 1 second and then it plays the animation
 
-	 -Transitions			* In elements where you both use transition and display, display overrides the transition effect
-	  and display:					** We can't use an opacity transition because the opacity is just invisible but still clickable, but we may need it to not be clickable hence the need for display: none.
-	  						* In order to solve this problem, we can set an inline display style and immidiately after, a JS timeOut().Hence, we let the display change first and after 10ms we us our transition
-							* OF COURSE A CLEVER WAY TO PREVENT THIS IS TRANSLATING IT AWAY FROM THE VIEWPORT USING AN INITIAL TRANSLATION (which is flowless) of -100% (or positive) on some axis
-							* THE TRANSFORM PROPERTY OF ANIMATIONS OVERRIDE ELEMENT TRANSFORMATIONS AS LONG AS THE ANIMATION IS PLAYED.
+### CSS Timing Functions
+- Google CSS Timing Functions for a helpful cheat sheet
 
-	-USING CSS				* You have way more control over the animation as opposed to transitions
-	 ANIMATIONS (think		* Syntax of a Keyframe:
-	 of them as CSS									@keyframes someKeyFrameName {
-	 TRANSITIONS++)										from {
-															transform: rotateZ(0); //initial state
-														}
-														to {
-															transform: rotateZ(10deg);
-														}
-													}
-									** Note: there are no selectors in from or to. It later gets applied to elements that receive this keyframe as an animation
-								
-							* Syntax for the animation property on a rule we want to apply the animation to:
-													animation: someKeyFrameName, 200ms, 3s, 8 alternate;		//Where args after someKeyFrameName are - animationTime, delayUntilPlay, numberToRepeat (respectively)
-																												//If alternate is defined then it takes 1 of the 8 iterations here to move back to the starting state
-																												  otherwise it would just "snap back" to the starting state
+### transitions and display			
+- In elements where you both use transition and display, display overrides the transition effect
+	* We can't use an opacity transition because the opacity is just invisible but still clickable, but we may need it to not be clickable hence the need for `display: none`.
+- In order to solve this problem, we can set an inline display style and immidiately after, a JS `timeOut()`.Hence, we let the display change first and after 10ms we us our transition
+* **OF COURSE A CLEVER WAY TO PREVENT THIS IS TRANSLATING IT AWAY FROM THE VIEWPORT USING AN INITIAL TRANSLATION** (which is flowless) of -100% (or positive) on some axis
+* **THE TRANSFORM PROPERTY OF ANIMATIONS OVERRIDE ELEMENT TRANSFORMATIONS AS LONG AS THE ANIMATION IS PLAYED.**
 
-							* You can tell the animation which values to keep with the FILL STATE.
-													** simply add the keyword forwards to keep the value of the to{} frame. Backwards to keep the value of the original state of the element (not from{})
-													   THIS IS USEFUL FOR HOVERING STATES. WHICH KEEPS THE FINAL VALUE OF THE ANIMATION AS LONG AS YOUR MOUSE HOVERS OVER SOMETHING
+### Using CSS Animations (think of them as CSS transitions++)			
+- You have way more control over the animation as opposed to transitions
+	```css
+	@keyframes someKeyFrameName {
+		from {
+			transform: rotateZ(0); /* initial state */
+		}
+		to {
+			transform: rotateZ(10deg);
+		}
+	}
+	```
+	* Note: there are no selectors in from or to. It later gets applied to elements that receive this keyframe as an animation
+- Syntax for the animation property on a rule we want to apply the animation to :
+	```css
+	animation: someKeyFrameName, 200ms, 3s, 8 alternate;
+	```	
+	* Where args after someKeyFrameName are - `animationTime`, `delayUntilPlay`, `numberToRepeat` (respectively)
+	* If alternate is defined then it takes 1 of the 8 iterations here to move back to the starting state otherwise it would just "snap back" to the starting state
+- You can tell the animation which values to keep with the FILL STATE.
+	* simply add the keyword forwards to keep the value of the to{} frame. Backwards to keep the value of the original state of the element (not from{}). THIS IS USEFUL FOR HOVERING STATES. WHICH KEEPS THE FINAL VALUE OF THE ANIMATION AS LONG AS YOUR MOUSE HOVERS OVER SOMETHING
+- ***SUMMARY :***			
+	* `animation: NAME DURATION DELAY TIMING-FUNCTION ITERATION DIRECTION FILL-MODE PLAY-STATE;`
+	* Example - `animation: wiggle 200ms 1s ease-out 8 alternate forwards running;` 
+		* "Play the wiggle keyframe set (animation) over a duration of 200ms. Between two keyframes start fast and end slow, also make sure to wait 1s before you start. Play 8 animations and alternate after each animation. Once you're done, keep the final value applied to the element. Oh, and you should be playing the animation - not pausing."
 
-							* Summary:			animation: NAME DURATION DELAY TIMING-FUNCTION ITERATION DIRECTION FILL-MODE PLAY-STATE;
-											(ex)animation: wiggle 200ms 1s ease-out 8 alternate forwards running; 
 
-											 "Play the wiggle keyframe set (animation) over a duration of 200ms. Between two keyframes start fast and end slow, also make sure to wait 1s before you start. 
-											 Play 8 animations and alternate after each animation. Once you're done, keep the final value applied to the element. Oh, and you should be playing the animation - not pausing."
+### Adding Multiple Keyframes		
+- To add multiple keyframes. Instead of using `from` and `to`, we can instead use as many percentages from `0%` to `100%` to define keyframes
+	
+### JS Animation Event Listener			
+- We can add eventListeners that pertain to animations of an element by using the following events on the first argument:
+	1. 'animationstart'
+	2. 'animationend'
+	3. 'animationiteration'
 
-
-	-Adding Multiple		*To add multiple keyframes. Instead of using from and to, we can instead use as many percentages from 0% to 100% to define keyframes
-	 Keyframes:
-
-	 -JS Animation			*We can add eventListeners that pertain to animations of an element by using the following event on the first argument:
-	  Event Listener:					1) 'animationstart'
-	  									2) 'animationend'
-										3) 'animationiteration'
-
-WRITING FUTURE-PROOF CSS CODE:
+WRITING FUTURE-PROOF CSS CODE
 	-Usign CSS 				* For situations where we have a value that is repeated a lot.
 	 Variables:				* For a color value we would define:
 	 										:root {						(:root refers to the entire doc)
