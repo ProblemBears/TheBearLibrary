@@ -674,111 +674,125 @@ font-size: 1.2em;
 	* Shorthand:		`flex: grow shrink basis;`  //These are property names not values. Replace with values.
 
 
-CSS GRID:
-	-What is the			* A grid-based layout tool that allows you to define rows and columns and where elements can be placed within it
-	 CSS Grid?:	
+<h2 align="center" > CSS GRID </h2>
 
-	-Turning an				* display: grid;
-	 element into						** This turns the element into a grid and it's DIRECT CHILDREN are positioned within the grid. (and are considered in the Dev Tools Row Visual Mechanism)
-	 a Grid:							** The Browser Dev Tools have visualization for CSS grid in Layout>Grid
+### What is the CSS Grid?			
+- A grid-based layout tool that allows you to define rows and columns and where elements can be placed within it
+		
 
-	-Defining columns		* Where the grid was defined you can add 'grid-template-columns' to override the default 1 column that the grid begins with.
-	 & rows:				* The values of 'grid-template-colums' are back-to-back sizes for as many columns as you want. 
-	 								** EX: 		grid-template-columns: 200px 150pc 20%; //Yields thre columns. The first two w/ absolute sizes and the last is relative to the grid container
-							* We can use the special unit 1fr. Where fr takes up the remaining space, but if there's another fr like 2fr, then all fr's take up the remaining space but 2fr gets twice
-							  as much of the remaining space as 1fr
-							* Another value is auto. For columns it takes the remaining available width, and for rows it takes as much space as it needs to fit the content
-							* TO REPEAT THE SAME SIZE FOR MANY COLS/ROWS USE the repeat() function as a value:		repeat(4, 25%); //yields 4 columns w/ size 25%
-																																	//You can put a name infront of 25% w/ [col-start] and behind [col-end]
-																																	  then later on reference them with grid-column: col-start 2 / col-end 2;
-																													minmax(10px, 200px); //Defines a range of the size we could put if space is available
+### Turning an element into a Grid				
+- `display: grid;`
+	* This turns the element into a grid and it's **DIRECT CHILDREN** are positioned within the grid. (and are considered in the Dev Tools Row Visual Mechanism)
+	* The Browser Dev Tools have visualization for CSS grid in `Layout > Grid`
 
-							*WE CAN ALSO EXPLICITLY DEFINE ROWS (in the same location as columns): using 'grid-template-rows'. The values work the same as columns (define sizes for as many rows as you want)
+### Defining columns & rows		
+- Where the grid was defined you can add `grid-template-columns` to override the default 1 column that the grid begins with.
+- The values of `grid-template-columns` are back-to-back sizes for as many columns as you want. 
+	* **EX :** 	`grid-template-columns: 200px 150pc 20%;` ( Yields three columns. The first two w/ absolute sizes and the last is relative to the grid container )
+- We can use the special unit 1fr. Where fr takes up the remaining space, but if there's another fr like 2fr, then all fr's take up the remaining space but 2fr gets twice as much of the remaining space as 1fr
+- Another value is auto. For columns it takes the remaining available width, and for rows it takes as much space as it needs to fit the content
+- TO REPEAT THE SAME SIZE FOR MANY COLS/ROWS USE the `repeat()` function as a value : `repeat(4, 25%);` ( yields 4 columns w/ size 25% )
+	* You can put a name infront of 25% w/ [col-start] and behind [col-end] then later on reference them with grid-column: col-start 2 / col-end 2;
+	* `minmax(10px, 200px);` //Defines a range of the size we could put if space is available
+- WE CAN ALSO EXPLICITLY DEFINE ROWS (in the same location as columns) using `grid-template-rows`. The values work the same as columns (define sizes for as many rows as you want)
 
-	-Positioning Child		* By default each element takes 1 cell in the grid
-	 Elements in a Grid:	* We can define how many cells an element takes (as well as where it's positioned) by inserting the following properties into a child element of the grid:
-										1) grid-column-start: 3		//CSS grid has numbered lines for row/cols. You can use your browser Dev Tools to visualize them
-										2) grid-column-end: 5	//By default it's always +1 of start
-										** This pushes any element that was placed there to the next row/col
-							* We can do the same for rows using: 
-										1) grid-row-start: 1
-										2) grid-row-end: 3
+### Positioning Child Elements in a Grid		
+- By default each element takes 1 cell in the grid
+- We can define how many cells an element takes (as well as where it's positioned) by inserting the following properties into a child element of the grid :
+	1. `grid-column-start: 3` - CSS grid has numbered lines for row/cols. You can use your browser Dev Tools to visualize them
+	2. `grid-column-end: 5` - By default it's always +1 of start
+		* This pushes any element that was placed there to the next row/col
+- We can do the same for rows using: 
+	1. `grid-row-start: 1`
+	2. `grid-row-end: 3`
 
-	-Advanced Element		* Instead of using a "hard-coded by line" 'grid-column-end" we can use:		span 2;		//Offsets by 2 from the start, hence spanning 2 cells from the start
-	 Positioning: 			* Negative values are units starting from the end of the grid
-	 						* It is possible for elements to overlap if you explicitly set all positions (otherwise it may dynamically look for a different position to prevent overlaps)
-									** In cases of overlap the DOM order matters. The one that comes ahead in the DOM is on top. THOUGH U CAN CHANGE THIS WITH Z-INDEX
+### Advanced Element Positioning		
+- Instead of using a "hard-coded by line" 'grid-column-end" we can use : `span 2;` ( Offsets by 2 from the start, hence spanning 2 cells from the start )
+- Negative values are units starting from the end of the grid
+- It is possible for elements to overlap if you explicitly set all positions (otherwise it may dynamically look for a different position to prevent overlaps)
+	* In cases of overlap the DOM order matters. The one that comes ahead in the DOM is on top. THOUGH U CAN CHANGE THIS WITH Z-INDEX
 
-	-Working with named		* Instead of using numbered lines we can use named lines.
-	 lines: 				* You provide names for lines when creating the rows/cols as follows:
-	 								** grid-template-rows: [someName] 5rem [someName1] 5rem [someName2] 100px; //...etc
-												*** In the brackets you can add multiple names by seperating the with a SPACEBAR 
-												*** Convention says we name as follows: [row-1-start] sizeVal [row-1-end row-2-start] sizeVal [row-2-end row-3-start] sizeVal [col-3-end]
-												*** After naming, you can reference the names in places where you define your start and end positions
+### Working with named lines		
+- Instead of using numbered lines we can use named lines.
+- You provide names for lines when creating the rows/cols as follows:
+	* `grid-template-rows: [someName] 5rem [someName1] 5rem [someName2] 100px;` //...etc
+		* In the brackets you can add multiple names by seperating the with a SPACEBAR 
+		* Convention says we name as follows : **\[row-1-start]** sizeVal **\[row-1-end row-2-start]** sizeVal **\[row-2-end row-3-start]** sizeVal **\[col-3-end]**
+		* After naming, you can reference the names in places where you define your start and end positions
 
-	-Column & Row			* grid-column-start & end can just be - 'grid-column' w/ the following shorthand:		grid-column: start / end	//where we replace start and end with actual numbers
-	 Shorthands			 		** Works the same with 'grid-row'
-	 						* There's a also a shorthand that encapsulates all 'Grid Item' properties:
-													** grid-area: row-start / col-start / row-end / col-end;  //Where your replace the words with actual indeces on the Grid
+### Column & Row Shorthands			
+* `grid-column-start` & `end` can just be - 
+	- `grid-column` w/ the following shorthand: `grid-column: start / end` ( where we replace start and end with actual numbers )
+	- Works the same with `grid-row`
+	- There's a also a shorthand that encapsulates all 'Grid Item' properties:
+		* `grid-area: row-start / col-start / row-end / col-end;` ( Where your replace the words with actual indeces on the Grid )
 
-	-Working w/ Gaps:		* grid-column-gap: 20px;
-									** This defines gaps between each column
-							* grid-row-gap: 20px; //works similarly ^
-							* A shorthand: grid-gap: row col; //replace for actual size values
-												** If you only specify one value here. It means same gaps for all
+### Working w/ Gaps		
+- `grid-column-gap: 20px;`
+	* This defines gaps between each column
+- `grid-row-gap: 20px;` ( works similarly ^ )
+- A shorthand : `grid-gap: row col;` ( replace for actual size values )
+	* If you only specify one value here. It means same gaps for all
 
-	-Adding Named			* In our Grid Container we can define the property(after defining rows & cols of our grid):		grid-template-areas		//This property will let us name cells in this container
-	 Template Areas					**VALUE: A string with a pattern (You must know how you defined your layout). The following example shows a Grid w/ 4C & 3R
-									**EX:	grid-template-areas:	"header header header header" //4 Cols
-																	"side side main main"		  //3 Rows
-																	"footer footer footer footer";
-									*** To define empty cells in the EX above simply put down a "." for a cell
-							* Now for some Grid Item we can use:
-													grid-area: header;
-							  AND IT WILL KNOW WHERE TO GO BASED ON the 'grid-template-areas- WE DEFINED IN THE GRID CONTAINER
-							*Grid area does not respect the DOM
+### Adding Named Template Areas			
+- In our Grid Container we can define the property(after defining rows & cols of our grid) : `grid-template-areas`		
+	* This property will let us name cells in this container
+	* **VALUE :** A string with a pattern (You must know how you defined your layout). The following example shows a Grid w/ 4 Columns & 3 Rows - 
+		```css
+		grid-template-areas: "header header header header"
+							 "side side main main"		  
+							 "footer footer footer footer";
+		```
+		* To define empty cells in the EX above simply put down a "." for a cell
+- Now for some Grid Item we can use : `grid-area: header;` AND IT WILL KNOW WHERE TO GO BASED ON the `grid-template-areas` - WE DEFINED IN THE GRID CONTAINER
+- Grid area does not respect the DOM
 
-	-Using the Grid			* Any Grid container child element that is not part of the "flow" IS NOT put into the grid
-	 on our Project:
+### Using the Grid on our Project			
+- Any Grid container child element that is not part of the "flow" IS NOT put into the grid
+	
+### fit-content(8rem)		
+- A useful value when it comes to having some row that should have some minimum size but also not be bigger than its content
+- We put it as the size of the last row (the footer) so the Grid row can fit it perfectly
 
-	-fit-content(8rem)		* A useful value when it comes to having some row that should have some minimum size but also not be bigger than its content
-							* We put it as the size of the last row (the footer) so the Grid row can fit it perfectly
+### Positioning Grid Elements		
+* By default the elements take up the whole area of a Grid cell. But there are properties that can change this. They must be placed where the Grid container was defined :
+	1. `justify-items` :		
+		* center - the elements become centered to their "area"
+		* start - moves the element to the start of their area
+		* end - moves the element to the end of their area
+		* stretch - the default value
+	2. `align-columns` :		
+		* Exactly the same as justify-items except its for COLUMNS in the "area"
 
-	-Positioning Grid		* By default the elements take up the whole area of a Grid cell. But there are properties that can change this. They must be placed where the Grid container was defined:
-	 Elements:							1) justify-items:		* center - the elements become centered to their "area"
-	 															* start - moves the element to the start of their area
-																* end - moves the element to the end of their area
-																* stretch - the default value
+### Positioning the entire grid content		
+- justify-content :	Same values as above but for all of the content in the Grid  //X-AXIS (Row)
+- align-content: Y-AXis (col)
+	
 
-										2) align-columns:		* Exactly the same as justify-items except its for COLUMNS in the "area"
+### Positioning Elements Individually			
+- First go to the rule of the individual element you want to reposition and use:
+	* `justify-self:` center, start, end, etc... (X-AXIS)
+	* `align-self:` same ^ (Y-AXIS)
 
-	-Positioning the		* justify-content:	*Same values as above but for all of the content in the Grid  //X-AXIS (Row)
-	 entire grid			* align-content:	*Y-AXis (col)
-	 content:
+### Understanding Responsive Grids (Grid+Media Queries) 			
+- Literally just update the row and column layouts / areas
+	
+### Applying Autoflow:		
+- The Grid automatically adds rows after our defined rows if needed.
+	* The size of these dynamic rows are "as big as they neeed to be" by default. (the biggest controls the height of the row)
+	* WE COULD OVERRIDE THIS WITH -		`grid-auto-rows: 30rem;`	(the default value WAS auto)
+- To generate dynamic columns instead of rows use: `grid-auto-flow: column` (WAS row BY DEFAULT)
+	* Then we'd also be able to size the column generation with - `grid-auto-columns: 30rem;`
 
-	-Positioning			* First go to the rule of the individual element you want to reposition and use:
-	 Elements 						** justify-self: center, start, end, etc... (X-AXIS)
-	 Individually:					** align-self: same ^ (Y-AXIS)
+### "auto-fill" & "auto-fit"			
+- `grid-template-columns: repeat(auto-fill, 10rem);`
+	* Ensures that it fills the current row with as many items as possible and then it will "wrap" and enter a new row.
+- If we replace `auto-fill` above with `auto-fit`, it will have the same behaviour except that `auto-fit` also centers the items
 
-	-Understanding 			* Literally just update the row and column layouts / areas
-	 Responsive Grids:
-	 (Grid+Media Queries)
-
-	-Applying Autoflow:		* The Grid automatically adds rows after our defined rows if needed.
-								** The size of these dynamic rows are "as big as they neeed to be" by default. (the biggest controls the height of the row)
-								** WE COULD OVERRIDE THIS WITH-		grid-auto-rows: 30rem;	(the default value WAS auto)
-							* To generate dynamic columns instead of rows use:
-										grid-auto-flow: column (WAS row BY DEFAULT)
-								**Then we'd also be able to size the column generation with: grid-auto-columns: 30rem;
-
-	-"auto-fill" &			* grid-template-columns: repeat(auto-fill, 10rem);
-	 "auto-fit"						** Ensures that it fills the current row with as many items as possible and then it will "wrap" and enter a new row.
-	 						* If we replace auto-fill above with auto-fit, it will have the same behaviour except that auto-fit also centers the items
-
-	-Creating a Dense		* grid-auto-flow: row dense; 			//this is the property that can have the value column dense
-	 Grid:							** dense overwrites elements not positioning themselves to fill up gaps because of
-	 									their size and their respect of the DOM. So now there shouldn't be gaps!
-									** Though this may not be optimal. Because screen readers still respect the DOM
+### Creating a Dense Grid		
+- `grid-auto-flow: row dense;` - this is the property that can have the value column dense
+	* `dense` overwrites elements not positioning themselves to fill up gaps because of their size and their respect of the DOM. So now there shouldn't be gaps!
+	* Though this may not be optimal. Because screen readers still respect the DOM
 
 TRANSFORMING ELEMENTS WITH CSS TRANSFORMS:
 	-Transforms are hardware accelerated
