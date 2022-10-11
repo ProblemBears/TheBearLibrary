@@ -934,9 +934,7 @@ transition: opacity 0.2s ease-in 1s, transform 0.5s
 - Component Frameworks: Bootstrap
 	* Fast components but they may look the same to other websites
 
-INTRODUCING SASS (Synctactically Awesome Style Sheets)
-	-What is SASS &			* SASS does not run on the browser
-	 SCSS?								INSTEAD
-	 						  It extends CSS during development only.
-							  THEREFORE, it has to be compiled to normal CSS before production.
-FINISHED! JULY 4!!
+<h2 align="center" > INTRODUCING SASS (Synctactically Awesome Style Sheets) </h2>
+
+### What is SASS & SCSS?			
+- SASS does not run on the browser INSTEAD It extends CSS during development only. THEREFORE, it has to be compiled to normal CSS before production.
