@@ -20,35 +20,49 @@
         * for GUI, which is an extension of the older `java.awt`
 - *Effective Java, Josh Bloch* - who wrote most of these libraries in the first place - advises that you should know all of 
 lang and util, and most of io
+<h2 align="center"> Terminology </h2>
 
-<h2 align="center" > Tidbits </h2>
+### What is an interface?
+- An interface is a complete abstract class that is `implemented` by other classes as opposed to `extended`
 
-### Iterate an array with a for() loop 
-- `for(char c : char[] someArray)`
+<h2 align="center"> Lists </h2>
 
-List (an interface = A complete abstract class that is `implemeted` by other classes as opposed to `extended`)
+- [LinkedList](https://docs.oracle.com/javase/7/docs/api/java/util/LinkedList.html) : Doubly Linked List implementation of List/Deque interfaces
+    - `pollFirst()` - 
+        * retrieves/removes first element of the list. Returns null if empty (pollLast() is antithesis)
+    - `addFirst/addLast(E ele)` - 
+        * adds an element to the start or end of the list
+
+<h2 align="center" > Stacks </h2>
+
+### Create a Stack
+- Stack<Type> s = new Stack();
+
+### Basic Stack Methods
+- `push(e)`
+- `pop()` - get and remove
+- `peek()` - get top element without removing
+
+<h2 align="center" > Hash Maps/Sets</h2>
 
 ### Create a HashMap
 ```java
 Map<K, V> varName = Map.of('someKey', "someVal", 'someKey1', "someVal1", ... etc.. up to 10);
 ```
 
-LinkedList (https://docs.oracle.com/javase/7/docs/api/java/util/LinkedList.html): Doubly linked list implementation of List/Deque interfaces
--pollFirst() = retrieves/removes first element of the list. Returns null if empty (pollLast() is antithesis)
--addFirst/addLast(E ele)- adds an element to the start or end of the list
+<h2 align="center" > Tidbits </h2>
 
-String:
--charAt(int index) = returns a char at this index
--toCharArray() = produces an array of chars
+### Create a Copy of an Array
+- `Arrays.copyOfRange(<originalArray>, fromIndexInclusive, toIndexExclusive)`
 
-StringBuilder:
--append(char someChar) = adds the character at the end.
--deleteCharAt(int index) = removes a character from the given index
+### Iterate an array with a for() loop 
+- `for(char c : char[] someArray)`
 
-Arrays: A class that provides methods for array manipulation (e.g - sorting and searching)
--Arrays.copyOfRange(<originalArray>, fromIndexInclusive, toIndexExclusive)
+<h2 align="center" > Strings / StringBuilder </h2>
 
-Stack<Type> s = new Stack();
--push(e)
--pop() - get and remove
--peek() - get top element without removing
+- String
+    * `charAt(int index)` - returns a char at this index
+    * `toCharArray()` - produces an array of chars
+- StringBuilder
+    * `append(char someChar)` - adds the character at the end.
+    * `deleteCharAt(int index)` - removes a character from the given index
