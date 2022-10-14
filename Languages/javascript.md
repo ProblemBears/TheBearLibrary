@@ -90,22 +90,32 @@
 	* `let name  = {name: "Faraji", age: 23};`
 	* `console.log( {name} )` - Faraji is output
 
-JSON
-	-Serializing data means converting it to a flat description
-	-JSON notation is very similar to JS. Except for:
-		1) All property names have to be surrounded by double quotes
-		2) Only simple data expressions are allowed - no function calls, bindings, or anything that involves computation
-		3) Comments are not allowed
-	-Javascript gives us the functions:
-		-JSON.stringify(e): serialize data such as an object
-		-JSON.parse(s): convert a JSON string back into data
+<h2 align="center" > JSON </h2>
 
-HIGH ORDER FUNCTION:
-	-Are functions with 1)Functions as arguments OR 2)Return a function
-	-someArray.filter(e => e.someProp == "someValue") - 				This should return a new array that was filtered by the old one based on func
-	-someArray.map(e => s.name) - 							Transforms an array by applying a function to all elements; building new Array from each return.
-	-someArray.reduce( (curr, incrementer) => curr + incrementer, someStart)	Compute a single value from every element in the array (eg. sum())
-											*reduce array method doesn't need someStart if there's atleast 1 element in the array (start by default)
+- **Serializing** data means converting it to a flat description
+- JSON notation is very similar to JS. Except for -
+	1. All property names have to be surrounded by double quotes
+	2. Only simple data expressions are allowed - no function calls, bindings, or anything that involves computation
+	3. Comments are not allowed
+- Javascript gives us the functions -
+	- `JSON.stringify(e)` - serialize data such as an object
+	- `JSON.parse(s)` - convert a JSON string back into data
+
+<h2 align="center" > HIGH ORDER FUNCTIONS  </h2>
+
+- **High order functions** are functions that - 
+	1. Have functions as arguments  
+	**OR** 
+	2. Return a function
+
+- `someArray.filter(e => e.someProp == "someValue")` - 				
+	* This should return a new array that was filtered by the old one based on func
+- `someArray.map(e => s.name)` - 							
+	* Transforms an array by applying a function to all elements; building new Array from each return.
+
+- `someArray.reduce( (curr, incrementer) => curr + incrementer, someStart)` - 
+	* Compute a single value from every element in the array (ex. `sum()`)
+	* `reduce` array method doesn't need `someStart` if there's atleast 1 element in the array (start by default)
 
 PROTOTYPES: Fallback (like inheritance)
 	-Object.prototype, Array.prototype, Function.prototype		//Types of prototypes
