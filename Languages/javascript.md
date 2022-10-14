@@ -146,21 +146,29 @@
 	let killeRabbit = new Rabbit(someArg);
 	```
 
-JS COMES WITH A CLASS called MAP:
-	-let map = new Map();	To initialize
-	-map.set(key, val);
-	-map.get(key);
-	-map.has(key);
-	-JS ALSO HAS A CLASS CALLED : Set
+<h2 align="center"> HASH MAPS & SETS </h2>
 
-POLYMORPHISM: When a piece of code is written to work w/ objects that have a certain interface
-	-PREREQ: learn about Symbols (unique strings for properties)
+- JavaScript comes with a class called `Map` -
+	* `let map = new Map();` - To initialize the Hash Map
+	* `map.set(key, val);`
+	* `map.get(key);`
+	* `map.has(key);`
+- JavaScript also has a class called - `Set`
 
-SYMBOLS:
-	-let sym = Symbol("name"); //To create a symbol
-	-Rabbit.prototype[sym] = someVal; //Example of use
+<h2 align="center"> POLYMORPHISM </h2>
 
-ITERATOR INTERFACE:
+- When a piece of code is written to work w/ objects that have a certain interface
+- **PREREQ** : learn about `Symbols` ( unique strings for object properties )
+
+<h2 align="center"> SYMBOLS </h2>
+
+- Symbols are used to create unique identifiers for properties in objects
+- To create a symbol -
+	* `let sym = Symbol("name");`
+- To assign the symbol as a property - 
+	* Rabbit.prototype[sym] = someVal;
+
+ITERATOR INTERFACE
 	-Iterators have: next(), value, done()
 	-Ex: let okIterator = "OK"[Symbol.iterator](); //Symbol.iterator provided by JS
 	-We defined a Matrix and MatrixIterator class: //the Iterator has a constructor and next() that returns an object w/ value & done properties
