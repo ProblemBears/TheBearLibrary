@@ -129,9 +129,22 @@
 - Safeguard against accessing prototype properties
 	* `someObject.hasOwnProperty(propertyName)`
 	
-CLASSES:
-	-class Rabbit{ constructor(someParam){} \n someMethod(){} \n someMethod()...}	Methods get packed into constructor
-	-let killeRabbit = new Rabbit(someArg); //example of constructing a new instance of Rabbit class
+<h2 align="center"> CLASSES </h2>
+
+- Defining a class -
+	```js
+	class Rabbit{
+		constructor(someParam){}
+		someMethod(){} \
+		someMethod()
+		/*etc...*/}
+	```
+	* The methods get packed into the `constructor()`
+
+- Constructing a new instance - 
+	```js
+	let killeRabbit = new Rabbit(someArg);
+	```
 
 JS COMES WITH A CLASS called MAP:
 	-let map = new Map();	To initialize
