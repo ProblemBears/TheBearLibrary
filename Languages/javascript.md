@@ -117,11 +117,17 @@
 	* Compute a single value from every element in the array (ex. `sum()`)
 	* `reduce` array method doesn't need `someStart` if there's atleast 1 element in the array (start by default)
 
-PROTOTYPES: Fallback (like inheritance)
-	-Object.prototype, Array.prototype, Function.prototype		//Types of prototypes
-	-Object.getPrototypeOf(someArrObjOrFunc)			//Gets the protoype of a value
-	-let rabbit = Object.create(protoRabbit)		//Assigns a protoype to instance...If null no protoype
-	-someObject.hasOwnProperty(propertyName)	//Safeguards against accessing prototype properties
+<h2 align="center" > PROTOTYPES </h2>
+
+- Fallback (like inheritance)
+- Types of prototypes - 
+	* `Object.prototype`, `Array.prototype`, `Function.prototype`
+- Gets the protoype of a value - 
+	* `Object.getPrototypeOf(someArrObjOrFunc)`
+- Assigns a protoype to an instance... If null no protoype
+	* `let rabbit = Object.create(protoRabbit)`
+- Safeguard against accessing prototype properties
+	* `someObject.hasOwnProperty(propertyName)`
 	
 CLASSES:
 	-class Rabbit{ constructor(someParam){} \n someMethod(){} \n someMethod()...}	Methods get packed into constructor
