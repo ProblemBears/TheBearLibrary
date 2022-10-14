@@ -80,15 +80,17 @@
 
 - `max`, `min`, `sqrt`, `cos`, `sin`, `tan`, `PI`, `floor`, `random`, `round`, `abs`
 
-Destructuring: Sometimes it's neater to have bindings for elements or objects
-	-For Arrays - wrap an array binding with []'s and put names for each element:
-		*Instead of function phi(table) | we do | function phi([n00, n01, n10, n11])
-		 so instead of having to use table[i] we simply use the names n00, n11, etc...
-	-For Objects - wrap a binding with {} and define names:
-		*let name  = {name: "Faraji", age: 23};
-		 console.log(name) //Faraji is output
-	
-JSON:
+<h2 align="center" > Destructuring </h2>
+
+- Sometimes it's neater to have bindings for elements or objects
+- **For Arrays** - wrap an array binding with `[]`'s and put names for each element :
+	* Instead of `function phi(table)`, we do, `function phi([n00, n01, n10, n11])`
+	* So instead of having to use `table[i]` we simply use the names `n00`, `n11`, etc...
+- **For Objects** - wrap a binding with `{}` and define names :
+	* `let name  = {name: "Faraji", age: 23};`
+	* `console.log( {name} )` - Faraji is output
+
+JSON
 	-Serializing data means converting it to a flat description
 	-JSON notation is very similar to JS. Except for:
 		1) All property names have to be surrounded by double quotes
