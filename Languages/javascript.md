@@ -168,12 +168,16 @@
 - To assign the symbol as a property - 
 	* Rabbit.prototype[sym] = someVal;
 
-ITERATOR INTERFACE
-	-Iterators have: next(), value, done()
-	-Ex: let okIterator = "OK"[Symbol.iterator](); //Symbol.iterator provided by JS
-	-We defined a Matrix and MatrixIterator class: //the Iterator has a constructor and next() that returns an object w/ value & done properties
-		*Put in Matrix w/: Matrix.prototype[Symbol.iterator] = function() {return new MatrixIterator(this)};
-		*We can now loop w/ for/of: for(let {x,y,value})
+<h2 align="center"> ITERATOR INTERFACE </h2>
+
+- Iterators have the properties - `next()`, `value`, `done()`
+	```js
+	let okIterator = "OK"[Symbol.iterator](); //Symbol.iterator is provided by JS
+	```
+- We defined a `Matrix` and `MatrixIterator` class:
+	* The **Iterator** has a `constructor` and `next()` that **returns** an object w/ `value` & `done` properties
+	* Put in Matrix w/: `Matrix.prototype[Symbol.iterator] = function() {return new MatrixIterator(this)};`
+	* We can now loop w/ `for/of` - `for(let {x,y,value})`
 
 GETTERS/SETTERS/STATICS:
 	-write get or set before a method name to take away the need for parenthesis:
