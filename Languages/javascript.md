@@ -199,13 +199,20 @@
 		Temperature.staticMethod(); //a vall via the Class name
 		```
 
-INHERITANCE
-	*class SymmetricMatrix extends Matrix // This class shouldn't be based on default Object prototype, but this super class
-	* call super(parentParameters) to initialize parents properties
-	* someClass instanceof someClass // to chceck if left operand is a child of the right operand
+<h2 align="center"> INHERITANCE </h2>
 
-TO MAKE OBJECTS PERSISTENT/IMMUTABLE:
-	-Object.freeze(someObject) - So if you try to change values of properties, then they wouldn't change
+- A simple definition of a child class that can inherit properties from a parent class -
+	```js
+	class SymmetricMatrix extends Matrix {// This class shouldn't be based on default Object prototype, but this super class
+		cosntructor(){
+			call super(parentParameters) to initialize parents properties
+		}
+	```
+* `someClass instanceof someClass` - to check if the left operand is a child of the right operand
+
+<h2 align="center"> CREATING IMMUTABLE OBJECTS </h2>
+
+- `Object.freeze(someObject)` - So if you try to change values of properties, then they wouldn't change
 
 MODULES:
 	-Improvised Modules of the past:
