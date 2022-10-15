@@ -179,14 +179,27 @@
 	* Put in Matrix w/: `Matrix.prototype[Symbol.iterator] = function() {return new MatrixIterator(this)};`
 	* We can now loop w/ `for/of` - `for(let {x,y,value})`
 
-GETTERS/SETTERS/STATICS:
-	-write get or set before a method name to take away the need for parenthesis:
-		*DO: class Temperature{get fahrenheit() set fahrenheight}
-		*TO BE ABLE TO: temp.farhenheit or temp.fahrenheit = 55;
-	-write static before a method name to pack it in to the constructor instead of the prototype property.
-		*TO BE ABLE TO: Temperature.staticMethod() call through the clas name 
+<h2 align="center"> GETTERS/SETTERS/STATICS </h2>
 
-INHERITANCE:
+- Write `get` or `set` **before a method name** to *take away the need for parenthesis* -
+	```js
+	class Temperature {
+		get fahrenheit()
+			//or 
+		set fahrenheit(val)
+			/* TO DO... */
+		temp.farenheit
+			//or
+		temp.farenheit = 55;
+		}
+	```
+- Write `static` **before a method name** to pack a method in to the constructor instead of the prototype property.
+	* This allows us to be able to do the following -
+		```js
+		Temperature.staticMethod(); //a vall via the Class name
+		```
+
+INHERITANCE
 	*class SymmetricMatrix extends Matrix // This class shouldn't be based on default Object prototype, but this super class
 	* call super(parentParameters) to initialize parents properties
 	* someClass instanceof someClass // to chceck if left operand is a child of the right operand
