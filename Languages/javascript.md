@@ -579,54 +579,56 @@
 	</script>
 	```
 
-HTTP AND FORMS:
-	-GET /18_http.html HTTP/1.1
-		*Our browser sends requests to servers. The first word in a request is the method of the request:
-			**GET, DELETE, PUT, POST, DELETE
-		*After the method is the path of the resource
-		*Finally, the version of the HTTP protocol (done automatically)
-		*When we request a html page, if it has dependencies (images, srcs, etc...) those also get requested simultaneously.
+<h2 align="center"> HTTP AND FORMS </h2>
 
-	-HTML may include FORMS, which allow users to fill out info and send it to the server.
-		*The default action after submitting a form is navigating to the result.
-		* GET /example/message.html?name=Jean&message=Yes%3F HTTP/1.1
-			** The form info is added after the PATH (after ?)
-			** Each field of a form is separated as name/value pairs via &
-			** %3F here is the escaped character for "". This is URL encoding.
-				*** encodeURIComponent(s)	*** decodeURIComponent(s)
-		* A POST method would put the form info into the body of the request
+- GET /18_http.html HTTP/1.1
+	* Our browser sends requests to servers. The first word in a request is the method of the request:
+		**GET, DELETE, PUT, POST, DELETE
+	* After the method is the path of the resource
+	* Finally, the version of the HTTP protocol (done automatically)
+	* When we request a html page, if it has dependencies (images, srcs, etc...) those also get requested simultaneously.
+- HTML may include FORMS, which allow users to fill out info and send it to the server.
+	* The default action after submitting a form is navigating to the result.
+	* GET /example/message.html?name=Jean&message=Yes%3F HTTP/1.1
+		* The form info is added after the PATH (after ?)
+		* Each field of a form is separated as name/value pairs via &
+		* %3F here is the escaped character for "". This is URL encoding.
+			* encodeURIComponent(s)	
+			* decodeURIComponent(s)
+	* A POST method would put the form info into the body of the request
 
-	-FETCH:
-		*The interface through which JS can make HTTP requests (uses promises since its new-ish):
-			**fetch returns a promise that resolves to a Response object that holds info about the server's response (status & headers)
-			**The headers of the Response is a map like object. (Insensitive keys)
-		*The first arg is the URL that should be requested (when it doesn't start as w/ a protocol name like http: then it's treated as relative)
-		*To get the actual body of a response use the text() method
-
-		* Forms use the <input> tag w/ the attribute type as follows:
-			text		A single-line text field
-			password		Same as text but hides the text that is typed
-			checkbox		An on/off switch
-			radio		(Part of) a multiple-choice field
-			file		Allows the user to choose a file from their computer
-			**<textarea>
-			**<select> <option><A/option> <option></option> </select>
-			.
-		*Whenever a value of a form field changes the "changes" event is hired
-
-	-Tabindex element attributes let us set the order of where our focus shifts when we press tab
-	-disable attribute can disable a ll form fields.
-	-THE FORM AS A WHOLE:
-		*When a field is contained in a <form>, it'll have a property , form , that links back to the form. (Similarly the form has an array elements)
-		*The name attribute of a form field 1)determines the way its value will id' when the form is submitted. 2) Act as a key for <form> elements property
-		*A button with a type attribute of submit will submit the contents of the form when clicked. PRODUCES EVENT "submit"
-			**You can preventDefault()
-		*Textfield types have a property VALUE which stores the textfields current content as a string value
-			**EVENTS: "change" : fires when you lose focus and the textfield has been changed. "Input": Fires whenever you type on the textfield
-	-STORING DATA CLIENT-SIDE:
-		-Browser objet: localStorage
-			*Properties/Methods:
-				** .setItem(key, val)
-				** .getItem(key): returns the value or if nothing, null
-				** .removeItem(key)
-		-A similar object is session storage except everything is forgotten after the session in this case
+- FETCH
+	* The interface through which JS can make HTTP requests (uses promises since its new-ish):
+		* fetch returns a promise that resolves to a Response object that holds info about the server's response (status & headers)
+		* The headers of the Response is a map like object. (Insensitive keys)
+	* The first arg is the URL that should be requested (when it doesn't start as w/ a protocol name like http: then it's treated as relative)
+	* To get the actual body of a response use the `text()` method
+	* Forms use the `<input>` tag w/ the attribute type as follows -
+		* text	-	A single-line text field
+		* password		Same as text but hides the text that is typed
+		* checkbox		An on/off switch
+		* radio		(Part of) a multiple-choice field
+		* file		Allows the user to choose a file from their computer
+		* `<textarea>`
+		* `<select> <option><A/option> <option></option> </select>`
+	* Whenever a value of a form field changes the "changes" event is fired
+- `Tabindex` element attributes let us set the order of where our focus shifts when we press tab
+- `disable` attribute can disable all form fields.
+- THE FORM AS A WHOLE -
+	* When a field is contained in a `<form>`, it'll have a property , `form` , that links back to the form. (Similarly the form has an array `elements`)
+	* The `name` attribute of a form field - 
+		1. Determines the way its value will id' when the form is submitted 
+		2. Act as a key for <form> elements property
+	* A button with a `type` attribute of `submit` will submit the contents of the form when clicked. PRODUCES THE EVENT "submit"
+		* You can preventDefault()
+	* Textfield types have a property `VALUE` which stores the textfields current content as a string value
+		* EVENTS - 
+			* `"change"` - fires when you lose focus and the textfield has been changed 
+			* `"input"` - Fires whenever you type on the textfield
+- STORING DATA CLIENT-SIDE -
+	- Browser object - `localStorage`
+		* Properties/Methods -
+			* `.setItem(key, val)`
+			* `.getItem(key)` : returns the value or if nothing, null
+			* `.removeItem(key)`
+	- A similar object is session storage except everything is forgotten after the session in this case
