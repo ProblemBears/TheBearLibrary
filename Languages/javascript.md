@@ -406,7 +406,7 @@
 - JavaScript event handlers RUN BEFORE default behaviors take place. You can call `preventDefault()` method of the event object to cancel the default behavior.
 
 ### EVENTS
-##### KEY EVENTS
+#### KEY EVENTS
 
 | Event Name | Event Cause | Event Notes |
 |:---:|:---:|:---:|
@@ -416,156 +416,168 @@
 - event object				 
 	* The `.key` property holds a string that for most keys corresponds to the key it types 
 	* Key combinatios `shiftKey`, `ctrlKey`, `altKey`, `metaKey` are used with AND operators and regular key operators to check if these keys are being combined with others.
-- general key event originates in the DOM node that has focus (tabindex attribute or certain tags have focus)
+- Key event originates in the DOM node that has focus (tabindex attribute or certain tags have focus)
 
-		--POINTER EVENTS:
-			---CLICKS:
-				* "mouseup"				- 	** fires when a mouse button is released
-				* "mousedown"			-	** fires when a mouse button is clicked/held
-				* "click"				-	** fires after the "mousedown" event
-											** event originates on the DOM node that is the common anscestor of where 
-											   the "mousedown" and "mouseup" originated (these could be different)
-				* "dbclick"				-	** fires if two clicks happen close together.
+#### POINTER EVENTS
+- Clicks
+	| Event Name | Event Cause |
+	|:---:|:---:| 
+	| "mouseup" | fires when a mouse button is released | 
+	| "mousedown" | fires when a mouse button is clicked/held |
+	| "click" | fires after the "mousedown" event |
+	| "dbclick" | fires if two clicks happen close together |
+	* `event` object properties -	
+		* `.clientX` & `.clientY` - contain the event's coordinates (in pixels) relative to the top-left corner of the window
+		* `.pageX` & `.pageY` -	like above but relative to the top-left corner of the whole document (scrolling into account)
+	* event originates on a DOM node below the pointer.
+	* **EX -** Primitive Drawing Program :
+		```html
+		<style>
+		body {
+			height: 200px;
+			background: black;
+		}
+		.dot {
+			height: 8px; width: 8px;
+			border-radius: 4px; /* rounds corners */
+			background: blue;
+			position: absolute;
+		}
+		</style>
+		<script>
+		window.addEventListener("click", event => {
+			let dot = document.createElement("div");
+			dot.className = "dot";
+			dot.style.left = (event.pageX - 4) + "px";
+			dot.style.top = (event.pageY - 4) + "px";
+			document.body.appendChild(dot);
+		});
+		</script>
+		```
+- Motion
+	| Event Name | Event Cause |
+	|:---:|:---:| 
+	| "mousemove" | fires everytime the mouse pointer moves |
+	* **EX -** Draggable bar :
+		```html
+		<p>Drag the bar to change its width:</p>
+		<div style="background: orange; width: 60px; height: 20px">
+		</div>
+		<script>
+		let lastX; // Tracks the last observed mouse X position
+		let bar = document.querySelector("div");
+		bar.addEventListener("mousedown", event => {
+			if (event.button == 0) {
+			lastX = event.clientX;
+			window.addEventListener("mousemove", moved);
+			event.preventDefault(); // Prevent selection
+			}
+		});
 
-				*event object			-	**.clientX & .clientY: contain the event's coordinates (in pixels) relative to the 
-																   top-left corner of the window.
-											**.pageX & .pageY:	(like above) top-left corner of the whole document. (scrolling into account)
-				* general 				-	** event originates on DOM node below the pointer.
-				* EX: Primitive Drawing Program:
-								<style>
-								body {
-									height: 200px;
-									background: black;
-								}
-								.dot {
-									height: 8px; width: 8px;
-									border-radius: 4px; /* rounds corners */
-									background: blue;
-									position: absolute;
-								}
-								</style>
-								<script>
-								window.addEventListener("click", event => {
-									let dot = document.createElement("div");
-									dot.className = "dot";
-									dot.style.left = (event.pageX - 4) + "px";
-									dot.style.top = (event.pageY - 4) + "px";
-									document.body.appendChild(dot);
-								});
-								</script>
-			---MOTION:
-				* "mousemove"			-	** fires everytime the mouse pointer moves
-											** useful for implementing mouse-dragging stuff
-				*EX: Draggable bar
-							<p>Drag the bar to change its width:</p>
-							<div style="background: orange; width: 60px; height: 20px">
-							</div>
-							<script>
-							let lastX; // Tracks the last observed mouse X position
-							let bar = document.querySelector("div");
-							bar.addEventListener("mousedown", event => {
-								if (event.button == 0) {
-								lastX = event.clientX;
-								window.addEventListener("mousemove", moved);
-								event.preventDefault(); // Prevent selection
-								}
-							});
+		function moved(event) {
+			if (event.buttons == 0) {
+			window.removeEventListener("mousemove", moved);
+			} else {
+			let dist = event.clientX - lastX;
+			let newWidth = Math.max(10, bar.offsetWidth + dist);
+			bar.style.width = newWidth + "px";
+			lastX = event.clientX;
+			}
+		}
+		</script>
+		```
+- Touch
+	| Event Name | Event Cause |
+	|:---:|:---:| 
+	| "touchstart | fired when a finger starts toughing the screen |
+	| "touchmove" | fired when moved while touching |
+	| "touchend" | fired when it stops touching the screen |
+	* `event` object properties -
+		* `.touches` - since many touchscreens can detect multiple fingers at the same time, this property holds an array-like object of points, each of which has its own  clientX, clientY, pageX, pageY
+	* You should probably call `prevenDefault()` for touch events
+	* **EX -** Multiple Touch detection :
+		```html
+		<style>
+		dot { position: absolute; display: block;
+				border: 2px solid red; border-radius: 50px;
+				height: 100px; width: 100px; }
+		</style>
+		<p>Touch this page</p>
+		<script>
+		function update(event) {
+			for (let dot; dot = document.querySelector("dot");) {
+			dot.remove();
+			}
+			for (let i = 0; i < event.touches.length; i++) {
+			let {pageX, pageY} = event.touches[i];
+			let dot = document.createElement("dot");
+			dot.style.left = (pageX - 50) + "px";
+			dot.style.top = (pageY - 50) + "px";
+			document.body.appendChild(dot);
+			}
+		}
+		window.addEventListener("touchstart", update);
+		window.addEventListener("touchmove", update);
+		window.addEventListener("touchend", update);
+		</script>
+		```
+#### SCROLL EVENTS
+| Event Name | Event Cause |
+|:---:|:---:| 
+| "scroll" event | fired whenever an element is scrolled |
+* **EX -** Progress bar for scrolling :
+	```html
+	<style>
+	#progress {
+		border-bottom: 2px solid blue;
+		width: 0;
+		position: fixed;
+		top: 0; left: 0;
+	}
+	</style>
+	<div id="progress"></div>
+	<script>
+	// Create some content
+	document.body.appendChild(document.createTextNode(
+		"supercalifragilisticexpialidocious ".repeat(1000)));
 
-							function moved(event) {
-								if (event.buttons == 0) {
-								window.removeEventListener("mousemove", moved);
-								} else {
-								let dist = event.clientX - lastX;
-								let newWidth = Math.max(10, bar.offsetWidth + dist);
-								bar.style.width = newWidth + "px";
-								lastX = event.clientX;
-								}
-							}
-							</script>
+	let bar = document.querySelector("#progress");
+	window.addEventListener("scroll", () => {
+		let max = document.body.scrollHeight - innerHeight;
+		bar.style.width = `${(pageYOffset / max) * 100}%`;
+	});
+	</script>
+	```
+#### FOCUS EVENTS
+| Event Name | Event Cause |
+|:---:|:---:| 
+| "focus" event | fired when an element gains focus |
+| "blur" event | fired when an element loses focus |
+* These two events do not propogate
+* **EX -** Form erases when something loses focus, and adds the text when something gains focus
 
-			---TOUCH:
-				* "touchstart"			-	** fired when a finger starts toughing the screen
-				* "touchmove"			-	** fired when moved while touching
-				* "touchend"			-	** fired when it stops touching the screen
-				* event object			-	** .touches - since many touchscreens can detect multiple fingers at the same time, this 
-														  property holds an array-like object of points, each of which has its own 
-														  clientX, clientY, pageX, pageY
-				* general				-	probably call prevenDefault()
-				*EX: Multiple Touch detection:
-							<style>
-							dot { position: absolute; display: block;
-									border: 2px solid red; border-radius: 50px;
-									height: 100px; width: 100px; }
-							</style>
-							<p>Touch this page</p>
-							<script>
-							function update(event) {
-								for (let dot; dot = document.querySelector("dot");) {
-								dot.remove();
-								}
-								for (let i = 0; i < event.touches.length; i++) {
-								let {pageX, pageY} = event.touches[i];
-								let dot = document.createElement("dot");
-								dot.style.left = (pageX - 50) + "px";
-								dot.style.top = (pageY - 50) + "px";
-								document.body.appendChild(dot);
-								}
-							}
-							window.addEventListener("touchstart", update);
-							window.addEventListener("touchmove", update);
-							window.addEventListener("touchend", update);
-							</script>
-		--SCROLL EVENTS:
-				* "scroll" event		-	** fired whenever an element is scrolled
-											** preventDefault doesn't prevent scrolling
-				*EX: Progress bar for scrolling:
-								<style>
-								#progress {
-									border-bottom: 2px solid blue;
-									width: 0;
-									position: fixed;
-									top: 0; left: 0;
-								}
-								</style>
-								<div id="progress"></div>
-								<script>
-								// Create some content
-								document.body.appendChild(document.createTextNode(
-									"supercalifragilisticexpialidocious ".repeat(1000)));
+#### LOAD EVENTS
+| Event Name | Event Cause |
+|:---:|:---:| 
+| "load" event | fires when the page finishes loading; fires on the window and body |
+| "beforeunload" | fires when a page is closed or navigated away from; used to prevent user losing work |
+* Usually used when the whole document needs to be loaded
 
-								let bar = document.querySelector("#progress");
-								window.addEventListener("scroll", () => {
-									let max = document.body.scrollHeight - innerHeight;
-									bar.style.width = `${(pageYOffset / max) * 100}%`;
-								});
-								</script>
-
-		--FOCUS EVENTS:
-				* "focus" event			-	**fired when an element gains focus
-				* "blur" event			-	**fired when an element loses focus
-				* general				-	**These two events do not propogate
-				*EX: Form erases when something loses focus, and adds the text when something gains focus
-
-		--LOAD EVENT:
-				* "load" event			-	**fires when the page finishes loading
-											**fires on the window and body
-				* "beforeunload"		-	**fires when a page is closed or navigated away from
-											**used to prevent user losing work
-				* general				-	** Usually used when the whole document needs to be loaded
-
-	-DEBOUNCING:
-		--Debouncing: For events that fire rapidly (like mousemove) you can use setTimeout to make sure you don't do it often.
-			*You can catch a timeOut with clearTimeOut(timeOutBinding);
-		--Ex: Detecting user typing pauses:
-				<textarea>Type something here...</textarea>
-				<script>
-				let textarea = document.querySelector("textarea");
-				let timeout;
-				textarea.addEventListener("input", () => {
-					clearTimeout(timeout);
-					timeout = setTimeout(() => console.log("Typed!"), 500);
-				});
-				</script>
+#### DEBOUNCING
+- **Debouncing** - For events that fire rapidly (like mousemove) you can use `setTimeout` to make sure you don't do it often.
+	* You can catch a timeOut with `clearTimeOut(timeOutBinding);`
+- **EX -** Detecting user typing pauses :
+	```html
+	<textarea>Type something here...</textarea>
+	<script>
+	let textarea = document.querySelector("textarea");
+	let timeout;
+	textarea.addEventListener("input", () => {
+		clearTimeout(timeout);
+		timeout = setTimeout(() => console.log("Typed!"), 500);
+	});
+	</script>
+	```
 
 HTTP AND FORMS:
 	-GET /18_http.html HTTP/1.1
