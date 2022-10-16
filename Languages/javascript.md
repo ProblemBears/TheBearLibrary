@@ -332,79 +332,91 @@
 	* convention dictates our made up attribute names start with the previc data-
 	* For historical reasons `class` isn't a property, so to access this attribute we use `className` OR our `getAttribute`
 
-HANDLING EVENTS:
-	-EVENT HANDLERS:
-		--Primitive ways of handling events include: 1)constantly reading a state for a key. 2)Checking a queue of new events (polling)
-		--A better mechanism is to actively notify our code when an event occurs. Browsers do this by allowing us to register functions as
-	 	 HANDLERS for specific events.
-			*EX:
-				<p>Click this document to activate the handler.</p>
-				<script>
-					window.addEventListener("click", () => {
-						console.log("You knocked?");
-					});
-				</script>
-			** window binding (built-in object) represents the browser window that contains the document. Calling its addEventListener()
-			registers the second arg to be called whenever the event described by first arg occurs
+<h2 align="center"> HANDLING EVENTS </h2>
 
-	-EVENTS AND DOM NODES:
-		--Event listeners are called only when the event happens in the context they are registered on (EX: We registered on window but we could register on DOM elements)
-		--Giving a node something like an onclick attribute also has the same effect. Most type of event can be attached through attribute w/ the name of the event after on.
-		  (You can only register 1 handler per node if you choose attributes. addEventListener() can setup multiple)
-		--removeEventListener(event, funcNameToRemove) to remove a previously registered event handler.
-	
-	-EVENT OBJECTS:
-		--Event handler functions are passed an argument: the EVENT OBJECT (holds additional info about the event like: which mouse button was pressed through event object's button property)
-			*EX: 	
-					<button>Click me any way you want</button>
-					<script>
-					let button = document.querySelector("button");
-					button.addEventListener("mousedown", event => {  //HERE. Info stored in the event object differs per type of event. (the type property can tell you its type of event)
-						if (event.button == 0) {
-						console.log("Left button");
-						} else if (event.button == 1) {
-						console.log("Middle button");
-						} else if (event.button == 2) {
-						console.log("Right button");
-						}
-					});
-					</script>
+### EVENT HANDLERS
+- Primitive ways of handling events include: 
+	1. constantly reading a state for a key. 
+	2. Checking a queue of new events (polling)
+- A better mechanism is to actively notify our code when an event occurs. Browsers do this by allowing us to register functions as **HANDLERS** for specific events.
+	* **EX -**
+		```html
+		<p> Click this document to activate the handler </p>
+		<script>
+			window.addEventListener("click", () => {
+				console.log("You knocked?");
+			});
+		</script>
+		```
+	* The `window` binding (a built-in object) represents the browser window that contains the `document`. Calling its `addEventListener()` registers the second arg to be called whenever the event described by first arg occurs
 
-	-PROPOGATION:
-		--For most even types, handlers registered on nodes with children will also recieve events that happen in the children.
-		--Events PROPOGATE outward, from the node where it happened to that node's parent node and on and on to the root until finally the window gets a chance to respond to the event.
-		--AT ANY POINT, an event handler can call the stopPropagation() method on the event object to stop the outward propogation. (Useful for stacked UI: clickable panel has clickable button)
-		--Most event objects have a property, target. It can be used to:
-				1)ensure you're not handling somthing that propogated up
-				2)cast a wide net for a specific type of event 
-					*EX: You have a node that contains a long list of buttons. It'd be annoying to register handlers for all of the buttons. So we just register a single one with the outer node using target.
-							<button>A</button>
-							<button>B</button>
-							<button>C</button>
-							<script>
-								document.body.addEventListener("click", event => {
-									if (event.target.nodeName == "BUTTON") {
-									console.log("Clicked", event.target.textContent);
-									}
-								});
-							</script>
-	
-	-DEFAULT ACTIONS:
-		--Many events have default actions associated with them. Ex: right click on browser = context menu; down arrow key = scroll the page down; etc...
-		--JavaScript event handlers RUN BEFORE default behaviors take place. You can call preventDefault() method of the event object to cancel the default behavior.
+### EVENTS AND DOM NODES
+- Event listeners are called only when the event happens in the context they are registered on 
+	* **EX -** We registered on `window` **but** we could register on DOM elements
+- Giving a node something like an `onclick` attribute also has the same effect. Most type of event can be attached through attributes w/ the name of the event after `on`.
+	* You can only register 1 handler per node if you choose attributes. addEventListener() can setup multiple
+- `removeEventListener(event, funcNameToRemove)` is used to remove a previously registered event handler
 
-	-EVENTS:
-		--KEY EVENTS:
-				* "keydown" event 		- 	** fires when a key is pressed
-											** It fires events as long as its held (so be careful)
+### EVENT OBJECTS
+- Event handler functions are passed an argument, the **EVENT OBJECT**, which holds additional info about the event like which mouse button was pressed through the event object's button property
+	* EX -
+	```html 	
+	<button>Click me any way you want</button>
+	<script>
+	let button = document.querySelector("button");
+	button.addEventListener("mousedown", event => {
+		if (event.button == 0) {
+		console.log("Left button");
+		} else if (event.button == 1) {
+		console.log("Middle button");
+		} else if (event.button == 2) {
+		console.log("Right button");
+		}
+	});
+	</script>
+	```
+	* Info stored in the `event` object differs per type of event (the `type` property can tell you its type of event)
 
-				* "keyup" event 		- 	** fires when a key is released
+### PROPOGATION
+- For most even types, handlers registered on nodes with children will also recieve events that happen in the children
+- **Events PROPOGATE outward, from the node where it happened to that node's parent node and on and on to the root until finally the window gets a chance to respond to the event**
+- AT ANY POINT, an event handler can call the `stopPropagation()` method on the event object to stop the outward propogation
+	* This is useful for stacked UI : a clickable panel has a clickable button
+- Most event objects have a property, `target`. It can be used to :
+	1. Ensure you're not handling something that propogated up
+	2. Cast a wide net for a specific type of event 
+		* EX: You have a node that contains a long list of buttons. It'd be annoying to register handlers for all of the buttons. So we just register a single one with the outer node using `target` like so...
+		```html
+		<button>A</button>
+		<button>B</button>
+		<button>C</button>
+		<script>
+			document.body.addEventListener("click", event => {
+				if (event.target.nodeName == "BUTTON") {
+				console.log("Clicked", event.target.textContent);
+				}
+			});
+		</script>
+		```
+### DEFAULT ACTIONS
+- Many events have default actions associated with them. For example - 
+	* right click on browser = context menu
+	* down arrow key = scroll the page down
+	* etc...
+- JavaScript event handlers RUN BEFORE default behaviors take place. You can call `preventDefault()` method of the event object to cancel the default behavior.
 
-				* event object			-	** .key = a string that for most keys corresponds to the key it types
-											** key combinations: shiftKey, ctrlKey, altKey, metaKey are used with AND operators
-										   	   and regular key operators to check if these keys are being combined with others.
+### EVENTS
+##### KEY EVENTS
 
-				* general				-	** key event originates in the DOM node that has focus (tabindex attribute or certain tags have focus)
+| Event Name | Event Cause | Event Notes |
+|:---:|:---:|:---:|
+| `"keydown"` event 	| fires when a key is pressed | It fires events as long as its held (so be careful) |
+| `"keyup"` event | 	fires when a key is released | |
+
+- event object				 
+	* The `.key` property holds a string that for most keys corresponds to the key it types 
+	* Key combinatios `shiftKey`, `ctrlKey`, `altKey`, `metaKey` are used with AND operators and regular key operators to check if these keys are being combined with others.
+- general key event originates in the DOM node that has focus (tabindex attribute or certain tags have focus)
 
 		--POINTER EVENTS:
 			---CLICKS:
