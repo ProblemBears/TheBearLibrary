@@ -243,48 +243,44 @@
 - MINIFIERS can be used to make code more compact for speedy transfer over networks	
 - You can load ES modules in browsers by giving your script tag (in html) the attribute type="module"	
 
-ASYNCHRONOUS PROGRAMMING:
-	-1)APPROACH: CALLBACKS - make functions that perform a slow action take an extra argument, a callback function.
-		*Ex: setTimeout() which is available in browsers and Node.js: waits a number of millisecs and then calls a func.
-	
-	-2)APPROACH: PROMISES - Abstract concepts like aynchronicity can be better represented as values. So instead of arranging
-				a callback to be recalled in the future. RETURN AN OBJECT THAT REPRESENTS THIS FUTURE EVENT.
-		*Promise class - an asynchronus action that may complete at some point and produce a value. It's able to notify
-				 anyone who is interested when it value is available.
-			**Promise.resolve-		The easiest way to create a a promises. This function ensures that the value
-							you give is wrapped in a promise.
-			**somePromise.then(()=>{});-	***To get the result of a promise, use its then(callback(s) method.
-							***Returns another promise, which resolves to the value that the 
-							   handler function returns OR if that returns a promise, waits and then
-							   resolves to its result
-		*Think of promises as a device to move values into an asynchronous reality. A normal value is simply there.
-		 A promised value is a value that might already be there or might appear at some time in the future. Computations
-		 defined in terms of promises are execute as the values become available
+<h2 align="center"> ASYNCHRONOUS PROGRAMMING </h2>
 
-	-3)APPROACH: ASYNC FUNCTIONS - Javascript allows you to write pseudo-synchronous code to describe asynchronous computation. An
-					async function is a function that implicitly returns a promise and that can, in its body, await
-					other promises in a way that looks synchronous.
-		*Notations:
-			**When an asyc method or function are called they RETURN A PROMISE. So as soon as its body returns the promise is resolved or if an excetion is thrown
-			  the promise is rejected
-			**Functions:	async function someStorage(){}
-			**Methods:	async methodName(){}
+### APPROACH 1 : CALLBACKS 
+- Make functions that perform a slow action take an extra argument, a **callback function**.
+	* EX : `setTimeout()` which is available in browsers and Node.js, waits a number of millisecs and then calls a function.
 
-		*Inside of an async function AWAIT can be put infront of an expression to wait for a promise to resolve AND ONLY THEN can the function continue to execute.
+### APPROACH 2 : PROMISES 
+- Abstract concepts like aynchronicity can be better represented as values. So instead of arranging a callback to be recalled in the future. RETURN AN OBJECT THAT REPRESENTS THIS FUTURE EVENT.
+* The `Promise` class - represents an asynchronus action that may complete at some point and produce a value. It's able to notify anyone who is interested when it value is available.
+	* `Promise.resolve` - The easiest way to create a promises. This function ensures that the value you give is wrapped in a promise.
+	* `somePromise.then( ()=>{} );`-	
+		* To get the result of a promise, use its `then( callback(s) )` method
+		* Returns another promise, which resolves to the value that the handler function returns OR if that returns a promise, waits and then resolves to its result
+	* Think of promises as a device to move values into an asynchronous reality. A normal value is simply there. A promised value is a value that might already be there or might appear at some time in the future. Computations defined in terms of promises are executed as the values become available
 
-		*Easier to use than raw Promises. But can be mixed with them.
+### APPROACH 3 : ASYNC FUNCTIONS
+- Javascript allows you to write pseudo-synchronous code to describe asynchronous computation. An async function is a function that implicitly returns a promise and that can, in its body, await other promises in a way that looks synchronous.
+- Notations -
+	* When an `asyc` method or function are called they **RETURN A PROMISE**. So as soon as its body returns, the promise is resolved or if an excetion is thrown the promise is rejected
+	* Functions :	`async function someStorage(){}`
+	* Methods :	`async methodName(){}`
+- Inside of an async function `await` can be put infront of an expression to wait for a promise to resolve AND ONLY THEN can the function continue to execute.
+- This approach is **easier to use than raw Promises**. But can be mixed with them.
+- The event loop is what runs the callbacks of async functions. Therefore yielding responses later even if they resolve immidiately
 
-		*The event loop is what runs the callbacks of async functions. Therefore yielding responses later even if they resolve immidiately
-GENERATORS:
-	-Another JS function that pauses and resumer (similar to async but without the promises)
-	-Generators return an iterator, so it's easier to create iterators with them (as opposed to creating an iterator object like before):
-		*EX:	Group.prototype[Symbol.iterator] = function*() {
-  								for (let i = 0; i < this.members.length; i++) {
-    									yield this.members[i];
-  								}
-							    };
-	-NOTATION:	A * infront of function = RETURNS AN ITERATOR
-	-yield functions can only exist in a generator. AND IT SAVES IT LOCAL STATE! THIS IS WHY ASYNC IS A TYPE OF GENERATOR BUT W/ PROMISES
+<h2 align="center"> GENERATORS </h2>
+
+- Another JS function that pauses and resumes (similar to async but without the promises)
+- Generators return an iterator, so it's easier to create iterators with them (as opposed to creating an iterator object like before) -
+	```js
+	Group.prototype[Symbol.iterator] = function*() {
+		for (let i = 0; i < this.members.length; i++) {
+				yield this.members[i];
+		}
+		};
+	```
+- NOTATION :	A `*` infront of function = RETURNS AN ITERATOR
+- `yield` functions can only exist in a `generator`. AND IT SAVES ITS LOCAL STATE! THIS IS WHY ASYNC IS A TYPE OF GENERATOR BUT W/ PROMISES
 
 TCP: 	-One computer must be listening for others to talk to it. Each listener on a computer has a number called a PORT. Other computers can form a 
 	 connection by using those ports
