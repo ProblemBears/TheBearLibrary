@@ -214,34 +214,34 @@
 
 - `Object.freeze(someObject)` - So if you try to change values of properties, then they wouldn't change
 
-MODULES:
-	-Improvised Modules of the past:
-		*Bind the module to a function
-		* eval() or Function constructor: which accept paramter list in paramter 1, and the body in param 2
+<h2 align="center" > MODULES </h2>
 
-	-CommonJS Modules (Node.js uses this, and many packages in NPM do to):
-		*require(someDependencyName) - makes sure the module is loaded and returns is interface
-			**The loader WRAPS module code in a function - giving it its local scope (safety from JS global scope)
-			**Modules put their interfaces in an object bound to export. EX:
-				exports.formatDate = function(params){return;};
-		*module.exports can be overwitten to be any value. Like a single value or function instead of an object.
-		*The string that require() uses can be a:
-			** Relative Path: './somePath'
-			** Not Relative: Then Node.js will look for an installed package by that name
+### Improvised Modules of the past -
+- Bind the module to a function
+- `eval()` or Function constructor: which accept parameter list in `parameter 1`, and the body in `param 2`
 
-	-ECMAScript Modules:
-		*Concept of dependencies and interfaces stay the same. Differences are:
-			**Notation is integrated into the language:	
-				***Importing:		import varName "moduleName"
-				***Exporting:		export function formatDate(paramas){}
-			**ES modules don't export a single value. It's a set of named bindings
-			**To specify a main export binding:	export default someBinding();
-			**Change imported binding name:		import {days as dayNames} from "date-names";
-		*Import declarations CAN NOT APPEAR IN BLOCKS. They need to be evaulated before scripts. (Dependencies must be in quotes also then)	
-	-One single big file is faster than multiple. So use BUNDLERS.
-	-MINIFIERS can be used to make code more compact for speedy transfer over networks	
+### CommonJS Modules (Node.js  and many packages in NPM use this)
+- `require(someDependencyName)` - makes sure the module is loaded and returns it's interface
+	* The loader wraps module code in a function - giving it its local scope (safety from JS global scope)
+- Modules put their interfaces in an object bound to `export`
+	* `exports.formatDate = function(params){return;};`
+- `module.exports` can be overwitten to be any value. Like a single value or function instead of an object.
+- The string that `require()` uses can be a -
+	* **Relative Path** - `'./somePath'`
+	* **Not Relative** - Then Node.js will look for an installed package by that name
 
-	-You can load ES modules in browsers by giving your script tag (in html) the attribute type="module"	
+### ECMAScript Modules
+- Concept of dependencies and interfaces stay the same. Differences are:
+	* Notation is integrated into the language -
+		* Importing -		`import varName "moduleName"`
+		* Exporting -		`export function formatDate(paramas){}`
+	* ES modules don't export a single value. It's a set of named bindings
+	* To specify a main export binding -	`export default someBinding();`
+	* Change imported binding name -		`import {days as dayNames} from "date-names";`
+- Import declarations CAN NOT APPEAR IN BLOCKS. They need to be evaulated before scripts. (Dependencies must be in quotes also then)	
+- One single big file is faster than multiple. So use BUNDLERS.
+- MINIFIERS can be used to make code more compact for speedy transfer over networks	
+- You can load ES modules in browsers by giving your script tag (in html) the attribute type="module"	
 
 ASYNCHRONOUS PROGRAMMING:
 	-1)APPROACH: CALLBACKS - make functions that perform a slow action take an extra argument, a callback function.
