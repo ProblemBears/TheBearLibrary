@@ -279,59 +279,58 @@
 		}
 		};
 	```
-- NOTATION :	A `*` infront of function = RETURNS AN ITERATOR
-- `yield` functions can only exist in a `generator`. AND IT SAVES ITS LOCAL STATE! THIS IS WHY ASYNC IS A TYPE OF GENERATOR BUT W/ PROMISES
+	- A `*` infront of function = RETURNS AN ITERATOR 
+	- `yield` functions can only exist in a `generator`. AND IT SAVES ITS LOCAL STATE! THIS IS WHY ASYNC IS A TYPE OF GENERATOR BUT W/ PROMISES
 
-TCP: 	-One computer must be listening for others to talk to it. Each listener on a computer has a number called a PORT. Other computers can form a 
-	 connection by using those ports
-	-To connect a maching to the world wide web, all you need is to listen on port 80 w/ the http protocol so other computers can ask it for documents
-		*Each document is of the form:	protocol//server/path	or 	http://henlo.com/home
+<h2 align="center" > TCP </h2>
 
-HTML and JAVASCRIPT:
-	-You can load ES modules in browsers by giving your script tag (in html) the attribute type="module"	
-	-Some tag attributes can also contain a JS program. Thr <button> tag has the attribute onclick="" which runs whenever the button is clicked.
+- One computer must be listening for others to talk to it. Each listener on a computer has a number called a PORT. Other computers can form a connection by using those ports
+- To connect a maching to the world wide web, all you need is to listen on port 80 w/ the http protocol so other computers can ask it for documents
+	* Each document is of the form:	`protocol//server/path`	or 	http://henlo.com/home
 
-THE DOM:
-	-The global binding document gives us access to the DOM.
-		*its documentElement property refers to the object representing the <html> tag
-		*document.documentElement serves as the root of the DOM
-	-Nodes for elements(html tags) represent the structure of the document
-	-Each DOM node object has a property:	nodeType - which contains a code that identifies the type of node.
-		*1 = Node.ELEMENT_NODE
-		*3 = Node.TEXT_NODE
-		*8 = node.COMMENT_NODE
-	-DOM Nodes have property:	*childNodes - which holds an arraylike object that holds children (excludes most regular array methods like slice and map)
-					*parentNode - points to this node's parent
-					*firstChild/LastChild - point to the first and last childs respectively. null for nodes without children
-					*previousSibling/nextSibling - Points to left/right siblings. The first childs prevSibling will always be null (lastChild similar)
-					*children - exactly like childNodes but focuses only on elements(tags)
-					*nodeValue - Only for text nodes. It holds the string of text that it represents
-					*getElementsByTagNAme("a")[0]; - collects all elements with the given tag name that are decendants of this node and return as an
-									 array-like object
-					*document.getElementById("id") - gets a specific single node by its id attribute
-					*getElementsByClassName - like byTagName, but with the class="" attribute
-					*remove() - remove this node from their current parent node
-					*appenchChild(e) - puts a child node at the end of an element's child array
-					*insertBefore(e1, e2) - inserts e1 before e2. so removes e1 from the dom and puts it "behind" e2
-					*replaceChild(newNode, nodeToReplace) - used to replace a child node with another one
-					*document.createTextNode("someText") - creates a text node
-					*document.createElement("someEle") - creates an element node
-					*offsetWidth / offsetHeight - give you the space the element takes up in pixels
-					*clientWidth / clientHeight - give you the size of the space inside the element ignoring border width
-					*getBoundingClientRect() - most effective way to find the precise position of an element on the screen
-								   .It returns an object with top, bottom, left, right properties, indicating the
-								   pixel positions of the sides of the element relative to the top left of the screen
-					*pageXOffset / pageYOffset - The current scroll position (add this to getBoundingClientRect() if you want it relative to the document)
-					*style - an object that has properties for all possible style properties. The values of these properties are string, which we can
-						 write to to change aspects of an element's style
-							**for hypenated styles like font-family we can use camelcase like so style.fontFamily
-					*querySelectorAll("someSelectorString") - take CSS selectors and returns an array of elements that match it
-					*querySelector - same as above but for the first instance
+<h2> HTML and JAVASCRIPT </h2>
 
-	-Empty Text Nodes get created by HTML whitespace!!!!
-	-HTML allows you to use made up attributes. So use getAttribute and setAttribute to work with those.
-		*convention dictates our made up attribute names start with the previc data-
-		*For historical reasons class isn't a property, so to acces this attribute we use className OR our getAttribute
+- You can load ES modules in browsers by giving your script tag (in html) the attribute `type="module"`	
+- Some tag attributes can also contain a JS program. Thr \<button> tag has the attribute `onclick=""` which runs whenever the button is clicked
+
+<h2 align="center" > THE DOM </h2>
+
+- The global binding `document` gives us access to the DOM.
+	* its `documentElement` property refers to the object representing the \<html> tag
+	* `document.documentElement` serves as the root of the DOM
+- Nodes for elements (html tags) represent the structure of the document
+- Each DOM node object has a property:	`nodeType` - which contains a code that identifies the type of node.
+	* 1 = `Node.ELEMENT_NODE`
+	* 3 = `Node.TEXT_NODE`
+	* 8 = `Node.COMMENT_NODE`
+- DOM Nodes have the properties -	
+	* `childNodes` - which holds an arraylike object that holds children (excludes most regular array methods like slice and map)
+	* `parentNode` - points to this node's parent
+	* `firstChild/LastChild` - point to the first and last childs respectively. null for nodes without children
+	* `previousSibling/nextSibling` - Points to left/right siblings. The first childs prevSibling will always be null (lastChild similar)
+	* `children` - exactly like childNodes but focuses only on elements(tags)
+	* `nodeValue` - Only for text nodes. It holds the string of text that it represents
+	* `getElementsByTagNAme("a")[0];` - collects all elements with the given tag name that are decendants of this node and return as an array-like object
+	* `document.getElementById("id")` - gets a specific single node by its id attribute
+	* `getElementsByClassName` - like byTagName, but with the class="" attribute
+	* `remove()` - remove this node from their current parent node
+	* `appenchChild(e)` - puts a child node at the end of an element's child array
+	* `insertBefore(e1, e2)` - inserts e1 before e2. so removes e1 from the dom and puts it "behind" e2
+	* `replaceChild(newNode, nodeToReplace)` - used to replace a child node with another one
+	* `document.createTextNode("someText")` - creates a text node
+	* `document.createElement("someEle")` - creates an element node
+	* `offsetWidth` / `offsetHeight` - give you the space the element takes up in pixels
+	* `clientWidth` / `clientHeight` - give you the size of the space inside the element ignoring border width
+	* `getBoundingClientRect()` - most effective way to find the precise position of an element on the screen .It returns an object with top, bottom, left, right properties, indicating the pixel positions of the sides of the element relative to the top left of the screen
+	* `pageXOffset` / `pageYOffset` - The current scroll position (add this to getBoundingClientRect() if you want it relative to the document)
+	* `style` - an object that has properties for all possible style properties. The values of these properties are string, which we can write to to change aspects of an element's style
+		* for hypenated styles like font-family we can use camelcase like so style.fontFamily
+	* `querySelectorAll("someSelectorString")` - take CSS selectors and returns an array of elements that match it
+	* `querySelector` - same as above but for the first instance
+- Empty Text Nodes get created by HTML whitespace!!!!
+- HTML allows you to use made up attributes. So use `getAttribute` and `setAttribute` to work with those.
+	* convention dictates our made up attribute names start with the previc data-
+	* For historical reasons `class` isn't a property, so to access this attribute we use `className` OR our `getAttribute`
 
 HANDLING EVENTS:
 	-EVENT HANDLERS:
