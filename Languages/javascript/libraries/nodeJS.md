@@ -246,44 +246,50 @@
 		```
 	* Then in the some '/controller' .js we import the Model in
 
-	-Storing Data in Files via			-What:			* Previously, we stored data into an array called 'products'. Instead, we may want to store the data into a file
-	 the Model:
-							-How:			1) Delete the previous products[] and import this instead:
-											const fs = require('fs');
-											const path = require('path');
+### Storing Data in Files via the Model			
+- What			
+	* Previously, we stored data into an array called 'products'. Instead, we may want to store the data into a file
+- How			
+	1. Delete the previous `products[]` and import this instead:
+		```js
+		const fs = require('fs');
+		const path = require('path');
+		```
+	2. In `save()` do this instead:
+		```js
+		//contstruct a path to the file (it must exist and conventionally reside in '/data')
+		fs.readFile(path, (err, fileContent) => {
+			let products = [];
+			if(!err) {
+				products = JSON.parse(fileContent);
+			}
+			products.push(this);
+			fs.writeFile(path, JSON.stingify(products), (err) => {} );
+		});
+		```
+- Despite this we still will get an error which we will solve next...
 
+### Fetching Data from Files Via the Model			
+- IMPORTANT		
+	* We were getting an error previously because doing file operations is usually asynchronous. Therefore, we can solve this by sending a function argument into the Model which the model will execute by also giving its own argument (the products array). This is a callback.
+- How 			
+	* In `contollers/product.js` :
+		```js
+		Product.fetchAll( products => {
+			res.render(//Code)
+		}
+		```
+	* In `models/product.js` :
+		```js
+		static fetchAll(cb) {
+			const p = //Get Path Code;
 
-										2) In save() do this instead:
-											//contstruct a path to the file (it must exist and conventionally reside in '/data')
-											fs.readFile(path, (err, fileContent) => {
-												let products = [];
-												if(!err) {
-													products = JSON.parse(fileContent);
-												}
-												products.push(this);
-												fs.writeFile(path, JSON.stingify(products), (err) => {} );
-											});
-
-							-Error:			* Despite this we still will get an error which we will solve next...
-
-	-Fetching Data from Files Via			-IMPORTANT:		* We were getting an error previously because doing file operations is usually asynchronous. Therefore,
-	 the Model:								  we can solve this by sending a function argument into the Model which the model will execute by also giving
-										  its own argument (the products array). This is a callback.
-
-							-How:			* In contollers/product.js:
-											Product.fetchAll( products => {
-												res.render(//Code)
-											}
-
-										* In models/product.js:
-											static fetchAll(cb) {
-												const p = //Get Path Code;
-
-												fs.readFile(p, (err, fileContent) => {
-													if(err) cb([]);
-													else cb( JSON.parse(fileContent) );
-												}
-											}
+			fs.readFile(p, (err, fileContent) => {
+				if(err) cb([]);
+				else cb( JSON.parse(fileContent) );
+			}
+		}
+		```
 
 DYNAMIC ROUTES & ADVANCED MODELS:
 	-Adding the Product ID to			-How:			* We place an ID property into our Model
