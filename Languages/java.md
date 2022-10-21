@@ -2,7 +2,17 @@
 
 <h2 align="center"> Table of Contents </h2>
 
-<h2 align="center"> Standard Library </h2>
+- [Standard Library](#standard-library)
+- [Terminology](#terminology)
+    - [What is an interface?](#what-is-an-interface)
+- [Lists](#lists)
+- [Stacks](#stacks)
+- [Hash Maps/Sets](#hash-maps-sets)
+- [Tidbits](#tidbits)
+- [Strings/StringBuilder](#strings)
+
+
+<h2 align="center" id="standard-library"> Standard Library </h2>
 
 - [This](http://docs.oracle.com/javase/7/docs/api/index.html) is a link to the Java libraries the creators made. Here are things to know:
     - `java.lang` 
@@ -20,12 +30,13 @@
         * for GUI, which is an extension of the older `java.awt`
 - *Effective Java, Josh Bloch* - who wrote most of these libraries in the first place - advises that you should know all of 
 lang and util, and most of io
-<h2 align="center"> Terminology </h2>
+
+<h2 align="center" id="terminology"> Terminology </h2>
 
 ### What is an interface?
 - An interface is a complete abstract class that is `implemented` by other classes as opposed to `extended`
 
-<h2 align="center"> Lists </h2>
+<h2 align="center" id="lists"> Lists </h2>
 
 - [LinkedList](https://docs.oracle.com/javase/7/docs/api/java/util/LinkedList.html) : Doubly Linked List implementation of List/Deque interfaces
     - `pollFirst()` - 
@@ -33,7 +44,7 @@ lang and util, and most of io
     - `addFirst/addLast(E ele)` - 
         * adds an element to the start or end of the list
 
-<h2 align="center" > Stacks </h2>
+<h2 align="center" id="stacks"> Stacks </h2>
 
 ### Create a Stack
 - Stack<Type> s = new Stack();
@@ -43,14 +54,14 @@ lang and util, and most of io
 - `pop()` - get and remove
 - `peek()` - get top element without removing
 
-<h2 align="center" > Hash Maps/Sets</h2>
+<h2 align="center" id="hash-maps-sets"> Hash Maps/Sets</h2>
 
 ### Create a HashMap
 ```java
 Map<K, V> varName = Map.of('someKey', "someVal", 'someKey1', "someVal1", ... etc.. up to 10);
 ```
 
-<h2 align="center" > Tidbits </h2>
+<h2 align="center" id="tidbits"> Tidbits </h2>
 
 ### Create a Copy of an Array
 - `Arrays.copyOfRange(<originalArray>, fromIndexInclusive, toIndexExclusive)`
@@ -58,7 +69,7 @@ Map<K, V> varName = Map.of('someKey', "someVal", 'someKey1', "someVal1", ... etc
 ### Iterate an array with a for() loop 
 - `for(char c : char[] someArray)`
 
-<h2 align="center" > Strings / StringBuilder </h2>
+<h2 align="center" id="strings"> Strings / StringBuilder </h2>
 
 - String
     * `charAt(int index)` - returns a char at this index
