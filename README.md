@@ -8,6 +8,7 @@
     - [React](./Languages/javascript/libraries/react.md)
 - [Java](./Languages/java.md)
 - [Python](./Languages/python.md)
+- [CSS](./Languages/css.md)
 
 <h2> Databases </h2>
 
