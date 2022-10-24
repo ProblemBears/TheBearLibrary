@@ -1,0 +1,139 @@
+{
+  "main": {
+    "id": "7047103766ead728",
+    "type": "split",
+    "children": [
+      {
+        "id": "da588b3fb8fcfaa4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "09bb966f31337b66",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "1ac0136f9ca895e0",
+    "type": "split",
+    "children": [
+      {
+        "id": "c072d18e6726d053",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "125962a48a0a1839",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "1f673ce2126673a6",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "41f11f11d2ddbea0",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "b13b3b365c008579",
+    "type": "split",
+    "children": [
+      {
+        "id": "4dd6c9f8fd09e3e6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3f4c30faf3512e4b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a774df6a8837211c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "33e61ce6cf0abc48",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "6a7a99881664e2b4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "ribbon": {
+    "mostRecentAction": ""
+  },
+  "active": "09bb966f31337b66",
+  "lastOpenFiles": [
+    "Unreal Engine/Shaders.md",
+    "LeetCodes/+ProgrammingLanguages.md"
+  ]
+}
