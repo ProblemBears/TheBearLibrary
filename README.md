@@ -10,11 +10,6 @@
 - [Python](./Languages/python.md)
 - [CSS](./Languages/css.md)
 
-<h2> Databases </h2>
-
-- [MySQL](./Databases/mySQL.md)
-- [MongoDB](./Databases/mongoDB.md)
-
 <h2> Version Control </h2>
 
 - [Git](./Version%20Control/git.md)
@@ -25,6 +20,10 @@
 - [Unreal Engine Animation](./Unreal%20Engine/Animation.md)
 - [Unreal Engine Shaders](./Unreal%20Engine/Shaders.md)
 
+<h2> Databases </h2>
+
+- [MySQL](./Databases/mySQL.md)
+- [MongoDB](./Databases/mongoDB.md)
 
 <h2> Software Utilities </h2>
 
