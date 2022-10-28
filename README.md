@@ -1,5 +1,5 @@
 <h1 align="center"> The Bear Library </h1>
-<p align="center"> This GitHub repo is my personal storage of notes I take throughout my career </p>
+<p align="center"> This GitHub repo is my personal storage of notes I take to reference when needed. I plan to convert these into other mediums for teaching </p>
 
 <h2> Programming Languages </h2>
 
