@@ -3,12 +3,14 @@
 
 <h2> Programming Languages </h2>
 
-- [JavaScript](./Languages/javascript/javascript.md)
+- [JavaScript](./Languages/javascript/javascript.md)  
+Project - [EloquentJS-Solutions](https://problembears.github.io/EloquentJS-Solutions/)
     - [NodeJS](./Languages/javascript/libraries/nodeJS.md)
     - [React](./Languages/javascript/libraries/react.md)
 - [Java](./Languages/java.md)
 - [Python](./Languages/python.md)
-- [CSS](./Languages/css.md)
+- [CSS](./Languages/css.md)  
+Project -[Responsive Website](https://problembears.github.io/CSS-Sandbox/)
 
 <h2> Version Control </h2>
 
@@ -21,7 +23,8 @@
 - [Unreal Engine Shaders](./Unreal%20Engine/Shaders.md)
 
 <h2> Math </h2>
-- [3D Math Primer]()
+
+- [3D Math Primer](./Math/3dMathPrimer.md)
 
 <h2> Databases </h2>
 

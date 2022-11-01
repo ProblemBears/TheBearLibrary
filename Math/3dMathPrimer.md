@@ -24,6 +24,7 @@
     * The most important unit of measure for angles are - **degrees** (&deg;) & **radians** (rad)
     * 1 degree = 1/360th of a revolution. So 360&deg; is a full revolution
     * However, most mathematicians use radians, a unit of measure based on circle properties
+    * A
     * Conversions between Angles and Radians -
          $$
         \begin{align}
