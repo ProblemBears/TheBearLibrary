@@ -4,9 +4,11 @@
 
 1. [Caresian Coordinate Systems](#cartesian-coordinate-systems)
 2. [Vectors](#vectors)
-    - [Mathematical Definition of Vector, and Other Stuff](#mathematical-definition-of-vector-and-other-stuff)
-    - [Geometric Definitions of Vectors](#geometric-definitions-of-vectors)
-    - [Specifying Vectors with Cartesian Coordinates](#specifying-vectors-with-cartesian-coordinates)
+    - [2.1 - Mathematical Definition of Vector, and Other Stuff](#21---mathematical-definition-of-vector-and-other-stuff)
+    - [2.2 - Geometric Definitions of Vectors](#22---geometric-definitions-of-vectors)
+    - [2.3 - Specifying Vectors with Cartesian Coordinates](#23---specifying-vectors-with-cartesian-coordinates)
+    - [2.4 - Vector Versus Point](#24---vector-versus-point)
+    - [2.5 - Negating a Vector](#25---negating-a-vector)
 3. [Multiple Coordinate Spaces]()
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
@@ -41,7 +43,7 @@
 
 <h2 align="center" id="vectors"> Vectors </h2>
 
-### Mathematical Definition of Vector, and Other Stuff
+### 2.1 - Mathematical Definition of Vector, and Other Stuff
 - Mathematics distinguishes between `scalars` & `vectors`
 - The `dimension` of a vector tells how many #'s it contains ( 1D = scalar )
 - Vectors can be written as a row or column $ \begin{bmatrix} 1 & 2 & 3 \end{bmatrix} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} $ 
@@ -54,7 +56,7 @@
     * Vectors = lowercase bold
     * Matrices = uppercase bold
 
-### Geometric Definitions of Vectors
+### 2.2 - Geometric Definitions of Vectors
 - Geometrically, a `vector` is a **directed line segment that has magnitude and direction**
     * The `magnitude` of a vector is it's **length. Which is a nonnegative**
     * The `direction` **describes which way the vector is pointing in space**
@@ -62,14 +64,18 @@
     * Displacement - *"Take 3 steps forward"*
     * Velocity - *"I'm travelling NE at 25mph"*
 
-### Specifying Vectors with Cartesian Coordinates
+### 2.3 - Specifying Vectors with Cartesian Coordinates
 - When we use `Cartesian Coordinates` to describe a `vector`, each coordinate measures a signed displacement in the corresponding dimension
 - A `vector` is just **a sequence of displacements**
 - $ \boldsymbol{0} = \begin{bmatrix} 0 \\ 0\\ ... \\ 0  \end{bmatrix} $ `The Zero Vector`  is unique because it's the only vector w/out magnitude & direction.
     * Its usefulness is equivalent to a zero scalar in basic algebra
 
-### Vector Versus Point
+### 2.4 - Vector Versus Point
 - A `point` specifies a location
 - A `vector` specifies a displacement
 - Since vectors can describe displacement, they can describe relative position
     * `Relative position` is **the position of something specified by describing where it is in relation to some other, known location**
+
+### 2.5 - Negating a Vector
+- Additive inverse of a vector is a $ -\pmb{v} $ such that $$ v + (-\pmb{v}) = 0 $$
+- To negate a vector. We do : $$ -\begin{bmatrix} a_1 \\ a_2 \\ ... \\ a_3\end{bmatrix} = \begin{bmatrix} -a_1 \\ -a_2 \\ ... \\ -a_3\end{bmatrix}$$ This results in a vector of the same magnitude but in the opposite direction
