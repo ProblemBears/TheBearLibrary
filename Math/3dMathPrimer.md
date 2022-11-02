@@ -60,3 +60,10 @@
 - We can't ask *"where is a vector?"* since it doesn't have a position. Correct examples of the significance of a vector can be the following examples -
     * Displacement - *"Take 3 steps forward"*
     * Velocity - *"I'm travelling NE at 25mph"*
+
+### Specifying Vectors with Cartesian Coordinates
+- When we use `Cartesian Coordinates` to describe a `vector`, each coordinate measures a signed displacement in the corresponding dimension
+- A `vector` is just **a sequence of displacements**
+- $ \boldsymbol{0} = \begin{bmatrix} 0 \\ 0\\ ... \\ 0  \end{bmatrix} $ `The Zero Vector`  is unique because it's the only vector w/out magnitude & direction.
+    * Its usefulness is equivalent to a zero scalar in basic algebra
+
