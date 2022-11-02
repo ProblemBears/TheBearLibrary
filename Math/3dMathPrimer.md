@@ -13,6 +13,7 @@
     - [2.7 - Vector Addition & Subtraction](#27---vector-addition--subtraction)
     - [2.8 - Vector Magnitude (Length)](#28---vector-magnitude-length)
     - [2.9 - Unit Vectors](#29---unit-vectors)
+    - [2.10 - The Distance Formula](#210---the-distance-formula)
 3. [Multiple Coordinate Spaces]()
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
@@ -143,4 +144,22 @@ Where *k* is a scalar
     $$
     * For any nonzero vector $ v $
     * The symbol $ \hat{v} $ represents a `unit vector`
-    * Again, $ \left\lVert v \right\rVert $ represents the magnitude of the vector $ v $
+    * Again, $ \left\lVert v \right\rVert $ represents the [magnitude of a vector](#28---vector-magnitude-length) $ v $
+
+### 2.10 - The Distance Formula
+- Since we know we can generate a vector from one point ot another ( by their individual vectors from the origin )
+    $$
+    d =
+    b-a =
+    \begin{bmatrix} 
+        b_x - a_x \\
+        b_y - a_y \\
+        b_z - a_z 
+    \end{bmatrix}
+    $$
+    We can get the distance between two points by calculating $ \left\lVert d \right\rVert $. Therefore, `the distance between two points` (in 3D) **can be calculated as follows -**
+    $$
+    distance(a,b) = 
+    \left\lVert b-a \right\rVert =
+    \sqrt{ (b_x - a_x)^2 + (b_y - a_y)^2 + (b_z - a_z)^2 }
+    $$
