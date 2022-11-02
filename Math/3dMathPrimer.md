@@ -5,6 +5,7 @@
 1. [Caresian Coordinate Systems](#cartesian-coordinate-systems)
 2. [Vectors](#vectors)
     - [Mathematical Definition of Vector, and Other Stuff](#mathematical-definition-of-vector-and-other-stuff)
+    - [Geometric Definitions of Vectors](#geometric-definitions-of-vectors)
 3. [Multiple Coordinate Spaces]()
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
@@ -53,3 +54,9 @@
     * Matrices = uppercase bold
 
 ### Geometric Definitions of Vectors
+- Geometrically, a `vector` is a **directed line segment that has magnitude and direction**
+    * The `magnitude` of a vector is it's **length. Which is a nonnegative**
+    * The `direction` **describes which way the vector is pointing in space**
+- We can't ask *"where is a vector?"* since it doesn't have a position. Correct examples of the significance of a vector can be the following examples -
+    * Displacement - *"Take 3 steps forward"*
+    * Velocity - *"I'm travelling NE at 25mph"*
