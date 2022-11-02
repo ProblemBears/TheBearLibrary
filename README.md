@@ -10,7 +10,7 @@ Project - [EloquentJS-Solutions](https://problembears.github.io/EloquentJS-Solut
 - [Java](./Languages/java.md)
 - [Python](./Languages/python.md)
 - [CSS](./Languages/css.md)  
-Project -[Responsive Website](https://problembears.github.io/CSS-Sandbox/)
+Project - [Responsive Website](https://problembears.github.io/CSS-Sandbox/)
 
 <h2> Version Control </h2>
 
