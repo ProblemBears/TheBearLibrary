@@ -9,6 +9,7 @@
     - [2.3 - Specifying Vectors with Cartesian Coordinates](#23---specifying-vectors-with-cartesian-coordinates)
     - [2.4 - Vector Versus Point](#24---vector-versus-point)
     - [2.5 - Negating a Vector](#25---negating-a-vector)
+    - [2.6 - Vector Multiplication by a Scalar](#26---vector-multiplication-by-a-scalar)
 3. [Multiple Coordinate Spaces]()
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
@@ -79,3 +80,20 @@
 ### 2.5 - Negating a Vector
 - Additive inverse of a vector is a $ -\pmb{v} $ such that $$ v + (-\pmb{v}) = 0 $$
 - To negate a vector. We do : $$ -\begin{bmatrix} a_1 \\ a_2 \\ ... \\ a_3\end{bmatrix} = \begin{bmatrix} -a_1 \\ -a_2 \\ ... \\ -a_3\end{bmatrix}$$ This results in a vector of the same magnitude but in the opposite direction
+
+### 2.6 - Vector Multiplication by a Scalar
+Where *k* is a scalar
+- Multiplication
+    $$
+    k\begin{bmatrix}a_1 \\ a_2 \\ ... \\ a_3 \end{bmatrix} =
+    \begin{bmatrix}a_1 \\ a_2 \\ ... \\ a_3 \end{bmatrix}k =
+    \begin{bmatrix}ka_1 \\ ka_2 \\ ... \\ ka_3 \end{bmatrix}
+    $$
+- Division
+    $$
+    \frac{ \pmb{v} }{k} =
+    (\frac{1}{k}) \pmb{v} = 
+    \begin{bmatrix} v_x/k \\ v_y/k \\ v_z/k \end{bmatrix}
+    $$
+- PEMDAS still applies for both cases
+- Multiplying by a scalar has the effect of scaling a vectors magnitude by scalar *k*. If the scalar is negative it flips and scales
