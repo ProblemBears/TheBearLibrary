@@ -12,6 +12,7 @@
     - [2.6 - Vector Multiplication by a Scalar](#26---vector-multiplication-by-a-scalar)
     - [2.7 - Vector Addition & Subtraction](#27---vector-addition--subtraction)
     - [2.8 - Vector Magnitude (Length)](#28---vector-magnitude-length)
+    - [2.9 - Unit Vectors](#29---unit-vectors)
 3. [Multiple Coordinate Spaces]()
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
@@ -130,3 +131,16 @@ Where *k* is a scalar
     \sqrt{v_1^2 + v_2^2 + ... + v_{n-1}^2 + v_n^2}
     $$
     Thus, **the magnitude of a vector is the square root of the sum of the squares of the components of the vector**
+
+### 2.9 - Unit Vectors
+- For many vector quantities we're only concerned with *"which way am I facing"* (direction) and not the length. Therefore, it's more convenient to use `unit/normalized vectors` **which have a magnitude of one**
+- Sometimes `unit vectors` are simply called `normals` 
+    * Although, the term *"normal"* has a different commonly used meaning in which it means "perpendicular" to something and not simply "unit vector"
+    * So `normalized` = "unit length" and `normal` = "perpendicular & by convention unit length"
+- **For any nonzero vector $ v $ we can compute a unit vector that points in the same direction**. We call this `normalizing` a vector and it's done by **dividing a vector by its magnitude**
+    $$
+    \hat{v} = \frac{v}{\left\lVert v \right\rVert}
+    $$
+    * For any nonzero vector $ v $
+    * The symbol $ \hat{v} $ represents a `unit vector`
+    * Again, $ \left\lVert v \right\rVert $ represents the magnitude of the vector $ v $
