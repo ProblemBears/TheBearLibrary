@@ -3,7 +3,8 @@
 <h2 align="center"> Table of Contents </h2>
 
 1. [Caresian Coordinate Systems](#cartesian-coordinate-systems)
-2. [Vectors]()
+2. [Vectors](#vectors)
+    - [Mathematical Definition of Vector, and Other Stuff](#mathematical-definition-of-vector-and-other-stuff)
 3. [Multiple Coordinate Spaces]()
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
@@ -35,3 +36,20 @@
         \end{align}
         $$
     * The (x,y) coordinates of the endpoints of a ray that were rotated have special properties called **Trig Functions** -
+
+<h2 align="center" id="vectors"> Vectors </h2>
+
+### Mathematical Definition of Vector, and Other Stuff
+- Mathematics distinguishes between `scalars` & `vectors`
+- The `dimension` of a vector tells how many #'s it contains ( 1D = scalar )
+- Vectors can be written as a row or column $ \begin{bmatrix} 1 & 2 & 3 \end{bmatrix} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} $ 
+- Subscript $ v_i $ (where i > 0) can be used to get certain values of a vector, but since we'll only be concerned up to the 4<sup>th</sup> dimension then
+    * 2D = x,y
+    * 3D = x, y, z
+    * 4D = x, y, z, w
+- Font Conventions -
+    * Scalars = italics
+    * Vectors = lowercase bold
+    * Matrices = uppercase bold
+
+### Geometric Definitions of Vectors
