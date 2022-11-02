@@ -10,6 +10,7 @@
     - [2.4 - Vector Versus Point](#24---vector-versus-point)
     - [2.5 - Negating a Vector](#25---negating-a-vector)
     - [2.6 - Vector Multiplication by a Scalar](#26---vector-multiplication-by-a-scalar)
+    - [2.7 - Vector Addition & Subtraction](#27---vector-addition--subtraction)
 3. [Multiple Coordinate Spaces]()
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
@@ -79,15 +80,15 @@
 
 ### 2.5 - Negating a Vector
 - Additive inverse of a vector is a $ -\pmb{v} $ such that $$ v + (-\pmb{v}) = 0 $$
-- To negate a vector. We do : $$ -\begin{bmatrix} a_1 \\ a_2 \\ ... \\ a_3\end{bmatrix} = \begin{bmatrix} -a_1 \\ -a_2 \\ ... \\ -a_3\end{bmatrix}$$ This results in a vector of the same magnitude but in the opposite direction
+- To negate a vector. We do : $$ -\begin{bmatrix} a_1 \\ a_2 \\ ... \\ a_n\end{bmatrix} = \begin{bmatrix} -a_1 \\ -a_2 \\ ... \\ -a_n\end{bmatrix}$$ This results in a vector of the same magnitude but in the opposite direction
 
 ### 2.6 - Vector Multiplication by a Scalar
 Where *k* is a scalar
 - Multiplication
     $$
-    k\begin{bmatrix}a_1 \\ a_2 \\ ... \\ a_3 \end{bmatrix} =
-    \begin{bmatrix}a_1 \\ a_2 \\ ... \\ a_3 \end{bmatrix}k =
-    \begin{bmatrix}ka_1 \\ ka_2 \\ ... \\ ka_3 \end{bmatrix}
+    k\begin{bmatrix}a_1 \\ a_2 \\ ... \\ a_n \end{bmatrix} =
+    \begin{bmatrix}a_1 \\ a_2 \\ ... \\ a_n \end{bmatrix}k =
+    \begin{bmatrix}ka_1 \\ ka_2 \\ ... \\ ka_n \end{bmatrix}
     $$
 - Division
     $$
@@ -97,3 +98,24 @@ Where *k* is a scalar
     $$
 - PEMDAS still applies for both cases
 - Multiplying by a scalar has the effect of scaling a vectors magnitude by scalar *k*. If the scalar is negative it flips and scales
+
+### 2.7 - Vector Addition & Subtraction
+- Addition
+    $$
+    \begin{bmatrix}a_1 \\ a_2 \\ ... \\ a_n \end{bmatrix} +
+    \begin{bmatrix}b_1 \\ b_2 \\ ... \\ b_n \end{bmatrix} =
+    \begin{bmatrix}a_1 + b_1 \\ a_2 + b_2 \\ ... \\ a_n + b_n \end{bmatrix}
+    $$
+    - Communative : a+b = b+a
+- Subtraction
+    $$
+    \begin{bmatrix}a_1 \\ a_2 \\ ... \\ a_n \end{bmatrix} -
+    \begin{bmatrix}b_1 \\ b_2 \\ ... \\ b_n \end{bmatrix} =
+    \begin{bmatrix}a_1 \\ a_2 \\ ... \\ a_n \end{bmatrix} +
+    \left( -\begin{bmatrix}b_1 \\ b_2 \\ ... \\ b_n \end{bmatrix} \right) =
+    \begin{bmatrix}a_1 - b_1 \\ a_2 - b_2 \\ ... \\ a_n - b_n \end{bmatrix}
+    $$
+    - Anticommunative : a-b = -(b-a)
+- In a coordinate system, addition can be imagined as a sequence of displacements where the final endpoint is the result
+- So a vector $ \begin{bmatrix} 1 \\ -3 \\  4 \end{bmatrix} $ can be interpreted as the addition of $ \begin{bmatrix} 1 \\ 0 \\  0 \end{bmatrix} + \begin{bmatrix} 0 \\ -3 \\  0 \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\  4 \end{bmatrix}$
+- To calculate a vector from one point to another point we can think of two vectors from the origin to each of those points and then subtract those vectors to get the vector displacement a-b
