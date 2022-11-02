@@ -11,6 +11,7 @@
     - [2.5 - Negating a Vector](#25---negating-a-vector)
     - [2.6 - Vector Multiplication by a Scalar](#26---vector-multiplication-by-a-scalar)
     - [2.7 - Vector Addition & Subtraction](#27---vector-addition--subtraction)
+    - [2.8 - Vector Magnitude (Length)](#28---vector-magnitude-length)
 3. [Multiple Coordinate Spaces]()
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
@@ -119,3 +120,13 @@ Where *k* is a scalar
 - In a coordinate system, addition can be imagined as a sequence of displacements where the final endpoint is the result
 - So a vector $ \begin{bmatrix} 1 \\ -3 \\  4 \end{bmatrix} $ can be interpreted as the addition of $ \begin{bmatrix} 1 \\ 0 \\  0 \end{bmatrix} + \begin{bmatrix} 0 \\ -3 \\  0 \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\  4 \end{bmatrix}$
 - To calculate a vector from one point to another point we can think of two vectors from the origin to each of those points and then subtract those vectors to get the vector displacement a-b
+
+### 2.8 - Vector Magnitude (Length)
+- Also known as the length or norm of the vector
+- `Magnitude` of a vector is **denoted by double vertical bars surrounding the vector**
+    $$
+    \left\lVert v \right\rVert =
+    \sqrt{ \sum_{i=1}^n v_i^2 } =
+    \sqrt{v_1^2 + v_2^2 + ... + v_{n-1}^2 + v_n^2}
+    $$
+    Thus, **the magnitude of a vector is the square root of the sum of the squares of the components of the vector**
