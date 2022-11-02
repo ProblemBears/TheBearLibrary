@@ -6,6 +6,7 @@
 2. [Vectors](#vectors)
     - [Mathematical Definition of Vector, and Other Stuff](#mathematical-definition-of-vector-and-other-stuff)
     - [Geometric Definitions of Vectors](#geometric-definitions-of-vectors)
+    - [Specifying Vectors with Cartesian Coordinates](#specifying-vectors-with-cartesian-coordinates)
 3. [Multiple Coordinate Spaces]()
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
@@ -67,3 +68,8 @@
 - $ \boldsymbol{0} = \begin{bmatrix} 0 \\ 0\\ ... \\ 0  \end{bmatrix} $ `The Zero Vector`  is unique because it's the only vector w/out magnitude & direction.
     * Its usefulness is equivalent to a zero scalar in basic algebra
 
+### Vector Versus Point
+- A `point` specifies a location
+- A `vector` specifies a displacement
+- Since vectors can describe displacement, they can describe relative position
+    * `Relative position` is **the position of something specified by describing where it is in relation to some other, known location**
