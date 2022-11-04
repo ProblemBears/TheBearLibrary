@@ -163,3 +163,37 @@ Where *k* is a scalar
     \left\lVert b-a \right\rVert =
     \sqrt{ (b_x - a_x)^2 + (b_y - a_y)^2 + (b_z - a_z)^2 }
     $$
+
+### 2.11 - Vector Dot Product
+- The name "dot product" comes from the dot symbol used in $ \pmb a \cdot \pmb v $
+- The `dot product` of **two vectors is the sum of corresponding components resuling in a scalar** :
+    $$
+    \begin{bmatrix}
+    a_1 \\
+    a_2 \\
+    ...\\
+    a_n
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+    b_1 \\
+    b_2 \\
+    ...\\
+    b_n
+    \end{bmatrix} =
+    a_1b_1 + a_2b_2 + ... + a_nb_n
+    $$
+    or more succinctly
+    $$
+    a \cdot b = \sum_{i=1}^n a_ib_i
+    $$
+
+#### Two Geometric Interpretations of the Dot Product (IMPORTANT)
+- `Interpretation 1 - Dot Product Performing a  "Projection"`
+    - We can define $ \hat{a} \cdot b $ as the signed length of the projection of $ \pmb b $ onto this line. You can think of the projection of $ \pmb b $ onto $ \hat{a} $ as the "shadow" that $ \pmb b $ casts on  $ \hat{a} $ when the ray of lights are perpendicular to $ \hat{a} $
+    - What does it mean for the dot product to measure a signed length?
+        * It means  the value will be negative when ***b*** points opposite to $ \hat{a} $ and the projection has zero length if both vectors are perpendicular to each other
+    - Dot Product Rules
+        * Dot product is associative with multiplication by a scalar
+        * Dot Product is associative w/ multiplication by a scalar for either vector
+        * Dot product is commutative
+        * Dot product distributes over addition and subtraction
