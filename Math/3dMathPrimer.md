@@ -16,7 +16,8 @@
     - [2.10 - The Distance Formula](#210---the-distance-formula)
 3. [Multiple Coordinate Spaces]()
 11. [Mechanics 1: Linear Kinematics and Calculus](#mechanics1)
-    - [11.1-Overview & Other Expectation-reducing Remarks](#111-overview--other-expectation-reducing-remarks)
+    - [11.1-Overview & Other Expectation-reducing Remarks](#111---overview--other-expectation-reducing-remarks)
+    - [11.2 - Basic Quantities & Units](#112---basic-quantities--units)
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
 
@@ -202,10 +203,10 @@ Where *k* is a scalar
 
 <h2 align="center" id="mechanics1">Mechanics 1: Linear Kinematics and Calculus</h2>
 
-### 11.1-Overview & Other Expectation-reducing Remarks
+### 11.1 - Overview & Other Expectation-reducing Remarks
 - We're only concerned w/ `mechanics`, and very simple rigid body mechanics at that
 #### Some helpful lies about our Universe
-- The universe is `discrete`, but it is helpgul to think of it as `continuous`
+- The universe is `discrete`, but it is helpful to think of it as `continuous`
 - **Continuous mathematics is called** `calculus`, & **its application to the exploration of a continuous universe** is called `physics`
 - For the moment, we're concerned with the motion of a small object called a `particle` :
     * At any given moment, we know it's `position/velocity`
@@ -213,3 +214,17 @@ Where *k* is a scalar
     * For now `we don't concern ourselves w/ orientation & size`
 - We begin our study of mechanics by learning about `kinematics` **the study of equations that describe the motion of particles in various simple but common place situations**
     * For now we don't concern ourselves w/ `dynamics` - **the causes of motion** (Covered in **Mechanics 2**)
+
+### 11.2 - Basic Quantities & Units
+- Mechanics is concerned w/ the relationship among three fundamental qualities in nature :
+    1. `length` - cm, in, ft, mt
+    2. `time` - seconds, day, week
+    3. `mass` - A precise definition of mass is **a measurement of inertia** - how much resistance an objects has to being accelerated
+        * The more massive an object is, the more force that is required to start, stop, change it's motion
+        * Mass &ne; Weight - they use the same units but mass is intrinsic and weight depends on gravitational pull
+- We give the fundamental qualities the letters **L, T, M** and we don't do the same for the othe qualities like energy, volume, etc because they can be derived from **L, T, M**
+    * "Square Feet" = "Length Squared" = L<sup>2</sup>
+    * Speed = Miles per hour = Ratio of Distance per Unit Time (L/T)
+    ![Common Units of Measurement](../images/Math/3D%20Math%20Primer/11/11.2-Common%20Units.png)
+- Unit Conversion is covered
+
