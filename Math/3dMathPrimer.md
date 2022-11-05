@@ -15,6 +15,8 @@
     - [2.9 - Unit Vectors](#29---unit-vectors)
     - [2.10 - The Distance Formula](#210---the-distance-formula)
 3. [Multiple Coordinate Spaces]()
+11. [Mechanics 1: Linear Kinematics and Calculus](#mechanics1)
+    - [11.1-Overview & Other Expectation-reducing Remarks](#111-overview--other-expectation-reducing-remarks)
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
 
@@ -197,3 +199,17 @@ Where *k* is a scalar
         * Dot Product is associative w/ multiplication by a scalar for either vector
         * Dot product is commutative
         * Dot product distributes over addition and subtraction
+
+<h2 align="center" id="mechanics1">Mechanics 1: Linear Kinematics and Calculus</h2>
+
+### 11.1-Overview & Other Expectation-reducing Remarks
+- We're only concerned w/ `mechanics`, and very simple rigid body mechanics at that
+#### Some helpful lies about our Universe
+- The universe is `discrete`, but it is helpgul to think of it as `continuous`
+- **Continuous mathematics is called** `calculus`, & **its application to the exploration of a continuous universe** is called `physics`
+- For the moment, we're concerned with the motion of a small object called a `particle` :
+    * At any given moment, we know it's `position/velocity`
+    * It has `mass`
+    * For now `we don't concern ourselves w/ orientation & size`
+- We begin our study of mechanics by learning about `kinematics` **the study of equations that describe the motion of particles in various simple but common place situations**
+    * For now we don't concern ourselves w/ `dynamics` - **the causes of motion** (Covered in **Mechanics 2**)
