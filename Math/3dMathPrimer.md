@@ -1,3 +1,16 @@
+<script type="text/x-mathjax-config">
+MathJax.Ajax.config.path["a11y"] = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/extensions/a11y";
+MathJax.Hub.Config({
+  // ...your other configuration options...
+  extensions: ["[a11y]/accessibility-menu.js"]
+  menuSettings: {
+    collapsible: true,
+    autocollapse: true,
+    explorer: true
+  }
+});
+</script>
+
 <h1 align="center"> 3D Math Primer </h1>
 
 <h2 align="center"> Table of Contents </h2>
@@ -18,7 +31,6 @@
 11. [Mechanics 1: Linear Kinematics and Calculus](#mechanics1)
     - [11.1-Overview & Other Expectation-reducing Remarks](#111---overview--other-expectation-reducing-remarks)
     - [11.2 - Basic Quantities & Units](#112---basic-quantities--units)
-    - [11.3 - Average Velocity](#113---average-velocity)
 
 <h2 align="center" id="cartesian-coordinate-systems"> Cartesian Coordinate Systems </h2>
 
@@ -234,22 +246,4 @@ Where *k* is a scalar
     * How do we measure speed?  
       
       **The most common method** is to measure how much time it takes to travel a fixed distance (Ex: In a race, the fastest runner is the one who finishes in the shortest amount of time)
-
-<div align="center"><img src="../images/Math/3D%20Math%20Primer/11/11.3-PositionVsTime.png" width="500"/></div>
-
-* **Image analysis** - to measure the `average velocity` of either animal during any time interval we divide the animal's displacement by the duration of the interval. We'll focus on the hare :
-    * We denote the position of the hare as **x**, or more specifically as **x(t)**, to emphasize that hare's position varies as a function of time
-    * $ \Delta $ is **"amount of change in"**, so  
-        * $ \Delta x =$ *"the change in the hare's position"*
-        * $ \Delta t =$ *"elapsed time between two points"*
-        * Where , 
-        $$ 
-        average \space velocity = 
-        \frac{displacement}{elapsed \space time} =
-        \frac{\Delta x}{\Delta t} = 
-        \frac{x(t_b) - x(t_a)}{t_b - t_a}
-        $$
-    * Notice that in t<sub>2</sub> to t<sub>3</sub>, the average celocity is negative, the reason for this is because `velocity` is defined as **the ratio of net displacement over time**
-        * In contrast, `speed` is **the total distance divided by time** and cannot be negative
-    * At t<sub>8</sub> both the hare and the turtle have the same average velocity
-    * Average can be 0  even if we move but end up at the same location from the start of the interval
+      
