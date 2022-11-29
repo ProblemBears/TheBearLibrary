@@ -1,16 +1,3 @@
-<script type="text/x-mathjax-config">
-MathJax.Ajax.config.path["a11y"] = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/extensions/a11y";
-MathJax.Hub.Config({
-  // ...your other configuration options...
-  extensions: ["[a11y]/accessibility-menu.js"]
-  menuSettings: {
-    collapsible: true,
-    autocollapse: true,
-    explorer: true
-  }
-});
-</script>
-
 <h1 align="center"> 3D Math Primer </h1>
 
 <h2 align="center"> Table of Contents </h2>
