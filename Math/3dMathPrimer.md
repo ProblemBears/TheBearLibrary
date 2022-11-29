@@ -1,3 +1,5 @@
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> 
+
 <h1 align="center"> 3D Math Primer </h1>
 
 <h2 align="center"> Table of Contents </h2>
