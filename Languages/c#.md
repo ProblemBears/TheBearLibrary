@@ -14,7 +14,9 @@
     * [Tuples](#tuples)
 - [System.Collections](#std)
     * [ArrayList]()
-    * [HashTable](#hashtable)
+    * [Hashtable](#hashtable)
+- [System.Collections.Generic](#std-generic)
+    * [HashSet](#hashset)
 - Leetcodes
     1. [Linked List](https://leetcode.com/explore/learn/card/linked-list/)
         * Singly Linked List
@@ -218,7 +220,7 @@ Console.WriteLine($"Sum of {t2.Count} elements is {t2.Sum}.");
 
 <h2 align="center" id="std"> System.Collections </h2>
 
-### [HashTable](https://www.geeksforgeeks.org/c-sharp-hashtable-class/)
+### [Hashtable](https://www.geeksforgeeks.org/c-sharp-hashtable-class/)
 ```c#
 using System;
 using System.Collections;
@@ -247,7 +249,36 @@ class Solution
         ICollection vals = hashMap.Values;
 
         foreach(var key in keys)
-            Console.WriteLine(key + ": " + hashMap[key])
+            Console.WriteLine(key + ": " + hashMap[key]);
+    }
+}
+```
+
+<h2 align="center" id="std-generic"> System.Collections.Generic </h2>
+
+### [HashSet](https://www.geeksforgeeks.org/hashset-in-c-sharp-with-examples/)
+```c#
+using System;
+using System.Collections.Generic;
+
+class Solution 
+{
+    static public void Main()
+    {
+        HashSet<string> hashSet1 = new HashSet<string>();
+        HashSet<int> hashSet2 = new HashSet<int>() {5, 2, 4, 8};
+
+        hashSet.Add("C");
+        hashSet.Add("C++");
+        hashSet.Add("C#");
+        hashSet.Add("Java");
+        hashSet.Add("Ruby");
+
+        foreach(var key in hashSet1)
+            Console.WriteLine(key);
+
+        hashSet.Remove("Ruby");
+        hashSet.Clear();
     }
 }
 ```
