@@ -219,3 +219,35 @@ Console.WriteLine($"Sum of {t2.Count} elements is {t2.Sum}.");
 <h2 align="center" id="std"> System.Collections </h2>
 
 ### [HashTable](https://www.geeksforgeeks.org/c-sharp-hashtable-class/)
+```c#
+using System;
+using System.Collections;
+
+class Solution 
+{
+    static void Main(string[] args)
+    {
+        /*Initialization*/
+        Hashtable hashMap = new Hashtable();
+
+        /*Important Methods*/
+        hashMap.Add("1", "Hello,");
+        hashMap.Add("2", "World!");
+
+        hashMap.Contains("1");
+        hashMap.ContainsKey("1");
+        hashMap.ContainsValue("Hello,");
+
+        hashMap.Remove("1");
+        hashMap.Clear():
+
+        /*Important Properties*/
+        hashMap.Count;
+        ICollection keys = hashMap.Keys;
+        ICollection vals = hashMap.Values;
+
+        foreach(var key in keys)
+            Console.WriteLine(key + ": " + hashMap[key])
+    }
+}
+```
