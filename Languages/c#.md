@@ -12,13 +12,15 @@
     * [Interface](#interfaces)
     * [Enums](#enums)
     * [Tuples](#tuples)
-- [System.Collections]()
+- [System.Collections](#std)
     * [ArrayList]()
+    * [HashTable](#hashtable)
 - Leetcodes
     1. [Linked List](https://leetcode.com/explore/learn/card/linked-list/)
         * Singly Linked List
             1. [Design Linked List](https://leetcode.com/problems/design-linked-list/description/)
         * Two Pointer Technique
+            1. [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/)
         * Classic Problems
         * Doubly Linked List
         * More Problems
@@ -213,3 +215,7 @@ Console.WriteLine($"Sum of {t2.Count} elements is {t2.Sum}.");
 //Output:
 //Sum of 3 elements is 4.5.
 ```
+
+<h2 align="center" id="std"> System.Collections </h2>
+
+### [HashTable](https://www.geeksforgeeks.org/c-sharp-hashtable-class/)
