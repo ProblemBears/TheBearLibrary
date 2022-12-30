@@ -14,6 +14,28 @@
     * [Tuples](#tuples)
 - [System.Collections]()
     * [ArrayList]()
+- Leetcodes
+    1. [Linked List](https://leetcode.com/explore/learn/card/linked-list/)
+        * Singly Linked List
+            1. [Design Linked List](https://leetcode.com/problems/design-linked-list/description/)
+        * Two Pointer Technique
+        * Classic Problems
+        * Doubly Linked List
+        * More Problems
+    2. [Binary Search Tree](https://leetcode.com/explore/learn/card/introduction-to-data-structure-binary-search-tree/)
+    3. [N-ary Tree](https://leetcode.com/explore/learn/card/n-ary-tree/)
+    4. [Tries](https://leetcode.com/explore/learn/card/trie/)
+    5. [Graph](https://leetcode.com/explore/learn/card/graph/)
+    6. [Queue & Stack](https://leetcode.com/explore/learn/card/queue-stack/)
+    7. [Heaps](https://leetcode.com/explore/learn/card/heap/)
+    8. [Array and String](https://leetcode.com/explore/learn/card/array-and-string/)
+    9. [Hash Table](https://leetcode.com/explore/learn/card/hash-table/)
+    10. [Binary Search](https://leetcode.com/explore/learn/card/binary-search/)
+    11. [Sorting](https://leetcode.com/explore/learn/card/sorting/)
+    12. [Bit Manipulation](https://leetcode.com/explore/learn/card/bit-manipulation/)
+    13. [Recursion 1](https://leetcode.com/explore/learn/card/recursion-i/)
+    14. [Recursion 2](https://leetcode.com/explore/learn/card/recursion-ii/)
+    15. [Dynamic Programming](https://leetcode.com/explore/learn/card/dynamic-programming/)
 
 
 <h2 align="center" id="basics"> Basic Syntax</h2>
