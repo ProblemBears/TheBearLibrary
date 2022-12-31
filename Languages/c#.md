@@ -20,10 +20,17 @@
 - Leetcodes
     1. [Linked List](https://leetcode.com/explore/learn/card/linked-list/)
         * Singly Linked List
-            1. [Design Linked List](https://leetcode.com/problems/design-linked-list/description/)
+            1. [Design Linked List](https://leetcode.com/problems/design-linked-list/description/) (GOOD PRACTICE)
         * Two Pointer Technique
-            1. [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/)
+            1. [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/) &check;
+            2. [Linked List Cycle 2](https://leetcode.com/problems/linked-list-cycle-ii/description/) &check;
+            3. [Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists/description/) &check;
+            4. [Remove Nth Node from End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/) &cross;
         * Classic Problems
+            1. [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/description/) &nbsp;(GOOD PRACTICE)
+            2. [Remove Linked List Elements](https://leetcode.com/problems/remove-linked-list-elements/description/)
+            3. [Odd Even Linked List](https://leetcode.com/problems/odd-even-linked-list/description/)
+            4. [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/description/)
         * Doubly Linked List
         * More Problems
     2. [Binary Search Tree](https://leetcode.com/explore/learn/card/introduction-to-data-structure-binary-search-tree/)
@@ -277,6 +284,7 @@ class Solution
         foreach(var key in hashSet1)
             Console.WriteLine(key);
 
+        hashSet.Contains("Ruby");
         hashSet.Remove("Ruby");
         hashSet.Clear();
     }
