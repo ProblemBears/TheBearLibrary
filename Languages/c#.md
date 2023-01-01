@@ -13,7 +13,7 @@
     * [Enums](#enums)
     * [Tuples](#tuples)
 - [System.Collections](#std)
-    * [ArrayList]()
+    * [ArrayList](#arraylist)
     * [Hashtable](#hashtable)
 - [System.Collections.Generic](#std-generic)
     * [HashSet](#hashset)
@@ -40,6 +40,15 @@
     6. [Queue & Stack](https://leetcode.com/explore/learn/card/queue-stack/)
     7. [Heaps](https://leetcode.com/explore/learn/card/heap/)
     8. [Array and String](https://leetcode.com/explore/learn/card/array-and-string/)
+        * Array
+            1. [Find Pivot Index](https://leetcode.com/problems/find-pivot-index/description/)
+            2. [Largest Number At Least Twice of Others](https://leetcode.com/problems/largest-number-at-least-twice-of-others/)
+            3. [Plus One](https://leetcode.com/problems/plus-one/)
+        * 2D Array
+            1. [Pascals Triangle](https://leetcode.com/problems/pascals-triangle/)
+        * String
+            1. [Add Binary](https://leetcode.com/problems/add-binary/)
+        * Two Pointer Technique
     9. [Hash Table](https://leetcode.com/explore/learn/card/hash-table/)
     10. [Binary Search](https://leetcode.com/explore/learn/card/binary-search/)
     11. [Sorting](https://leetcode.com/explore/learn/card/sorting/)
@@ -226,6 +235,51 @@ Console.WriteLine($"Sum of {t2.Count} elements is {t2.Sum}.");
 ```
 
 <h2 align="center" id="std"> System.Collections </h2>
+
+### [ArrayList](https://www.geeksforgeeks.org/c-sharp-arraylist-class/)
+```c#
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class Solution 
+{
+	public static void Main()
+	{
+        //Initialize
+		ArrayList arrayList = new ArrayList();
+
+		// Important Methods
+		arrayList.Add("Hello");
+        arrayList.AddRange(arrayList); // Adds the elements of an ICollection to the end of this list
+        arrayList.Clear();
+        arrayList.Contains("Hello");
+        arrayList.GetRange(0, 6); // Returns a sub-arrayList of this range
+        arrayList.IndexOf("Hello");
+        arrayList.LastIndexOf("Hello");
+        arrayList.Sort(); //Uses quick sort to sort the array
+        arrayList.BinarySearch("Hello");
+        arrayList.TrimToSize(); //Sets the capacity to the # of elements
+        arrayList.Max();
+        arrayList.Min();
+
+        //Static Methods
+        Array.IndexOf(arrayList, someVal);
+
+        // Important Properties
+		arrayList.Count;
+        arrayList.Capacity;
+        arrayList[0] = "NO HELLO";
+
+        //Loop
+        foreach(String str in arrayList)
+        {
+            Console.WriteLine(str);
+        }
+	}
+}
+
+```
 
 ### [Hashtable](https://www.geeksforgeeks.org/c-sharp-hashtable-class/)
 ```c#
