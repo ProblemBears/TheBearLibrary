@@ -19,6 +19,7 @@
     * [Queue](#queue)
 - [System.Collections.Generic](#std-generic)
     * [HashSet](#hashset)
+    * [Stack](#stack)
 - Leetcodes
     1. [Linked List](https://leetcode.com/explore/learn/card/linked-list/)
         * Singly Linked List
@@ -44,6 +45,14 @@
             1. [Design Circular Queue](https://leetcode.com/problems/design-circular-queue/) &check;
             2. [Moving Average from Data stream](https://leetcode.com/problems/moving-average-from-data-stream/) &check;
         * Queue & BFS
+        * Stack
+            1. [Min Stack](https://leetcode.com/problems/min-stack/) &check;
+            2. [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+            3. [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)
+            4. [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/)
+        * Stack & DFS
+            1. [Clone Graph](https://leetcode.com/problems/clone-graph/)
+            2. [Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
     7. [Heaps](https://leetcode.com/explore/learn/card/heap/)
     8. [Array and String](https://leetcode.com/explore/learn/card/array-and-string/)
         * Array
@@ -411,4 +420,21 @@ class Solution
         hashSet.Clear();
     }
 }
+```
+
+### Stack
+```c#
+using System.Collections.Generic;
+
+Stack<int> s = new Stack<int>();
+
+//Methods
+s.Clear();
+s.Contains(5);
+s.Push(1);
+int top = s.Peek();
+int popped = s.Pop();
+
+//Properties
+s.Count;
 ```
