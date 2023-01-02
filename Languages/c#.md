@@ -15,6 +15,8 @@
 - [System.Collections](#std)
     * [ArrayList](#arraylist)
     * [Hashtable](#hashtable)
+    * [Dictionary](#dictionary)
+    * [Queue](#queue)
 - [System.Collections.Generic](#std-generic)
     * [HashSet](#hashset)
 - Leetcodes
@@ -38,6 +40,10 @@
     4. [Tries](https://leetcode.com/explore/learn/card/trie/)
     5. [Graph](https://leetcode.com/explore/learn/card/graph/)
     6. [Queue & Stack](https://leetcode.com/explore/learn/card/queue-stack/)
+        * Queue
+            1. [Design Circular Queue](https://leetcode.com/problems/design-circular-queue/) &check;
+            2. [Moving Average from Data stream](https://leetcode.com/problems/moving-average-from-data-stream/) &check;
+        * Queue & BFS
     7. [Heaps](https://leetcode.com/explore/learn/card/heap/)
     8. [Array and String](https://leetcode.com/explore/learn/card/array-and-string/)
         * Array
@@ -278,7 +284,33 @@ class Solution
         }
 	}
 }
+```
 
+### Queue
+```c#
+using System;
+using System.Collections;
+
+class Solution 
+{
+    static void Main(string[] args)
+    {
+        Queue q = new Queue();
+
+        /* Properties */
+        q.Count;
+
+        /* Methods */
+        q.Enqueue("one"); //Adds to the end of the queue
+        string curr = q.Dequeue(); //Removes and Returns from the start of the q
+        curr = q.Peek(); //Returns the front of the q without Removing it
+
+        q.Contains(someObject);
+        q.CopyTo([1,2,3], someIndex);
+        q.ToArray();
+        q.Clear();
+    }
+}
 ```
 
 ### [Hashtable](https://www.geeksforgeeks.org/c-sharp-hashtable-class/)
@@ -313,6 +345,42 @@ class Solution
             Console.WriteLine(key + ": " + hashMap[key]);
     }
 }
+```
+
+### Dictionary
+```c#
+using System.Collections.Generic;
+
+Dictionary<string, int> ages = new Dictionary<string, int>();
+
+// Add some key-value pairs to the dictionary
+ages.Add("Alice", 25);
+ages.Add("Bob", 30);
+ages.Add("Charlie", 35);
+
+// Look up a value by key
+int age = ages["Alice"];
+
+// Modify a value
+ages["Bob"] = 31;
+
+//Properties
+ages.Count;
+ICollection keys = ages.Keys;
+ICollection vals = ages.Values;
+
+//Methods
+ages.Add("ME", 26);
+ages.Clear();
+ages.Remove("ME");
+ages.ContainsKey("ME");
+ages.ContainsValue(26);
+
+// Iterate through the dictionary
+foreach (KeyValuePair<string, int> person in ages) {
+   Console.WriteLine($"{person.Key} is {person.Value} years old");
+}
+
 ```
 
 <h2 align="center" id="std-generic"> System.Collections.Generic </h2>
