@@ -422,6 +422,10 @@ class Solution
         hashSet.Contains("Ruby");
         hashSet.Remove("Ruby");
         hashSet.Clear();
+
+        // you have to do "using System.Linq" ANY Class that implements IEnumerable can use these methods. Most Collections do.
+        hashSet.First();
+        hashSet.FirstOrDefault();
     }
 }
 ```
