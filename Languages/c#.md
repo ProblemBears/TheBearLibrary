@@ -447,39 +447,3 @@ int popped = s.Pop();
 s.Count;
 ```
 
-### Heap
-```c#
-// Create a min heap of integers
-Heap<int> heap = new Heap<int>(HeapType.Min);
-
-// Add some elements to the heap
-heap.Push(10);
-heap.Push(20);
-heap.Push(5);
-
-// Remove the minimum element from the heap
-int min = heap.Pop(); // min = 5
-
-// Check if the heap is empty
-bool isEmpty = heap.IsEmpty; // isEmpty = false
-
-// Get the number of elements in the heap
-int count = heap.Count; // count = 2
-
-/*
-Properties
-
-    Heap<T>.Count: Gets the number of elements in the heap.
-    Heap<T>.IsEmpty: Gets a value indicating whether the heap is empty.
-
-Methods
-
-    Heap<T>.Clear(): Removes all elements from the heap.
-    Heap<T>.Contains(T item): Determines whether the heap contains a specific value.
-    Heap<T>.Peek(): Returns the element at the top of the heap without removing it.
-    Heap<T>.Pop(): Removes and returns the element at the top of the heap.
-    Heap<T>.Push(T item): Adds an element to the heap.
-    Heap<T>.ToArray(): Copies the elements of the heap to a new array.
-*/
-
-```
