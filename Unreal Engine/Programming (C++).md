@@ -23,10 +23,10 @@
     * `Ctrl + P`
 
 ### Using "Cheats" in PlayMode
-- Use '~` while in Play Mode to open up a Cheat Code menu
+- Use `~` while in Play Mode to open up a Cheat Code menu
     * Macro like functionality could be defined in your code that activate depending on values assigned to the "cheat"
-- When you find the name of your cheat you can use 'TAB' in order to auto complete it
-- To see an expanded version of this log, press '~' twice
+- When you find the name of your cheat you can use `TAB` in order to auto complete it
+- To see an expanded version of this log, press `~` twice
 
 <h2 align="center"> Player Setup </h2>
 
