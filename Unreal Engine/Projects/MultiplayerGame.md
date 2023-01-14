@@ -40,6 +40,24 @@
     3. Synchronization
         * We need to make sure that what Player 1 sees is the same as what Player 2 sees
 
+### Meet the Client-Server Model
+- Input and State
+    * `State` is the information that eventually is used to render the "state of the world"
+    * It gets combined with some `Actions` the player(s) may want to do based on the current `State`, which in turn yields a new `State`. So on and so forth.
+- A simple naive way to implement multiplayer is `Peer-to-Peer` -
+    * A server has to wait for every players Input before it can change the state. This relies on waiting for the slowest person in terms of their connection speed (not their input speed)
+- Instead of connecting directly to other players we can instead use the `Client-Server` model -
+    * All players send their input to the server which has an `authorative state` that in turn sends the changes
+    each client has to implement in their own internal `client state`
+- Creating a Server and connecting with Clients using Command Prompt - 
+    - To create a Server using your Command Prompt type something like :
+        ```cmd
+        "E:\Applications\Unreal Engine\Main\UE_5.0\Engine\Binaries\Win64\UnrealEditor.exe" "E:\Perforce\P4_Workspaces\jonathan_UE-PuzzlePlatforms\PuzzlePlatforms.uproject" /Game/ThirdPerson/Maps/ThirdPersonMap?listen -server -log
+        ```
+    - To connect to that server as a Client using your Command Prompt type something like (for as many players as you want) :
+        ```cmd
+        "E:\Applications\Unreal Engine\Main\UE_5.0\Engine\Binaries\Win64\UnrealEditor.exe" "E:\Perforce\P4_Workspaces\jonathan_UE-PuzzlePlatforms\PuzzlePlatforms.uproject" 127.0.0.1 -game
+        ```
 <!----------------------------------------------------------------------------------------------------------------->
 <h2 align="center" id="menu-system"> Menu System </h2>
 
