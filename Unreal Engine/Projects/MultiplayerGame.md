@@ -133,6 +133,74 @@ We have a GreenCube{position: 10; color: green} and a RedCube{position: 10; colo
         FVector TargetLocation;
         ```
         * But keep in mind, when doing vector calculations, we'll have to convert this `TargetLocation` from local space (since it's a displacement local to the start of the platform) to global space (where we visually put the gizmo)
+
+### Moving the Platform back and forth
+- In order to move the platform back and forth we have to have the following in our C++ files
+    * MovingPlatform.h
+        ```cpp
+        public:
+            AMovingPlatform();
+
+            UPROPERTY(EditAnywhere)
+            float Speed;
+
+            UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
+            FVector TargetLocation;
+
+        private:
+            FVector GlobalTargetLocation;
+            FVector GlobalStartLocation;
+        ```
+    * MovingPlatform.cpp
+        ```cpp
+        #include "MovingPlatform.h"
+
+        AMovingPlatform::AMovingPlatform()
+        {
+            PrimaryActorTick.bCanEverTick = true;
+
+            Speed = 5.0f;
+            SetMobility(EComponentMobility::Movable);
+        }
+
+        void AMovingPlatform::BeginPlay()
+        {
+            Super::BeginPlay();
+
+            if (HasAuthority())
+            {
+                SetReplicates(true);
+                SetReplicateMovement(true);
+            }
+
+            GlobalStartLocation = GetActorLocation();
+            GlobalTargetLocation = GetTransform().TransformPosition(TargetLocation);
+        }
+
+        void AMovingPlatform::Tick(float DeltaTime)
+        {
+            Super::Tick(DeltaTime);
+
+            if (HasAuthority())
+            {
+                FVector Location = GetActorLocation();
+                FVector Direction = (GlobalTargetLocation - GlobalStartLocation).GetSafeNormal();
+                Location +=  Speed * Direction * DeltaTime;
+                SetActorLocation(Location);
+
+                if (FVector::DotProduct(Direction, GlobalTargetLocation - Location) <= 0)
+                {
+                    FVector temp = GlobalTargetLocation;
+                    GlobalTargetLocation = GlobalStartLocation;
+                    GlobalStartLocation = temp;
+                }
+            }
+        }
+        ```
+        * Where the notable changes are : 
+            1. Storing the `GlobalStartLocation` and `GlobalTargetLocation`
+            2. Create a constant normalized direction vector that we'll use to constantly move to the target every tick
+            3. Once we reach or surpass the target (which is checked by using the `Dot Product`). We swap the Start and the Target variables to simulate going back and forth
 <!----------------------------------------------------------------------------------------------------------------->
 <h2 align="center" id="menu-system"> Menu System </h2>
 
