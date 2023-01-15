@@ -70,7 +70,7 @@
             
             UPROPERTY(EditAnywhere)
             FVector MoveDirection;
-            
+
         protected:
             virtual void Tick(float DeltaTime) override;
         ```
@@ -96,6 +96,34 @@
 - All code we make runs on both servers and client. The way we can differentiate between whether the player is a server or client is via the `HasAuthority()` method ,which, returns `true` *if the current player is a server*
     * Therefore, if we run the code as shown above, all Play instances should show the Platform moving.  
     Although, if we change the code above to  `if( HasAuthority() ) SetActorLocation(Location);` then the Platform will only move on the client that is the server 
+
+### Authority and Replication
+- Scenario :  
+We have a GreenCube{position: 10; color: green} and a RedCube{position: 10; color: red}, which both the server and the client spawn at the beginning of the Play. Then, the server decides it wants to `replicate` the Green Cube's position, meaning if **the Green Cube's position property changes then since it is replicated it must also send a signal to each of it's clients with the same replicated object and property, that their value must change**
+- Explanation of Playing [Detecting Where Code is Running](#detecting-where-code-is-running) :  
+    1. The platform is moving in the server but staying still in the client
+    2. In the client, if we move to where **the visible** cube is we can sort of clip through it. But on the server (where the cube has moved away by now) movement is smooth and correct since there is no cube blocking the way.
+    3. The reason for this is because we are sending input to the server who's state has no cube blocking the way, which in turn sends down a "seemingly valid character position state" back to the client eventhough the cube is still blocking us there.
+- We want to update the cube in the server only and then have that change replicated down to all the clients :
+    * The `replication property` is typically set at `BeginPlay()` (because via constructors would be too early). Only on the server.
+    * MovingPlatform.h
+        ```cpp
+        protected:
+            virtual void BeginPlay() override;
+        ```
+    * MovingPlatform.cpp
+        ```cpp
+        void AMovingPlatform::BeginPlay()
+        {
+            Super::BeginPlay();
+
+            if (HasAuthority())
+            {
+                SetReplicates(true);
+                SetReplicateMovement(true);
+            }
+        }
+        ```
 <!----------------------------------------------------------------------------------------------------------------->
 <h2 align="center" id="menu-system"> Menu System </h2>
 
