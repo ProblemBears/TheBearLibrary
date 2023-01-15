@@ -58,6 +58,44 @@
         ```cmd
         "E:\Applications\Unreal Engine\Main\UE_5.0\Engine\Binaries\Win64\UnrealEditor.exe" "E:\Perforce\P4_Workspaces\jonathan_UE-PuzzlePlatforms\PuzzlePlatforms.uproject" 127.0.0.1 -game
         ```
+
+### Detecting Where Code is Running
+- Create a new C++ class that derives from `StaticMeshActor` and call it `MovingPlatform`
+    * If it doesn't appear be sure to check in the `All Classes` header
+- What we get is basically an empty C++ .h and .cpp that we fill with the following
+    * MovingPlatform.h
+        ```cpp
+        public:
+            AMovingPlatform();
+            
+            UPROPERTY(EditAnywhere)
+            FVector MoveDirection;
+            
+        protected:
+            virtual void Tick(float DeltaTime) override;
+        ```
+    * MovingPlatform.cpp
+        ```cpp
+        AMovingPlatform::AMovingPlatform()
+        {
+            PrimaryActorTick.bCanEverTick = true;
+
+            SetMobility(EComponentMobility::Movable);
+            MoveDirection = FVector(5, 0, 0);
+        }
+
+        void AMovingPlatform::Tick(float DeltaTime)
+        {
+            Super::Tick(DeltaTime);
+
+            FVector Location = GetActorLocation();
+            Location += MoveDirection * DeltaTime;
+            SetActorLocation(Location);
+        }
+        ```
+- All code we make runs on both servers and client. The way we can differentiate between whether the player is a server or client is via the `HasAuthority()` method ,which, returns `true` *if the current player is a server*
+    * Therefore, if we run the code as shown above, all Play instances should show the Platform moving.  
+    Although, if we change the code above to  `if( HasAuthority() ) SetActorLocation(Location);` then the Platform will only move on the client that is the server 
 <!----------------------------------------------------------------------------------------------------------------->
 <h2 align="center" id="menu-system"> Menu System </h2>
 
