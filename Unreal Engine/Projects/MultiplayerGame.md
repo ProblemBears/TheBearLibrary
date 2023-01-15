@@ -124,6 +124,15 @@ We have a GreenCube{position: 10; color: green} and a RedCube{position: 10; colo
             }
         }
         ```
+
+### Widgets for FVector Properties
+- We want to make our Game Designer's life easier by creating a visual "widget" that can be moved around with axis gizmos. This can be done by creating a `UPROPERTY()` as follows :
+    * MovingPlatform.h
+        ```cpp
+        UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
+        FVector TargetLocation;
+        ```
+        * But keep in mind, when doing vector calculations, we'll have to convert this `TargetLocation` from local space (since it's a displacement local to the start of the platform) to global space (where we visually put the gizmo)
 <!----------------------------------------------------------------------------------------------------------------->
 <h2 align="center" id="menu-system"> Menu System </h2>
 
