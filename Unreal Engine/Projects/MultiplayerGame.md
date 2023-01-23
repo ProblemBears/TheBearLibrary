@@ -201,6 +201,17 @@ We have a GreenCube{position: 10; color: green} and a RedCube{position: 10; colo
             1. Storing the `GlobalStartLocation` and `GlobalTargetLocation`
             2. Create a constant normalized direction vector that we'll use to constantly move to the target every tick
             3. Once we reach or surpass the target (which is checked by using the `Dot Product`). We swap the Start and the Target variables to simulate going back and forth
+
+### Set Up a Platform Trigger
+- Create a new C++ class derived from `Actor`
+- PlatformTrigger.h
+    ```cpp
+    UPROPERTY(EditAnywhere)
+	class UBoxComponent* TriggerVolume;
+    ```
+    * Should be filled by using `CreateDefaultSubobject<UBoxComponent>(FName("TriggerVolume"))` in the constructor
+    * We should also set it as the `RootComponent`
+- After doing this, we can derive a Blueprint from this class in order to give it a `StaticMesh` "stepping stone"
 <!----------------------------------------------------------------------------------------------------------------->
 <h2 align="center" id="menu-system"> Menu System </h2>
 
