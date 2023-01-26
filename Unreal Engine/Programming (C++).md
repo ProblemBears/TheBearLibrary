@@ -69,7 +69,38 @@
 <!---------------------------------------------------------------------------------------------------------------->
 <h2 align="center"> Unreal Reflection System </h2>
 
+- Unreal Engine uses its own implementation of reflection that enables dynamic features such as garbage collection, serialization, network replication, and Blueprint/C++ communication. **These features are opt-in**, meaning you have to add the correct markup to your types, otherwise UE will ignore them and not generate the reflection data for them.
+- Some basic Reflection markup :
+    * `UCLASS()` - Used to tell Unreal to generate reflection data for a class. The class must derive from `UObject`
+    * `USTRUCT()` - Used to tell Unreal to generate reflection data for a struct
+    * `GENERATED_BODY()` - UE replaces this with all the necessary boilerplate code that gets generated for the type
+    * `UPROPERTY()` - Enables a member variable of a UCLASS or a USTRUCT to be used as a UPROPERTY. A UPROPERTY has many uses. It can allow the variable to be replicated, serialized, and accessed from Blueprints. They are also used by the garbage collector to keep track of how many references there are to a `UObject`
+    * `UFUNCTION()` - Enables a class method of a UCLASS or a USTRUCT to be used as a UFUNCTION. A UFUNCTION can allow the class method to be called from Blueprints and used as RPCs, among other things
+- Here is an example declaration of a UCLASS :
+    ```cpp
+    #include "MyObject.generated.h"
 
+    UCLASS(Blueprintable)
+    class UMyObject : public UObject
+    {
+        GENERATED_BODY()
+
+    public:
+        MyUObject();
+
+        UPROPERTY(BlueprintReadOnly, EditAnywhere)
+        float ExampleProperty;
+
+        UFUNCTION(BlueprintCallable)
+        void ExampleFunction();
+    };
+    ```
+    * Unreal Engine generates all the reflection data and puts it in `MyObject.generated.h`. You must include this file as the last include in the header file that declares your type
+    * The `UCLASS`, `UPROPERTY`, and `UFUNCTION` in this example include additional specifiers. There are too many specifiers to list here, but the following links can be used as reference :
+        * [UCLASS Specifiers](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Classes/Specifiers)
+        * [UPROPERTY Specifiers](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Properties/Specifiers)
+        * [UFUNCTION Specifiers](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Functions/Specifiers)
+        * [USTRUCT Specifiers](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Structs/Specifiers)
 
 <h2 align="center"> Glossary </h2>
 
