@@ -212,6 +212,10 @@ We have a GreenCube{position: 10; color: green} and a RedCube{position: 10; colo
     * Should be filled by using `CreateDefaultSubobject<UBoxComponent>(FName("TriggerVolume"))` in the constructor
     * We should also set it as the `RootComponent`
 - After doing this, we can derive a Blueprint from this class in order to give it a `StaticMesh` "stepping stone"
+
+### Handling Overlap Events in C++
+- We need to handle the "Begin" and "End" Overlaps of the `UBoxComponent`
+- DYNAMIC events require you use `UFUNCTION()`
 <!----------------------------------------------------------------------------------------------------------------->
 <h2 align="center" id="menu-system"> Menu System </h2>
 

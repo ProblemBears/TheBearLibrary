@@ -37,6 +37,40 @@
 * To create a game server instead of an actual visual game replace the `-game` flag with the `-server` flag
     * To connect a client to this server terminal instance. Open up another terminal with the following appended:  
     `<Your Local IP Address (127.0.0.1 works for all systems)> -game`
+
+<!--------------------------------------------------------------------------------------------------------------->
+<h2 align="center"> Gameplay Classes: Objects, Actors, and Components </h1>
+
+- The 4 main class types that you derive from for the majority og gameplay classes are - `UObject`, `AActor`, `UActorComponent`, and `UStruct`.
+    * You can create types that don't derive from any of these classes, but they will not participate in the features that are built into the engine.
+    * Classes that are built outside of the `UObject` hierarchy are usually used to integrate 3rd party libraries or wrap OS specific features.
+### Unreal Objects (UObject)
+- The base building block in the Engine is called `UObject`. This class, coupled with `UClass`, provides a number of the Engine's most important services:
+    * Reflection of properties and methods
+    * Serialization of properties
+    * Garbage collection
+    * Finding a UObject by name
+    * Configurable values for properties
+    * Networking support for properties and methods 
+### AActor
+- An `AActor` is a `UObject` that is meant to be part of the gameplay experience. All objects that can be placed into a level extend from this class
+- Actors have their own behaviors (specialization through inheritance), but they also act as containers for a hierarchy of `Actor Components` (specialization through composition). This is done through the Actor's `RootComponent`, which contains a single `USceneComponent` that, in turn, can contain many others.
+    * The Scene Component is a must, since it specifies the translation, rotation, and scale.
+    * Actors have the following events that are called during their lifecycles : `BeginPlay`, `Tick`, and `EndPlay`
+- Placing an Actor manually into a level is "easier" than spawning an Actor, because the Engine would need to know stuff like its initial transform, its current physical state, and registry with events like "Tick". For this reason, Unreal Engine has a method devoted to the spawning of an actor, `SpawnActor`(a member of `UWorld`).
+    * We can get rid of an Actor by calling `Destroy`. During which, `Endplay` will run, enabling you to perform custom logic before the Actor goes to garbage collection.
+    * Another option for controlling how long an Actor exists is to use the `Lifespan` member in the Actor's constructor.
+
+### UStruct
+- You simply mark a struct with USTRUCT() and you'll get some support from UE's reflection system (not garbage collection unfortunately)
+### UActorComponent
+- Actor Components (`UActorComponent`) have their own behaviors and are usually responsible for functionality that is shared across many types of Actors. They "support" the Actors. Components can also be attached to other components and they move relative to their parent component
+
+<!---------------------------------------------------------------------------------------------------------------->
+<h2 align="center"> Unreal Reflection System </h2>
+
+
+
 <h2 align="center"> Glossary </h2>
 
 | Action | Syntax |
