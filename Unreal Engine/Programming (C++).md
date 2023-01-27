@@ -102,6 +102,16 @@
         * [UFUNCTION Specifiers](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Functions/Specifiers)
         * [USTRUCT Specifiers](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Structs/Specifiers)
 
+### UObjects and Garbage Collection
+- UE uses the reflection system to implement a garbage collection system. In the garbage collector, there is a concept called the `root set`, which contains paths of references from objects to the root set, if there isn't a poth to some object, then it gets garbage collected
+    ```cpp
+    void CreateDoomedObject()
+    {
+        MyGCType* DoomedObject = NewObject<MyGCType>();
+    }
+    ```
+    * The above function creates a new `UObject`, but does not store a pointer to it in any `UPROPERTY` or UE container, and it isn't a part of the root set. Eventually, the garbage collector will detect that this object is unreachable, and destroy it
+
 <!---------------------------------------------------------------------------------------------------------------->
 <h2 align="center"> Techniques </h2>
 
