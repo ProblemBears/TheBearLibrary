@@ -102,6 +102,34 @@
         * [UFUNCTION Specifiers](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Functions/Specifiers)
         * [USTRUCT Specifiers](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Structs/Specifiers)
 
+<!---------------------------------------------------------------------------------------------------------------->
+<h2 align="center"> Techniques </h2>
+
+### Object/Actor Iterators
+- Object Iterators are a very useful tool to iterate over all instances of a particular `UObject` type and its subclasses
+    ```cpp
+    // Will find ALL current UObject instances
+    for (TObjectIterator<UObject> It; It; ++It)
+    {
+        UObject* CurrentObject = *It;
+        UE_LOG(LogTemp, Log, TEXT("Found UObject named: %s"), *CurrentObject->GetName());
+    }
+    ```
+    * Using Object Iterators may cause problems in Play in Editor
+- When creating an Actor iterator, you need to give it a pointer to a `UWorld` instance. Many `UObject` classes, such as `APlayerController`, provide a `GetWorld` method to help you : 
+    ```cpp
+    APlayerController* MyPC = GetMyPlayerControllerFromSomewhere();
+    UWorld* World = MyPC->GetWorld();
+
+    // Like object iterators, you can provide a specific class to get only objects that are
+    // or derive from that class
+    for (TActorIterator<AEnemy> It(World); It; ++It)
+    {
+        // ...
+    }
+    ```
+    * Actor iterators don't have the problem Object Iterators have, since it will only return objects being used by the current game world instance
+
 <h2 align="center"> Glossary </h2>
 
 | Action | Syntax |
