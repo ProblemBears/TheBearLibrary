@@ -39,7 +39,64 @@
     `<Your Local IP Address (127.0.0.1 works for all systems)> -game`
 
 <!--------------------------------------------------------------------------------------------------------------->
-<h2 align="center"> Gameplay Classes: Objects, Actors, and Components </h1>
+<h2 align="center"> Essential Knowledge </h2>
+
+### Class Naming Prefixes
+- Unreal Engine provides tools that generate code for you during the build process. These tools have some class-naming expectations and will trigger warnings or errors if the names do not match the expectations. The list of class prefixes below delineates what the tools are expecting :
+    * Classes derived from Actor prefixed with `A`, such as `AController`
+    * Classes derived from Object are prefixed with `U`, such as `UComponent`
+    * Enums are prefixed with `E`, such as `EFortificationType`
+    * Interface classes are usually prefixed with `I`, such as `IAbilitySystemInterface`
+    * Template classes are prefixed by `T`, such as `TArray`
+    * Classes that derive from SWidget (Slate UI) are prefixed by `S`, such as `SButton`
+    * Everything else is prefixed by the letter `F`, such as `FVector`
+### Numeric Types
+- Since different platforms have different sizes for basic types. UE4 provides the following types which you should use as an alternative :
+    * `int8`/`uint8` (`16`, `32`, `64`), `float` (32-bit) and `double` (64-bit)
+    * Unreal Engine has a template, [`TNumericLimits<T>`](https://docs.unrealengine.com/en-US/API/Runtime/Core/Math/TNumericLimits), for finding the minimum and maximum ranges a value type can hold
+### Strings
+- [FString](https://docs.unrealengine.com/en-US/API/Runtime/Core/Containers/FString)
+    * `FString` is a mutable string, analogous to `std::string`. `FString` has large suite of methodsfor making it easy to work with strings. To create a new `FString`, use the `TEXT` macro :
+        ```cpp
+        FString MyStr = TEXT("Hello, Unreal 4!")
+        ```
+- [FText](https://docs.unrealengine.com/en-US/API/Runtime/Core/Internationalization/FText)
+    * `FText` is similar to `FString`, but is meant for localized text. To create a new `FText`, use the `NSLOCTEXT` macro. This macro takes a namespace, key, and a value for the default language :
+        ```cpp
+        FText MyText = NSLOCTEXT("Game UI", "Health Warning Message", "Low Health!")
+        ```
+        You can also use the `LOCTEXT` macro, so you only have to define a namespace once per file. Make sure to undefine it at the bottom of your file.
+        ```cpp
+        // In GameUI.cpp
+        #define LOCTEXT_NAMESPACE "Game UI"
+
+        //...
+        FText MyText = LOCTEXT("Health Warning Message", "Low Health!")
+        //...
+
+        #undef LOCTEXT_NAMESPACE
+        // End of file
+        ```
+- FName
+    * An `FName` stores a commonly recurring string as an identifier in order to save memory and CPU time when comparing them. 
+    * Rather than storing the complete string many times across every object that refrences it, `FName` uses smaller storage footprint index that maps to a given string. **This stores the contents of the string once**, saving memory when that string is used across many objects
+- TCHAR
+    * The `TCHAR` type is used as a way of storing characters indepent of the character set being used, which may differ between platforms 
+    * Under the hood, UE strings use `TCHAR` arrays to store data in the **UTF-16** encoding
+    * You can access the raw data of UE strings by using the overloaded dereference operators. This is needed for some functions, such as `FString::Printf`, where the "%s" string format specifier expects a `TCHAR` instead of an `FString`
+        ```cpp
+        FString Str1 = TEXT("World");
+        int32 Val1 = 123;
+        FString Str2 = FString::Printf(TEXT("Hello, %s! You have %i points."), *Str1, Val1);
+        ```
+    * The `FChar` type provides a set of static utility functions for working with individual `TCHAR` characters
+        ```cpp
+        TCHAR Upper('A');
+        TCHAR Lower = FChar::ToLower(Upper); // 'a'
+        ```
+        * The `FChar` type is defined as `TChar<TCHAR>` (as it is listed in the API)
+<!--------------------------------------------------------------------------------------------------------------->
+<h2 align="center"> Gameplay Classes: Objects, Actors, and Components </h2>
 
 - The 4 main class types that you derive from for the majority og gameplay classes are - `UObject`, `AActor`, `UActorComponent`, and `UStruct`.
     * You can create types that don't derive from any of these classes, but they will not participate in the features that are built into the engine.
