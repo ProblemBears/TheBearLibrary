@@ -95,6 +95,226 @@
         TCHAR Lower = FChar::ToLower(Upper); // 'a'
         ```
         * The `FChar` type is defined as `TChar<TCHAR>` (as it is listed in the API)
+
+### Containers
+- Containers are classes whose primary function is to store collections of data. Each of these are dynamically sized, and so will grow to whatever size you need
+- [TArray](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/TArrays)
+    * `TArray` functions much like `std::vector` does, but offers a lot more functionality. Here Are some common operations : 
+        ```cpp
+        TArray<AActor*> ActorArray = GetActorArrayFromSomewhere();
+
+        // Tells how many elements (AActors) are currently stored in ActorArray.
+        int32 ArraySize = ActorArray.Num();
+
+        // TArrays are 0-based (the first element will be at index 0)
+        int32 Index = 0;
+        // Attempts to retrieve an element at the given index
+        AActor* FirstActor = ActorArray[Index];
+
+        // Adds a new element to the end of the array
+        AActor* NewActor = GetNewActor();
+        ActorArray.Add(NewActor);
+
+        // Adds an element to the end of the array only if it is not already in the array
+        ActorArray.AddUnique(NewActor); // Won't change the array because NewActor was already added
+
+        // Removes all instances of 'NewActor' from the array
+        ActorArray.Remove(NewActor);
+
+        // Removes the element at the specified index
+        // Elements above the index will be shifted down by one to fill the empty space
+        ActorArray.RemoveAt(Index);
+
+        // More efficient version of 'RemoveAt', but does not maintain order of the elements
+        ActorArray.RemoveAtSwap(Index);
+
+        // Removes all elements in the array
+        ActorArray.Empty();
+        ```
+    * `TArray` has the added benefit of having its elements garbage collected. This assurmes that the `TArray` stores `UObject`-derived pointers
+- [TMap](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/TMap)
+    * A `TMap` is a collection of key-value pairs, similar to `std::map`
+    * You can use any type for the key, as long as it has a `GetTypeHash` function defined for it
+    * Let us say you were creating a grid-based board game and needed to store and query what piece is on each square. A `TMap` would provide you with an easy way to do that. If the board is small and always the same size, there may be more efficient ways at going about this, but for this example, let's assume a larger board with relatively few pieces :
+        ```cpp
+        enum class EPieceType
+        {
+            King,
+            Queen,
+            Rook,
+            Bishop,
+            Knight,
+            Pawn
+        };
+
+        struct FPiece
+        {
+            int32 PlayerId;
+            EPieceType Type;
+            FIntPoint Position;
+
+            FPiece(int32 InPlayerId, EPieceType InType, FIntVector InPosition) :
+                PlayerId(InPlayerId),
+                Type(InType),
+                Position(InPosition)
+            {
+            }
+        };
+
+        class FBoard
+        {
+        private:
+
+            // Using a TMap, we can refer to each piece by its position
+            TMap<FIntPoint, FPiece> Data;
+
+        public:
+            bool HasPieceAtPosition(FIntPoint Position)
+            {
+                return Data.Contains(Position);
+            }
+            FPiece GetPieceAtPosition(FIntPoint Position)
+            {
+                return Data[Position];
+            }
+
+            void AddNewPiece(int32 PlayerId, EPieceType Type, FIntPoint Position)
+            {
+                FPiece NewPiece(PlayerId, Type, Position);
+                Data.Add(Position, NewPiece);
+            }
+
+            void MovePiece(FIntPoint OldPosition, FIntPoint NewPosition)
+            {
+                FPiece Piece = Data[OldPosition];
+                Piece.Position = NewPosition;
+                Data.Remove(OldPosition);
+                Data.Add(NewPosition, Piece);
+            }
+
+            void RemovePieceAtPosition(FIntPoint Position)
+            {
+                Data.Remove(Position);
+            }
+
+            void ClearBoard()
+            {
+                Data.Empty();
+            }
+        };
+        ```
+- [TSet](https://docs.unrealengine.com/en-US/API/Runtime/Core/Containers/TSet)
+    * A `TSet` stores a collection of unique values, similar to `std::set`
+        ```cpp
+        TSet<AActor*> ActorSet = GetActorSetFromSomewhere();
+
+        int32 Size = ActorSet.Num();
+
+        // Adds an element to the set, if the set does not already contain it
+        AActor* NewActor = GetNewActor();
+        ActorSet.Add(NewActor);
+
+        // Check if an element is already contained by the set
+        if (ActorSet.Contains(NewActor))
+        {
+            // ...
+        }
+
+        // Remove an element from the set
+        ActorSet.Remove(NewActor);
+
+        // Removes all elements from the set
+        ActorSet.Empty();
+
+        // Creates a TArray that contains the elements of your TSet
+        TArray<AActor*> ActorArrayFromSet = ActorSet.Array();
+        ```
+- Container Iterators
+    * Using iterators, you can loop through each elementof a container. Here is an example of what the iterator syntax looks like, using a `TSet`
+        ```cpp
+        void RemoveDeadEnemies(TSet<AEnemy*>& EnemySet)
+        {
+            // Start at the beginning of the set, and iterate to the end of the set
+            for (auto EnemyIterator = EnemySet.CreateIterator(); EnemyIterator; ++EnemyIterator)
+            {
+                // The * operator gets the current element
+                AEnemy* Enemy = *EnemyIterator;
+                if (Enemy.Health == 0)
+                {
+                    // 'RemoveCurrent' is supported by TSets and TMaps
+                    EnemyIterator.RemoveCurrent();
+                }
+            }
+        }
+
+        /************* Other supported operations you can use with iterators **************/
+
+        // Moves the iterator back one element
+        --EnemyIterator;
+
+        // Moves the iterator forward/backward by some offset, where Offset is an integer
+        EnemyIterator += Offset;
+        EnemyIterator -= Offset;
+
+        // Gets the index of the current element
+        int32 Index = EnemyIterator.GetIndex();
+
+        // Resets the iterator to the first element
+        EnemyIterator.Reset();
+        ```
+- For-each Loop
+    * Each container class also supports the "for each" style syntax to loop over elements. `TArray` and `TSet` return each element, whereas `TMap` returns a key-value pair
+        ```cpp
+        // TArray
+        TArray<AActor*> ActorArray = GetArrayFromSomewhere();
+        for (AActor* OneActor : ActorArray)
+        {
+            // ...
+        }
+
+        // TSet - Same as TArray
+        TSet<AActor*> ActorSet = GetSetFromSomewhere();
+        for (AActor* UniqueActor : ActorSet)
+        {
+            // ...
+        }
+
+        // TMap - Iterator returns a key-value pair
+        TMap<FName, AActor*> NameToActorMap = GetMapFromSomewhere();
+        for (auto& KVP : NameToActorMap)
+        {
+            FName Name = KVP.Key;
+            AActor* Actor = KVP.Value;
+
+            // ...
+        }
+        ```
+        * You may need to add the appropriate notation if you use `auto`
+- To use your own Types with TSet/TMap you have to define your own Hash Functions
+    * The hash function would need to take a const pointer or reference to your type and return a `uint32`
+        ```cpp
+        class FMyClass
+        {
+            uint32 ExampleProperty1;
+            uint32 ExampleProperty2;
+
+            // Hash Function
+            friend uint32 GetTypeHash(const FMyClass& MyClass)
+            {
+                // HashCombine is a utility function for combining two hash values.
+                uint32 HashCode = HashCombine(MyClass.ExampleProperty1, MyClass.ExampleProperty2);
+                return HashCode;
+            }
+
+            // For demonstration purposes, two objects that are equal
+            // should always return the same hash code.
+            bool operator==(const FMyClass& LHS, const FMyClass& RHS)
+            {
+                return LHS.ExampleProperty1 == RHS.ExampleProperty1
+                    && LHS.ExampleProperty2 == RHS.ExampleProperty2;
+            }
+        };
+        ```
 <!--------------------------------------------------------------------------------------------------------------->
 <h2 align="center"> Gameplay Classes: Objects, Actors, and Components </h2>
 
