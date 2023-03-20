@@ -938,3 +938,128 @@ transition: opacity 0.2s ease-in 1s, transform 0.5s
 
 ### What is SASS & SCSS?			
 - SASS does not run on the browser INSTEAD It extends CSS during development only. THEREFORE, it has to be compiled to normal CSS before production.
+	* There's two flavors of SASS (Sass vs Scss) where Sass rempves the need for curly braces and works mainly on tabbing like Python. Whereas Scss is closer to vanila CSS in that CSS is valid SCSS, but SCSS can use things like variables
+
+### SCSS Variables
+- To initialize a variable do -
+	```scss
+	$some-color-var: black;
+	```
+- To use that variable -
+	```scss
+	.someSelector {
+		color: $some-color-var;
+	}
+	```
+
+### SCSS Nesting
+- In SCSS you can nest selector with tabs. Makes vanilla css cleaner
+	* Instead of Vanilla CSS selectors -
+	```css
+	main {...}
+
+	main p {...}
+
+	main p article {...}
+
+	main p article p {...}
+	```
+	* We can actually `nest` selectors with SCSS -
+	```scss
+	main {
+		background-color: blue;
+		p {
+			color: red;
+			article {
+				background-color: white;
+				p {
+					color: black;
+				}
+			}
+		}
+	}
+	```
+
+### SCSS Partials & Importing
+- `Partials` are external SCSS files that you can use to define components. The in the main `styles.css` we can `import` all of the `partials` into one file.
+- When creating a new `partial` in our "/style" root directory. WE MUST MAKE SURE that we `name the partial file beginning with "_Header.scss"`
+	* The `_` is needed because that tells scss that it's suposed to be treated as a partial, NOT converted to a standalone css
+- Then in your `styles.scss` we can do :
+	```scss
+	@import "_header";
+	```
+	* where "_header" works because its relatively in its root
+	* keep in mind "styles.scss is still a scss file. so after the imports you can override similarly named selectors here
+
+### SCSS Mixins
+- `Mixins` let you define little snippets of css code that you can use throughout
+	* Like `variables` except they only let you store 1 property, while `mixins` can store many properties
+	* **IMPORTANT** - you can treat the mixin like a function that accepts arguments in order to change properties stored.
+	```scss
+	//Mixins Basic
+	@mixin fancy-border {
+		border: 1px dashed black;
+		border-radius: 5px;
+	}
+
+	header {
+		@include fancy-border;
+		background-color: yellow;
+	}
+
+	//Mixins as a function
+	@mixin fancy-border($size: 1px, $color: black) {
+		border: $size dashed $color;
+		border-radius: 5px;
+	}
+
+	header {
+		@include fancy-border(10px, blue);
+		background-color: yellow;
+	}
+	```
+	* `Explanation of Mixins as a function`
+		1. After the mixin name we can set up `()` and fill them with key value pairs of `css variable names and a default value`
+		2. Then, whenever you use those mixins, we can fill those css variables defined by the mixin by passing our own values (e.g: `@inlude fancy-border(10px, blue)`)
+
+### SCSS Extend and Inheritance
+- `@extend` lets you inherit properties from a specified class onto the class the `@extend` is used on.
+	```scss
+	.message {
+		font-size: 20px;
+		border: 1px solid black;
+	}
+
+	.warning {
+		@extend .message;
+		color: yellow;
+	}
+
+	.error {
+		@extend .message;
+		color: red;
+	}
+	```
+
+### SCSS Operators
+- Your usual math operators like +, -, *, / can be used to manipulate properties & variables
+- These operators even work on color (e.g: dividing or minus can darken colors)
+
+### SCSS If Statements
+- Syntax - `@if`, `elseif`, `else`
+	```scss
+	@mixin text-style($size) {
+		font-size: $size;
+		@if $size > 20px {
+			color: blue;
+		} @elseif $size == 20px {
+			color: red
+		} @else {
+			color: green;
+		}
+	}
+
+	header {
+		@include text-style(20px);
+	}
+	```
