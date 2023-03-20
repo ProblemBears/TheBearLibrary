@@ -131,3 +131,13 @@
         * All Firebase Apps registered to the same Firebase project are associated with the same Google Analytics property, where each Firebase App is seperate data stream in that property
 
 ### Relationship between Firebase projects and Google Cloud
+- When you create a new `Firebase project`, you're actually creating a [Google Cloud project](https://cloud.google.com/docs/overview/#projects) behind the scenes
+    * You can even create a `Google Cloud project` first, then add Firebase to the project later
+    * You can think of a `Google Cloud project` as a virtual container for data, code, configuration, and services
+    * A `Firebase project` is actually just a `Google Cloud project` that has additional Firebase-specific configurations and services enabled for it
+- Since a `Firebase project` IS a `Google Cloud project`:
+    * You can interact with a project in the [Firebase console](https://console.firebase.google.com/) as well as in the [Google Cloud Console](https://cloud.google.com/docs/overview/#google-cloud-console) and in the [Google APIs console](https://console.cloud.google.com/)
+    * You can use products and APIS from both Firebase and Google Cloud in a project
+    * Billing and permissions for a project are shared across Firebase and Google Cloud
+    * Unique identifiers for a project (like [project number]() and [project ID]()) are shared across Firebase and Google Cloud
+    * Deleting a project deletes it across Firebase and Google Cloud
