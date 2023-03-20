@@ -38,6 +38,12 @@
     * To connect a client to this server terminal instance. Open up another terminal with the following appended:  
     `<Your Local IP Address (127.0.0.1 works for all systems)> -game`
 
+### Creating a C++ Folder Hierarchy
+1. Close the UE Editor and Visual Studio if open
+2. Create the Folder in File Expolorer in the Source/Project/ Directory
+3. Delete all UE files that you can regenerate
+4. Regenerate all Visual Studio files and Rebuild.
+
 <!--------------------------------------------------------------------------------------------------------------->
 <h2 align="center"> Essential Knowledge </h2>
 
@@ -169,7 +175,7 @@
             TMap<FIntPoint, FPiece> Data;
 
         public:
-            bool HasPieceAtPosition(FIntPoint Position)
+            bool HasPieceAtPosition(FIntPoi  nt Position)
             {
                 return Data.Contains(Position);
             }
