@@ -141,3 +141,18 @@
     * Billing and permissions for a project are shared across Firebase and Google Cloud
     * Unique identifiers for a project (like [project number]() and [project ID]()) are shared across Firebase and Google Cloud
     * Deleting a project deletes it across Firebase and Google Cloud
+
+### Setting up a Firebase project and registering apps
+- You can set up a Firebase project and register apps in the [Firebase console](https://console.firebase.google.com/) (advanced use cases, via the Firebase Management REST API or the Firebase CLI)
+    * Firebase console :
+        * The left-side panel : lists the Firebase products
+        * The top left-side panel : Gives access to a project's settings (Gear Icon)
+        * The main area: is a dashboard that displays stats on the products you use
+    * Firebase CLI (a command line tool) :
+        * Is used for configuring and managin specific Firebase products, like `Firebase Hosting`, `Cloud Functions for Firebase`, and `Firebase Extensions`
+        * after installing the CLI, you have access to the `global firebase command`. Use the CLI to [link your local app directory to a Firebase project](https://firebase.google.com/docs/cli#initialize_a_firebase_project), then [deploy](https://firebase.google.com/docs/cli#deployment) new versions of Firebase-hosted content or updates to functions
+    * Firebase Management REST API
+        * https://firebase.google.com/docs/projects/learn-more#manage-api
+
+### Firebase project identifiers
+- A Firebase project can be identified in the Firebase backend and in various developer interfaces using different identifiers, including the `project name`, the `project number`, and the `project ID`. [More info here](https://firebase.google.com/docs/projects/learn-more#project-identifiers)
