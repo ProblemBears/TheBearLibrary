@@ -117,6 +117,119 @@
 	* Compute a single value from every element in the array (ex. `sum()`)
 	* `reduce` array method doesn't need `someStart` if there's atleast 1 element in the array (start by default)
 
+<h2 align="center" > REGULAR EXPRESSIONS  </h2>
+
+### Creating a Regular Expression
+```js
+let re1 = new RegExp("abc");
+let re2 = /abc/;
+```
+- Both of these regular expression objects represent the same pattern: an `a` character followed by a `b` followed by a `c`
+	1. Using the `RegExp() constructor`, the pattern is written as a normal string so the usual rules apply for backslashes
+	2. Using `/ somePattern /` treats backslashes somewhat differently.
+		1. Since `/` ends the pattern we need to push backslashes before any actual `/` we want to be part of the pattern
+		2. Backslashes that aren't part of any special character code (like newline `\n`) are used in the pattern
+		3. Characters such as `?` and `+` have special meanings in regexes and must be preceded by a backslash to signify the character itself
+			```js
+			let eighteenPlus = /eighteen\+/;
+			```
+### Testing for Matches
+- Regular Expression objects have a number of methods. The simplest one is `test`, used as follows:
+	```js
+	console.log(/abc/.test("abcde"));
+	// → true
+	console.log(/abc/.test("abxde"));
+	// → false
+	```
+	- if `abc` occurs anywhere in the string `test` returns true
+### Sets of Characters
+- Say we want to match any number. In a regular expression, putting a set of characters between `[` `]` brackets makes that part of the expression match any of the characters between the brackets. Both of the following expressions match all strings that contain a digit -
+	```js
+	console.log(/[0123456789]/.test("in 1992"));
+	// → true
+	console.log(/[0-9]/.test("in 1992"));
+	// → true
+	```
+	* `-` between two characters is used to indicate a range of characters (ordering determined by Unicode)
+	* A number of common character groups have their own built-n shortcuts. Digits are one of them `\d` means the same thing as `[0-9]` :
+		* `\d`	Any digit character
+		* `\w`	An alphanumeric character (“word character”)
+		* `\s`	Any whitespace character (space, tab, newline, and similar)
+		* `\D`	A character that is not a digit
+		* `\W`	A nonalphanumeric character
+		* `\S`	A nonwhitespace character
+		* `.`	Any character except for newline
+	* So you could match a date and time format like `01-30-2003 15:20` with the following regex (this is a sloppy way of doing this. we'll see better ways moving on):
+		```js
+		let dateTime = /\d\d-\d\d-\d\d\d\d \d\d:\d\d/;
+		console.log(dateTime.test("01-30-2003 15:20"));
+		// → true
+		console.log(dateTime.test("30-jan-2003 15:20"));
+		// → false
+		```
+	* We can use backslash codes in brackets `[\d+]` - Note special characters like `+` lose their meaning inside of brackets
+- `To invert a set of characters` - that is, to express that you want to match any character except the ones in the set - you can write a caret (`^`) after the opening bracket of a set
+	```js
+	let notBinary = /[^01]/;
+	console.log(notBinary.test("1100100010100110"));
+	// → false
+	console.log(notBinary.test("1100100010200110"));
+	// → true
+	```
+### Repeating parts of a pattern
+- What if we want to match a whole number or a sequence of one or more digits?
+- `+`, `*`, `?`, after something indicates the following - 
+	* `/\d+/` - matches one or more digit characters
+	* `/\d*/` - matches zero or more digit characters
+	* `/\d?/` = a digit may occur zero times or one time
+- To indicate that a pattern should occur a precise number of times, use `braces`
+	```js
+	let dateTime = /\d{1,2}-\d{1,2}-\d{4} \d{1,2}:\d{2}/;
+	console.log(dateTime.test("1-30-2003 8:45"));
+	// → true
+	```
+	* You can also speicy open-ended ranges by doing something like `{5,}` - "5 or more times"
+### Grouping Subexpressions
+- A part of a regex that is enclosed in parentheses counts as a single element as far as the operators following it are concerned -
+	```js
+	let cartoonCrying = /boo+(hoo+)+/i;
+	console.log(cartoonCrying.test("Boohoooohoohooo"));
+	// → true
+	```
+	* The first and second + characters apply only to the second o in boo and hoo, respectively
+	* The third + applies to the whole group (hoo+), matching one or more sequences like that
+	* The `i at the end of the expression` in the example makes this regular expression case insensitive, allowing it to match the uppercase B in the input string, even though the pattern is itself all lowercase
+### Matches and Groups
+- Regular Expressions also have an `exec` method that will return `null` if no match was found, otherwise it returns an object with info about the match.
+	```js
+	let match = /\d+/.exec("one two 100");
+	console.log(match);
+	// → ["100"]
+	console.log(match.index);
+	// → 8 is the index where the match was first found
+	```
+- Strings have a `match` method that behaves similarly -
+	```js
+	console.log("one two 100".match(/\d+/));
+	// → ["100"]
+	```
+- When dealing with a regex that has subexpressions. The `exec` object returned has an array with the following string values - 
+	1. "someWholeMatch"
+	2. "theMatchOfTheFirstGroup"
+	3. "theMatchOfTheSecondGroup"
+	4. "etc..."
+	```js
+	let quotedText = /'([^']*)'/;
+	console.log(quotedText.exec("she said 'hello'"));
+	// → ["'hello'", "hello"]
+	```
+	* If you have group that ends up not being matched as `?` allows. `undefined` is returned for that group
+	* Similarly, if a group is matched multiple times with `+` then only the last match is returned for that group
+- Groups can be useful for extracting parts of a string. For example we can create groups that extract certain parts of a date so that we can use the return from `exec` to construct an actual `Date`
+	* The next section is a slight detour into the bui;t-in way to represent date and time values in JS
+### The Date Class
+- JS has a standard class for representing dates - or, rather, points in time. It's called `Date`
+
 <h2 align="center" > PROTOTYPES </h2>
 
 - Fallback (like inheritance)
