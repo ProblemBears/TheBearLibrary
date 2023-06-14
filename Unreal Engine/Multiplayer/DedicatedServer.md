@@ -25,4 +25,30 @@
     - ADD INSTRUCTIONS HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 3. From the menu bar, select `Build > Build Solution`. This builds the client game for your project
 4. After the build process successfully finishes, you can find the newly built files in `<PROJECT_DIRECTORY>/Binaries/Win64`, in particular, the executable `<PROJECT_NAME>Client.exe`
-## 2 - Configure Maps & Modes 
+
+### 1.3 - Set the Server Default Map
+
+1. In the menu bar, navigate to `Edit > Project Settings...`
+2. `Project > Maps & Modes`
+3. Change `Default Maps > Advanced > Server Default Map to` a map you want your server to start in
+4. When packaging the server build, we also have to make sure that these maps are included in `Packaging > Packaging > Advanced > List of maps to include in package build`
+5. Now you can close the `Project Settings` window
+
+### 1.3 - Let them cook!
+- You have noow built both the dedicated server and the clients that connect to the server. If you try to run the server and clients from VS, you'll get errors. This is because you haven't cooked the content. To cook the content, do the following sequence for the server and then the client :
+1. Start the `Development Editor` either from VS or by navigating to `UnrealEditor.exe` in your project's directory
+2. Set 
+    - `Platforms > Windows > Binary Configuration` to `Development`
+    - `Platforms > Windows > Build Target` to `Server` (`Client` when you want to cook the client)
+3. Run Cook from `Platforms > Windows > Content Management`
+    - If the build succeeds we can check the files created from the cook in `<PROJECT_DIRECTORY>/Saved/Cooked/WindowsServer` (or `WindowsClient`)
+
+### 1.4 - Test the Servers / Clients
+1. **Start the dedicated server** : In a terminal, run the following command in your project's root directory
+    ```
+    ./Binaries/Win64/<PROJECT_NAME>Server.exe -log
+    ```
+2. **Connect Clients to Dedicated Server** : In a terminal, run the following command in your project's root directory
+    ```
+    ./Binaries/Win64/<PROJECT_NAME>Client.exe 127.0.0.1:7777 -WINDOWED -ResX=800 -ResY=450
+    ```
